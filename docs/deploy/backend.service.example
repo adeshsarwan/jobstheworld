@@ -1,0 +1,16 @@
+[Unit]
+Description=Job Guide Match backend
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/job-guide-match
+Environment=NODE_ENV=production
+Environment=PORT=4000
+ExecStart=/usr/bin/npm run start -w backend
+Restart=on-failure
+User=adesh
+Group=adesh
+
+[Install]
+WantedBy=multi-user.target

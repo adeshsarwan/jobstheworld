@@ -1,0 +1,24 @@
+{
+  "name": "@job-guide-match/ingestion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "jobs:fetch": "node fetch-jobs.js",
+    "jobs:fetch:target-markets": "JOB_FETCH_COUNTRIES=NG,ZA,SA JOB_DATE_POSTED=week JOB_QUERY_BATCH_SIZE=20 JOB_QUERY_CONCURRENCY=1 QUERY_THROTTLE_MS=30000 node fetch-jobs.js",
+    "jobs:queries:sync": "node src/query-sync.js",
+    "jobs:coverage": "node src/coverage-report.js",
+    "jobs:query-stats": "node src/query-stats.js",
+    "jobs:cleanup:dry": "node cleanup-jobs.js --dry-run",
+    "jobs:cleanup": "node cleanup-jobs.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "mysql2": "^3.14.3"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}

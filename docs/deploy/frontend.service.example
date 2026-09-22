@@ -1,0 +1,17 @@
+[Unit]
+Description=Job Guide Match frontend
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/job-guide-match
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:4000
+ExecStart=/usr/bin/npm run start -w frontend
+Restart=on-failure
+User=adesh
+Group=adesh
+
+[Install]
+WantedBy=multi-user.target

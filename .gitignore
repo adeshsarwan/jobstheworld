@@ -1,0 +1,14 @@
+node_modules/
+.next/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+*.tgz
+source-backups/
+
+# Server backups and local system files
+.codex-backups/
+.DS_Store

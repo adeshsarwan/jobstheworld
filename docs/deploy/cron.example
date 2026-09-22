@@ -1,0 +1,8 @@
+# Fetch jobs every 6 hours.
+0 */6 * * * cd /var/www/job-guide-match && npm run jobs:fetch >> /var/log/job-guide-match-fetch.log 2>&1
+
+# Dry-run cleanup daily.
+30 2 * * * cd /var/www/job-guide-match && npm run jobs:cleanup:dry >> /var/log/job-guide-match-cleanup-dry.log 2>&1
+
+# Cleanup weekly, marking stale jobs inactive.
+45 2 * * 0 cd /var/www/job-guide-match && npm run jobs:cleanup >> /var/log/job-guide-match-cleanup.log 2>&1

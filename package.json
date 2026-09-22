@@ -1,0 +1,28 @@
+{
+  "name": "job-guide-match",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "ingestion"
+  ],
+  "scripts": {
+    "dev:frontend": "npm run dev -w frontend",
+    "dev:backend": "npm run dev -w backend",
+    "build": "npm run build -w backend && npm run build -w frontend",
+    "test": "npm run test -w backend && npm run test -w ingestion",
+    "db:migrate": "node database/run-migrations.js",
+    "jobs:queries:sync": "npm run jobs:queries:sync -w ingestion",
+    "jobs:fetch": "npm run jobs:fetch -w ingestion",
+    "jobs:fetch:target-markets": "npm run jobs:fetch:target-markets -w ingestion",
+    "jobs:coverage": "npm run jobs:coverage -w ingestion",
+    "jobs:query-stats": "npm run jobs:query-stats -w ingestion",
+    "jobs:cleanup:dry": "npm run jobs:cleanup:dry -w ingestion",
+    "jobs:cleanup": "npm run jobs:cleanup -w ingestion"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
