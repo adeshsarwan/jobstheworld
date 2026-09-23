@@ -1,8 +1,20 @@
-name = "content-arb-jobs-world"
+# Cloudflare Worker (static assets only — no Worker script).
+#
+# `name` MUST match the EXISTING Worker that the jobsthe.world custom domain is
+# attached to, otherwise `wrangler deploy` creates a SECOND, domainless Worker and
+# the live site silently keeps serving the old build. Taken from the Worker that
+# previously served this domain (frontend/wrangler.jsonc on the
+# codex/cloudflare-workers-migration branch). Verify it against
+# Cloudflare dashboard -> Workers & Pages -> the worker serving jobsthe.world.
+name = "jobstheworld"
 compatibility_date = "2024-11-01"
 
-# Static site: dist/ is COMMITTED on this branch, so Cloudflare can serve it
-# directly with no build step. If you do enable a build, the command is
-# `node build.js` and the output directory is `dist`.
+# dist/ is COMMITTED on this branch, so Workers Builds needs NO build command —
+# it just uploads these files. (Optional alternative: build command `node build.js`,
+# which regenerates dist/ from source with zero npm dependencies.)
+#
+# html_handling defaults to "auto-trailing-slash", which is what serves
+# /find/1/ from dist/find/1/index.html — every page on this site is a directory
+# index, so do not change it.
 [assets]
 directory = "./dist"

@@ -56,11 +56,39 @@ diverge** — that is the point of running two.
 - **`ads.txt` is unchanged** (`pub-1730786981458373`) and should stay: same Opti Digital / GAM
   seller account, so the same authorization line is the correct one.
 
-### Deploy
+### Deploy — Cloudflare **Worker** (not Pages)
 
-`dist/` is **committed** on this branch, so Cloudflare can serve it with no build step. Point the
-Cloudflare project at this repo, branch `developer/new-frontend`, output directory `dist`. After a
-push, open `https://jobsthe.world/v` and check the version + build time match what you just shipped.
+jobsthe.world is served by an existing Cloudflare **Worker** named **`jobstheworld`**, which the
+custom domain is attached to. It previously ran the OpenNext/Next.js app from `main`; it now builds
+this branch instead. Confirmed live before the switch: the apex resolved to Cloudflare and responded
+with `x-opennext: 1`, so DNS and the custom domain are already correct and must NOT be touched.
+
+**`wrangler.toml` `name` MUST stay `jobstheworld`.** It is the deploy target. If it says anything
+else, `wrangler deploy` creates a SECOND Worker with no domain attached, the deploy "succeeds", and
+jobsthe.world silently keeps serving the old build. This is the single easiest way to lose an hour
+here.
+
+Workers Builds settings (dashboard → the `jobstheworld` Worker → Settings → Build):
+
+| setting | value |
+|---|---|
+| Git repository | `adeshsarwan/jobstheworld` |
+| Branch | **`developer/new-frontend`** |
+| Root directory | **`/`** (repo root — was `frontend` for the Next.js app) |
+| Build command | **empty** (`dist/` is committed; nothing to build) |
+| Deploy command | `npx wrangler deploy` |
+
+The Worker is **assets-only** — there is no Worker script, just `[assets] directory = "./dist"`.
+`html_handling` defaults to `auto-trailing-slash`, which is what serves `/find/1/` from
+`dist/find/1/index.html`; every page here is a directory index, so do not change it.
+
+**After the first switch, purge the Cloudflare cache.** The Next.js app sent
+`cache-control: s-maxage=31536000` on its HTML, so the edge can hold year-old copies of `/` and
+serve them over the new site.
+
+After a push, open `https://jobsthe.world/v` and check the version + build time match what you just
+shipped. Rollback is the same screen: point the branch back and redeploy, or use the Worker's
+Deployments tab to roll back to a previous version.
 
 ---
 
@@ -102,18 +130,6 @@ push, open `https://jobsthe.world/v` and check the version + build time match wh
   `ads.txt` (Google `pub-1730786981458373`) stays — that is GAM/AdX seller authorization, not AdSense.
 - **Go-live before paid traffic:** the SDK is already wired on every page. Confirm the domain is
   approved in Price Optimiser and that slots fill on the live host; no per-site ad IDs to paste.
-
-### Live deploy — worktrendhub.com (Cloudways / EC2) — see memory `worktrendhub-deploy`
-- **Host:** Cloudways app on EC2 `34.198.119.130`, behind Cloudflare. SFTP:22 user `worktrend`
-  (jailed, shell disabled), web root `public_html/`. Creds in `~/.netrc` (`machine worktrendhub.com`) —
-  never commit them. Brand `SITE.name` is `WorkTrendHub`, `SITE.domain` = `worktrendhub.com`.
-- **Deploy:** `node build.js`, then a **single-connection** lftp mirror (fail2ban bans parallel/rapid SSH):
-  `export SSHPASS=…; lftp` with `set sftp:connect-program "sshpass -e ssh …"`,
-  `set mirror:parallel-transfer-count 1`, `mirror -R --delete --overwrite dist/ public_html/`.
-- **AFTER EVERY DEPLOY: purge Varnish** in the Cloudways panel (Application → Purge). The stack is
-  Nginx→Varnish→Apache; Varnish caches `/` and 404s and an SFTP file change does NOT invalidate it, so
-  the homepage serves stale until purged. Verify real files with `?v=` / `/index.html` (bypasses Varnish).
-  Best long-term: disable Varnish for this static app. Do NOT ship a `.htaccess` — nginx ignores it here.
 
 ---
 
