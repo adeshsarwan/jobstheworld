@@ -1,0 +1,124 @@
+{
+  "type": "employer",
+  "id": "costco",
+  "employer": "Costco",
+  "icon": "cart",
+  "imageQuery": "warehouse store shopping cart retail",
+  "title": "Costco Is Hiring Warehouse & Front-End Staff",
+  "subtitle": "Cashier, stocking, food court, and warehouse roles known for strong starting pay and benefits.",
+  "hero": {
+    "openings": "Warehouses nationwide",
+    "pay": "$18 – $30 / hr",
+    "type": "Full & part-time",
+    "location": "U.S. — nationwide"
+  },
+  "ctaLine": "Costco is known for above-average retail pay. See which roles are open near you.",
+  "intro": "Costco hires across its membership warehouses for front-end (cashier and assistant), stocking, food court, and merchandise roles. The company is widely known for strong starting wages and benefits relative to typical retail, which makes its openings competitive and worth applying for early. Many roles are entry-level with training, so prior retail experience isn't always required. Costco also has a reputation for promoting from within, so a front-end or stocking role can become a longer-term path. Here's what's usually available and how to apply.",
+  "sections": [
+    {
+      "h": "Common roles",
+      "bullets": [
+        "Front-end cashier & cashier assistant",
+        "Stocker / merchandise",
+        "Food court",
+        "Membership desk",
+        "Warehouse support"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Costco warehouses are large and busy, and the pace reflects it. Front-end cashiers and assistants keep checkout lines moving, often handling bulk items and helping load carts. Stockers and merchandise teams move and shelve large quantities of product, frequently early in the morning before the warehouse opens. Food court and membership roles are customer-facing and steady throughout the day. Across roles, expect to be on your feet, lifting and moving items, and working closely with a team."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Costco offers full- and part-time schedules, and hours are tied to warehouse operating times.",
+      "bullets": [
+        "Daytime and evening shifts around warehouse hours",
+        "Early-morning stocking shifts before opening",
+        "Weekend availability often helps when applying",
+        "Exact schedules are set by each warehouse"
+      ]
+    },
+    {
+      "h": "Benefits and perks",
+      "p": "Costco is well known for offering benefits to eligible employees, including part-timers in some cases. Commonly advertised benefits include health coverage options, retirement savings, and paid time off, with eligibility depending on hours and tenure. Confirm what applies to a specific role on the official posting rather than assuming."
+    },
+    {
+      "h": "Pay overview",
+      "p": "Costco's starting pay is generally above typical retail; exact rates depend on location and role. Confirm on the official posting for your warehouse."
+    }
+  ],
+  "steps": [
+    "Pick the role and your nearest warehouse",
+    "Open the official Costco jobs page",
+    "Search openings by location",
+    "Apply online and watch for a response"
+  ],
+  "roles": [
+    {
+      "title": "Front-End Cashier",
+      "pay": "$19 – $28 / hr"
+    },
+    {
+      "title": "Cashier Assistant",
+      "pay": "$18 – $25 / hr"
+    },
+    {
+      "title": "Stocker / Merchandise",
+      "pay": "$18 – $27 / hr"
+    },
+    {
+      "title": "Food Court",
+      "pay": "$18 – $24 / hr"
+    },
+    {
+      "title": "Membership Desk",
+      "pay": "$18 – $25 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Costco jobs near me",
+    "Costco careers apply online",
+    "Costco cashier jobs hiring",
+    "Costco warehouse jobs pay",
+    "Costco part time jobs",
+    "Costco stocker jobs near me",
+    "Costco food court jobs",
+    "Costco hiring immediately",
+    "Costco membership desk jobs"
+  ],
+  "faqs": [
+    {
+      "q": "Is Costco pay really higher?",
+      "a": "Costco is widely known for above-average retail starting pay, though exact rates vary by location and role — always confirm on the posting."
+    },
+    {
+      "q": "Do I need experience?",
+      "a": "Many front-end and stocking roles are entry-level with training."
+    },
+    {
+      "q": "Are benefits available to part-time employees?",
+      "a": "Costco is known for extending benefits to eligible employees, and part-timers may qualify for some depending on hours and tenure. Eligibility details are provided during hiring."
+    },
+    {
+      "q": "How competitive are Costco jobs?",
+      "a": "Because pay and benefits are strong for retail, popular roles can attract many applicants. Applying promptly to a specific warehouse and being flexible on schedule can help."
+    }
+  ],
+  "applyUrl": "https://www.costco.com/jobs.html",
+  "recommendations": [
+    "walmart",
+    "target",
+    "warehouse-jobs"
+  ],
+  "logo": {
+    "src": "assets/img/costco-logo.png",
+    "alt": "Costco logo",
+    "credit": "Costco Wholesale logo 2010-10-26.svg — Costco Wholesale (Public domain) via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Costco_Wholesale_logo_2010-10-26.svg",
+    "w": 400,
+    "h": 143,
+    "trademark": "Costco is a trademark of its owner; used for identification only."
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "type": "category",
+  "id": "warehouse-jobs",
+  "category": "Warehouse Jobs",
+  "icon": "box",
+  "title": "Warehouse Jobs Near You Are Hiring Now",
+  "subtitle": "Picking, packing, forklift, and shipping roles — many entry-level, with day, evening, and overnight shifts.",
+  "hero": {
+    "openings": "Hiring in most areas",
+    "pay": "$15 – $24 / hr",
+    "type": "Full & part-time",
+    "location": "Search by ZIP"
+  },
+  "ctaLine": "Warehouses hire year-round and often start quickly. See openings near you.",
+  "openingsLead": "Tap a role or a popular search below to see current warehouse openings and apply on a reputable job board.",
+  "intro": "Warehouse and logistics jobs are among the most consistently available roles in the country. Employers hire for picking, packing, shipping, receiving, and forklift operation, and many positions are entry-level with training provided. Because online shopping keeps distribution centers busy year-round, new openings appear regularly across most areas rather than only in big cities. Shifts range from standard daytime to evenings and overnights, which often pay a bit more. Here's a practical overview and where to find current openings.",
+  "sections": [
+    {
+      "h": "Common warehouse roles",
+      "bullets": [
+        "Order picker / packer",
+        "Shipping & receiving associate",
+        "Forklift operator (certification sometimes provided)",
+        "Inventory / stock associate",
+        "General warehouse worker"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Warehouse work is active and hands-on. Depending on the role you might walk the aisles picking items to fill orders, pack and label boxes for shipment, unload and check incoming deliveries, or move pallets with a forklift once certified. Many warehouses use handheld scanners and set productivity targets, so the pace is steady. Expect standing, walking, lifting, and repetitive motion for most of the shift, often in a large facility that may not be fully climate-controlled."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Warehouses frequently run more than one shift, which gives applicants flexibility and, on some shifts, extra pay.",
+      "bullets": [
+        "Day, evening, and overnight shifts",
+        "Overnight and weekend shifts often include a pay differential",
+        "Full-time, part-time, and seasonal options",
+        "Exact shift times are listed on each posting"
+      ]
+    },
+    {
+      "h": "Why warehouse work is worth considering",
+      "bullets": [
+        "Steady demand — new openings appear constantly",
+        "Entry-level roles with on-the-job training",
+        "Overnight and weekend shifts often pay more",
+        "Clear paths to lead, supervisor, and forklift-certified roles"
+      ]
+    },
+    {
+      "h": "What it pays",
+      "p": "Pay depends on your region, the shift, and whether the role requires equipment certification. General labor tends to sit at the lower end of the range above; forklift-certified and overnight roles at the higher end. Confirm the rate on each specific posting."
+    }
+  ],
+  "steps": [
+    "Pick the role that matches your experience",
+    "Search openings by your ZIP code",
+    "Compare pay, shift, and distance",
+    "Apply on the job board and watch for a quick reply"
+  ],
+  "roles": [
+    {
+      "title": "Order Picker / Packer",
+      "pay": "$15 – $19 / hr"
+    },
+    {
+      "title": "Shipping & Receiving",
+      "pay": "$16 – $21 / hr"
+    },
+    {
+      "title": "Forklift Operator",
+      "pay": "$18 – $24 / hr"
+    },
+    {
+      "title": "Inventory Associate",
+      "pay": "$16 – $20 / hr"
+    },
+    {
+      "title": "Overnight Warehouse",
+      "pay": "$17 – $23 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Warehouse jobs near me",
+    "Warehouse jobs hiring immediately",
+    "Forklift operator jobs no experience",
+    "Overnight warehouse jobs pay",
+    "Part time warehouse jobs",
+    "Picker packer jobs near me",
+    "Warehouse jobs no experience",
+    "Weekend warehouse jobs",
+    "Shipping and receiving jobs near me"
+  ],
+  "faqs": [
+    {
+      "q": "Do warehouse jobs require experience?",
+      "a": "Many don't. General labor, picking, and packing roles are commonly entry-level with training provided. Forklift roles may require or provide certification."
+    },
+    {
+      "q": "Which shifts pay the most?",
+      "a": "Overnight and weekend shifts frequently include a pay differential, so they often pay more than standard daytime shifts."
+    },
+    {
+      "q": "How quickly can I start?",
+      "a": "Warehouse employers often hire fast, especially during busy seasons — sometimes within days of applying."
+    },
+    {
+      "q": "Is warehouse work physically demanding?",
+      "a": "Generally yes. Most roles involve standing, walking, lifting, and repetitive tasks for the shift. Each posting lists the physical requirements so you can decide what fits you."
+    },
+    {
+      "q": "How do I get forklift certified?",
+      "a": "Some employers provide forklift certification or training on the job, while others prefer candidates who are already certified. Postings usually note whether certification is required or provided."
+    }
+  ],
+  "applyUrl": "https://www.indeed.com/q-warehouse-jobs.html",
+  "recommendations": [
+    "amazon-warehouse",
+    "driver-jobs",
+    "walmart"
+  ]
+}

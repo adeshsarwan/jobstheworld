@@ -1,0 +1,120 @@
+{
+  "type": "category",
+  "id": "security-jobs",
+  "category": "Security Jobs",
+  "icon": "shield",
+  "imageQuery": "security guard officer building",
+  "title": "Security Guard Jobs Near You Are Hiring Now",
+  "subtitle": "Unarmed guard, event, and patrol roles — many entry-level with paid training and flexible shifts.",
+  "hero": {
+    "openings": "Hiring in most areas",
+    "pay": "$15 – $25 / hr",
+    "type": "Full & part-time",
+    "location": "Search by ZIP"
+  },
+  "ctaLine": "Security roles are hiring across offices, events, and retail. See openings near you.",
+  "openingsLead": "Tap a role or a popular search below to see current security openings and apply on a reputable job board.",
+  "intro": "Security and guard jobs are consistently in demand and many are entry-level, with employers providing or helping arrange the required license and training. Roles span unarmed office and retail guards, event security, and mobile patrol, with day, evening, and overnight shifts. The work suits observant, dependable people who can stay calm and follow procedures. Because businesses, venues, and properties all need coverage, openings tend to be available year-round in most areas. Here's an overview and where to find openings.",
+  "sections": [
+    {
+      "h": "Common security roles",
+      "bullets": [
+        "Unarmed security officer (office / retail)",
+        "Event security",
+        "Mobile patrol",
+        "Front-desk / concierge security",
+        "Overnight guard"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Most security work centers on presence, observation, and following procedures. A typical shift can involve monitoring an entrance or lobby, checking credentials, patrolling a building or property, watching cameras, writing incident reports, and responding calmly to issues as they come up. Some posts are quiet and steady, especially overnight, while event and retail roles are busier and more people-facing. The role rewards attentiveness and reliability more than physical strength, though you may be on your feet or walking rounds for much of the shift."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Because sites need coverage around the clock, security offers a wide range of shift options.",
+      "bullets": [
+        "Day, evening, and overnight shifts",
+        "Full-time, part-time, and weekend options",
+        "Event roles can be occasional or seasonal",
+        "Overnight and specialized posts may pay more"
+      ]
+    },
+    {
+      "h": "Why consider it",
+      "bullets": [
+        "Many roles are entry-level with training",
+        "Licensing often provided or supported by the employer",
+        "Flexible and overnight shifts common",
+        "Steady, ongoing demand"
+      ]
+    },
+    {
+      "h": "What it pays",
+      "p": "Pay depends on location, whether the role is armed or unarmed, and the setting. Specialized and overnight roles pay toward the higher end of the range above. Confirm on each posting; licensing requirements vary by state."
+    }
+  ],
+  "steps": [
+    "Pick the type of security role",
+    "Search openings by your ZIP code",
+    "Check licensing requirements for your state",
+    "Apply on the job board and complete screening"
+  ],
+  "roles": [
+    {
+      "title": "Unarmed Security Officer",
+      "pay": "$15 – $20 / hr"
+    },
+    {
+      "title": "Event Security",
+      "pay": "$16 – $22 / hr"
+    },
+    {
+      "title": "Mobile Patrol Officer",
+      "pay": "$17 – $23 / hr"
+    },
+    {
+      "title": "Front-Desk / Concierge Security",
+      "pay": "$16 – $21 / hr"
+    },
+    {
+      "title": "Overnight Guard",
+      "pay": "$16 – $22 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Security guard jobs near me",
+    "Security jobs hiring immediately",
+    "Unarmed security jobs no experience",
+    "Overnight security jobs pay",
+    "Event security jobs near me",
+    "Part time security jobs",
+    "Security officer jobs hiring",
+    "Weekend security jobs",
+    "Concierge security jobs near me"
+  ],
+  "faqs": [
+    {
+      "q": "Do I need a license?",
+      "a": "Most states require a guard license. Many employers help you obtain or arrange it, and some entry-level roles start while you complete it."
+    },
+    {
+      "q": "Is experience required?",
+      "a": "Many unarmed roles are entry-level with training. Armed and specialized roles have more requirements."
+    },
+    {
+      "q": "Is security work physically demanding?",
+      "a": "It's usually more about attentiveness and following procedures than physical strength, though you may stand or patrol for much of the shift. Some roles are largely stationary, while patrol and event roles involve more walking and activity."
+    },
+    {
+      "q": "What do employers look for?",
+      "a": "Reliability, good judgment, and clear communication are key. Most roles involve a background check, and some require a valid driver's license, especially for mobile patrol. Specifics are listed on each posting."
+    }
+  ],
+  "applyUrl": "https://www.indeed.com/q-security-guard-jobs.html",
+  "recommendations": [
+    "cleaning-jobs",
+    "hospitality-jobs",
+    "driver-jobs"
+  ]
+}

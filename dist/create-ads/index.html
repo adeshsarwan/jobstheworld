@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Ad Builder — Jobs World (internal)</title>
+<style>
+  :root{ --brand:#0b57d0; --brand-dark:#083e93; --accent:#2f8bff; --bg:#eef3fb; --card:#fff;
+         --ink:#0f2033; --ink-soft:#5b6b80; --line:#d6e0ef; --radius:16px;
+         --tint:#dfeafd; --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);-webkit-text-size-adjust:100%}
+  h1,h2,h3{margin:0}
+  button{font-family:inherit;cursor:pointer}
+  .hide{display:none!important}
+  .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .gate-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+            box-shadow:0 10px 30px rgba(15,32,51,.10);padding:28px;width:100%;max-width:360px;text-align:center}
+  .gate-box h1{font-size:22px;margin-bottom:6px}
+  .gate-box p{color:var(--ink-soft);font-size:14px;margin:0 0 18px}
+  .gate-box input{width:100%;padding:14px 16px;font-size:17px;border:2px solid var(--line);border-radius:12px;margin-bottom:12px}
+  .gate-box input:focus{outline:none;border-color:var(--brand)}
+  .gate-box .err{color:#c0392b;font-size:14px;min-height:18px;margin-bottom:8px}
+  .btn{background:var(--brand);color:#fff;border:none;border-radius:12px;padding:14px 20px;font-size:16px;font-weight:700;width:100%}
+  .btn:hover{background:var(--brand-dark)}
+  .btn.sm{width:auto;padding:10px 16px;font-size:14px}
+  .top{position:sticky;top:0;z-index:20;background:rgba(238,243,251,.94);backdrop-filter:blur(6px);
+       border-bottom:1px solid var(--line);padding:12px 16px}
+  .top-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;max-width:1200px;margin:0 auto}
+  .wrap{max-width:1200px;margin:0 auto;padding:18px 16px 60px}
+  .note{background:#eaf2ff;border:1px solid var(--accent);color:#0b3a7a;border-radius:12px;
+        padding:10px 14px;font-size:13px;margin:0 auto 16px;max-width:1200px;line-height:1.5}
+  .grp{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-dark);margin:22px 0 8px}
+  .grp:first-child{margin-top:4px}
+  .tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+  .ex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+  .ex{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .ex .stage{position:relative;background:#101826;display:flex;align-items:center;justify-content:center;padding:10px}
+  .ex canvas{max-width:100%;max-height:360px;height:auto;width:auto;display:block;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;
+         border:none;background:rgba(255,255,255,.92);color:#0f2033;font-size:19px;font-weight:800;
+         display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+  .arrow:hover{background:#fff}
+  .arrow.l{left:10px} .arrow.r{right:10px}
+  .ex .foot{padding:10px 12px}
+  .ex .foot .name{font-size:14px;font-weight:700}
+  .ex .foot .sub{font-size:12px;color:var(--ink-soft);margin:2px 0 2px}
+  .ex .foot .lic{font-size:11px;color:var(--ink-soft);margin:3px 0 8px;line-height:1.35;max-height:34px;overflow:hidden}
+  .ex .foot .btn{font-size:14px;padding:11px}
+  .crumbs{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-right:auto}
+  .crumb{background:none;border:none;font:inherit;font-size:14px;font-weight:700;color:var(--ink-soft);
+         display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:9px;max-width:44vw;
+         overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .crumb .cn{flex:none;display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--line);
+             color:var(--ink);align-items:center;justify-content:center;font-size:12px}
+  .crumb.active{color:var(--ink)} .crumb.active .cn{background:var(--brand);color:#fff}
+  .crumb.done{color:var(--brand-dark);cursor:pointer} .crumb.done:hover{background:var(--tint)}
+  .crumb.done .cn{background:var(--tint);color:var(--brand-dark)}
+  .crumb.todo{opacity:.45;cursor:default}
+  .csep{color:var(--ink-soft);opacity:.5}
+  .step-h{font-size:16px;margin:2px 0 15px;font-weight:700}
+  .step-h span{color:var(--ink-soft);font-weight:400;font-size:13px}
+  .acc-row{display:flex;gap:8px;align-items:center;margin:0 0 14px;flex-wrap:wrap}
+  .acc-row .lbl{font-size:13px;color:var(--ink-soft);font-weight:600}
+  .sw{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}
+  .sw.on{box-shadow:0 0 0 2px var(--brand);transform:scale(1.08)}
+  .size-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px}
+  .size-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;
+             display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:transform .08s,box-shadow .12s,border-color .12s}
+  .size-card:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:0 10px 22px rgba(15,32,51,.12)}
+  .size-thumb{width:100%;height:96px;display:flex;align-items:center;justify-content:center}
+  .size-ar{background:linear-gradient(135deg,#cfe0f8,#a9c6f0);border:1px solid #a9c6f0;border-radius:4px;max-width:100%;max-height:96px}
+  .size-card b{font-size:13px} .size-card small{color:var(--ink-soft);font-size:12px}
+  .tcard{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;
+         padding:0;text-align:left;transition:transform .08s,box-shadow .12s,border-color .12s}
+  .tcard:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(15,32,51,.14);border-color:var(--brand)}
+  .tcard .st{background:#101826;display:flex;align-items:center;justify-content:center;padding:10px;min-height:150px}
+  .tcard .st canvas{max-width:100%;max-height:260px;height:auto;width:auto;display:block;box-shadow:0 5px 16px rgba(0,0,0,.3)}
+  .tcard .m{padding:9px 11px}
+  .tcard .m b{font-size:13px;display:block} .tcard .m span{font-size:11px;color:var(--ink-soft)}
+  @media(max-width:520px){ .crumb{font-size:13px;max-width:38vw} }
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate" class="gate">
+  <form class="gate-box" id="gateForm">
+    <h1>Jobs World Ad Builder</h1>
+    <p>Internal tool — remote-jobs paid creatives. Enter the admin password.</p>
+    <input id="pw" type="password" autocomplete="current-password" placeholder="Password" autofocus>
+    <div class="err" id="pwErr"></div>
+    <button class="btn" type="submit">Enter</button>
+  </form>
+</div>
+
+<!-- APP -->
+<div id="app" class="hide">
+  <div class="top">
+    <div class="top-row">
+      <nav class="crumbs" aria-label="Steps">
+        <button class="crumb" id="crumbSize"><span class="cn">1</span> <span class="cl">Size</span></button>
+        <span class="csep">&rsaquo;</span>
+        <button class="crumb" id="crumbTpl"><span class="cn">2</span> <span class="cl">Style</span></button>
+        <span class="csep">&rsaquo;</span>
+        <button class="crumb" id="crumbAngle"><span class="cn">3</span> <span class="cl">Angle</span></button>
+      </nav>
+      <button class="btn sm hide" id="dlAllBtn">Download all PNGs</button>
+    </div>
+  </div>
+
+  <div class="note">
+    Every headline uses honest framing (no invented "% hired" claims, no unrealistic income promises)
+    and pay ranges mirror our real data — that is what keeps the Facebook / Google ad account alive.
+    The "Real Photo" styles use our one licensed CC0 photo (credit shown on the card); all other styles
+    are generated and brand-safe. Point each angle's campaign at the funnel URL shown on its card.
+  </div>
+
+  <div class="wrap">
+    <div id="stepSize"></div>
+    <div id="stepTpl" class="hide"></div>
+    <div id="stepAngle" class="hide"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var PASS = "admin";
+  var ANGLES = [{"id":"seniors","aud":"For 50+","role":"Remote Jobs — Ages 50+","head":"Remote Jobs|for People 50+","sub":"Experience is valued — customer service & data entry, hiring nationwide.","pay":"$15–28/hr","term":"remote jobs for seniors","url":"remote/seniors/"},{"id":"parents","aud":"For Parents","role":"Flexible Remote Work","head":"Work From Home,|Around Your Family","sub":"Flexible, part-time remote roles for stay-at-home parents. No commute.","pay":"$15–28/hr","term":"work from home jobs for moms","url":"remote/parents/"},{"id":"students","aud":"For Students","role":"Entry-Level Remote Jobs","head":"Remote Jobs That|Fit Around Class","sub":"Entry-level work-from-home roles — many need no experience.","pay":"$15–22/hr","term":"remote jobs for students","url":"remote/students/"},{"id":"noexp","aud":"No Experience","role":"Remote Jobs — No Experience","head":"Remote Jobs —|No Experience Needed","sub":"Many roles provide full training. Start working from home.","pay":"$15–22/hr","term":"work from home no experience","url":"remote/"},{"id":"nodegree","aud":"No Degree","role":"Work From Home — No Degree","head":"Work From Home,|No Degree Required","sub":"Real remote roles that don’t need a college degree.","pay":"$15–25/hr","term":"remote jobs no degree","url":"remote/"},{"id":"parttime","aud":"Part-Time","role":"Part-Time Remote Jobs","head":"Part-Time Remote|Jobs Hiring Now","sub":"Choose your hours — flexible work-from-home shifts.","pay":"$15–25/hr","term":"part time remote jobs","url":"remote/"},{"id":"nearme","aud":"Near You","role":"Remote Jobs Near You","head":"Remote Jobs|Hiring in Your Area","sub":"Work-from-home roles open to applicants nationwide.","pay":"$15–28/hr","term":"remote jobs near me hiring","url":"remote/"},{"id":"side","aud":"Extra Income","role":"Flexible Side Income","head":"Earn From Home|in Your Spare Time","sub":"Flexible remote roles to add a second income. Honest, hourly work.","pay":"$15–25/hr","term":"side income from home","url":"remote/"},{"id":"dataentry","aud":"Data Entry","role":"Remote Data Entry Clerk","head":"Remote Data Entry|Jobs Hiring","sub":"Enter and check information from home. Great entry-level start.","pay":"$15–20/hr","term":"data entry jobs remote","url":"remote/"},{"id":"support","aud":"Customer Service","role":"Customer Service (Remote)","head":"Customer Service Jobs|You Can Do From Home","sub":"Handle calls, chats, or emails from a queue — training is common.","pay":"$15–22/hr","term":"customer service work from home","url":"remote/"},{"id":"va","aud":"Virtual Assistant","role":"Virtual Assistant (Remote)","head":"Become a|Virtual Assistant","sub":"Manage schedules & email from home. Flexible remote work.","pay":"$16–25/hr","term":"virtual assistant jobs hiring","url":"remote/"},{"id":"veterans","aud":"For Veterans","role":"Remote Jobs for Veterans","head":"Remote Jobs|for Veterans","sub":"Flexible work-from-home roles hiring nationwide.","pay":"$15–28/hr","term":"remote jobs for veterans","url":"remote/"},{"id":"between","aud":"Between Jobs","role":"Remote Roles Hiring Now","head":"Between Jobs?|Work From Home","sub":"Remote roles hiring now — no commute, quick to start.","pay":"$15–28/hr","term":"remote jobs hiring immediately","url":"remote/"},{"id":"legit","aud":"Legit · No Scams","role":"Verified Remote Jobs","head":"Legit Work-From-Home|Jobs (No Scams)","sub":"No fees, no sign-up. Only reputable job boards.","pay":"$15–28/hr","term":"legitimate work from home jobs","url":"remote/"}];
+  var SITE_NAME = "Jobs World";
+  var PHOTO = {"src":"/assets/img/remote-jobs.jpg","credit":"Couple working at home (Unsplash).jpg — Crew crew (CC0) via Wikimedia Commons","license":"CC0"};
+  var BASE = "/";
+
+  /* ---------- gate (client-side deterrent only) ---------- */
+  var gate = document.getElementById("gate"), app = document.getElementById("app");
+  function unlock(){ gate.classList.add("hide"); app.classList.remove("hide"); initApp(); }
+  document.getElementById("gateForm").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var v = document.getElementById("pw").value;
+    if(v===PASS){ try{ sessionStorage.setItem("jgm_ad_ok","1"); }catch(e){} unlock(); }
+    else { document.getElementById("pwErr").textContent = "Incorrect password."; }
+  });
+
+  /* ---------- ad sizes (popular Facebook + Google + native formats) ---------- */
+  var SIZES = [
+    {g:"Facebook / Instagram", label:"Feed Portrait (1080x1350)", w:1080, h:1350},
+    {g:"Facebook / Instagram", label:"Feed Square (1080x1080)",   w:1080, h:1080},
+    {g:"Facebook / Instagram", label:"Link / Landscape (1200x628)", w:1200, h:628},
+    {g:"Facebook / Instagram", label:"Story / Reel (1080x1920)",  w:1080, h:1920},
+    {g:"Google Display", label:"Medium Rectangle (300x250)", w:300, h:250},
+    {g:"Google Display", label:"Large Rectangle (336x280)",  w:336, h:280},
+    {g:"Google Display", label:"Half Page (300x600)",        w:300, h:600},
+    {g:"Google Display", label:"Leaderboard (728x90)",       w:728, h:90},
+    {g:"Google Display", label:"Large Mobile Banner (320x100)", w:320, h:100},
+    {g:"Google Display", label:"Mobile Banner (320x50)",     w:320, h:50},
+    {g:"Google Display", label:"Wide Skyscraper (160x600)",  w:160, h:600},
+    {g:"Google Display", label:"Billboard (970x250)",        w:970, h:250},
+    {g:"Google Display", label:"Square (250x250)",           w:250, h:250},
+    {g:"Native", label:"Native Landscape (1200x628)", w:1200, h:628},
+    {g:"Native", label:"Native Square (1200x1200)",  w:1200, h:1200},
+    {g:"Native", label:"Native Portrait (960x1200)", w:960, h:1200}
+  ];
+
+  /* ---------- accent palette (cycled with arrows for A/B creative variety) ----------
+     Blue = brand. Purple + Amber test HIGH on CTR (research). Green reads money / trust. */
+  var ACCENTS = [
+    {name:"Blue",   a:"#2f8bff", b:"#0b57d0", solid:"#0b57d0", chip:"#0b57d0", onSolid:"#fff"},
+    {name:"Teal",   a:"#12b3c4", b:"#0a5f6b", solid:"#0a6b78", chip:"#0a6b78", onSolid:"#fff"},
+    {name:"Purple", a:"#8b5cf6", b:"#5b21b6", solid:"#5b21b6", chip:"#5b21b6", onSolid:"#fff"},
+    {name:"Amber",  a:"#f8b34a", b:"#c2740a", solid:"#d98216", chip:"#a8560a", onSolid:"#3a2405"},
+    {name:"Green",  a:"#22c07a", b:"#047857", solid:"#047857", chip:"#047857", onSolid:"#fff"}
+  ];
+  var INK = "#0f2033", INKSOFT = "#5b6b80";
+  var SANS = 'Arial, "Helvetica Neue", sans-serif';
+  var DEFAULT_BULLETS = ["Work from home", "No commute", "Training for many roles", "Flexible hours"];
+  var TRUST_BULLETS   = ["No fees to start", "No sign-up or email", "Reputable job boards only"];
+
+  /* ---------- 12 templates across the 4 research-backed groups ----------
+     Flags read by the renderer: bg grad|solid|light|photo; card; header notif|search;
+     badge hiring|pay; ic (glyph); bullets; ribbon; headSrc role|head; trust. */
+  var TEMPLATES = [
+    // Native / feed-blending  (non-salesy => cheaper clicks on quality score)
+    {id:"listing", name:"Job Listing Card", group:"Native (feed-blending)", bg:"grad",  card:true, headSrc:"role", payPill:true, loc:true, cta:"View Job"},
+    {id:"alert",   name:"New Job Alert",    group:"Native (feed-blending)", bg:"grad",  card:true, header:"notif", cta:"See Openings"},
+    {id:"search",  name:"Search Result",    group:"Native (feed-blending)", bg:"light", card:true, header:"search", cta:"See Results"},
+    {id:"minimal", name:"Clean Editorial",  group:"Native (feed-blending)", bg:"light", ic:"laptop", cta:"See Remote Jobs"},
+    // Benefit-led  ("what's in it for me" in 2 seconds)
+    {id:"checklist",name:"Benefit Checklist",group:"Benefit-led", bg:"grad", bullets:true, cta:"See Openings"},
+    {id:"pay",      name:"Pay Badge",        group:"Benefit-led", bg:"grad", badge:"pay", cta:"See Openings"},
+    {id:"flexible", name:"Flexible Hours",   group:"Benefit-led", bg:"light", card:true, ic:"clock", cta:"See Openings"},
+    // Photo (real people ~2x CTR) — our one licensed CC0 photo
+    {id:"photo",       name:"Real Photo",        group:"Photo (real people)", bg:"photo", cta:"Work From Home"},
+    {id:"photoribbon", name:"Photo + Now Hiring", group:"Photo (real people)", bg:"photo", ribbon:true, cta:"Apply From Home"},
+    // Direct / high-intent
+    {id:"nowhiring", name:"Now Hiring Banner", group:"Direct / high-intent", bg:"solid", badge:"hiring", cta:"See Openings"},
+    {id:"question",  name:"Qualifier Question",group:"Direct / high-intent", bg:"grad", ic:"help", cta:"See If You Qualify"},
+    {id:"trust",     name:"Legit / No Scams",   group:"Direct / high-intent", bg:"light", card:true, ic:"shield", trust:true, cta:"See Verified Jobs"}
+  ];
+
+  /* ---------- helpers ---------- */
+  function fmt(s, a){
+    return String(s).split("{head}").join(a.head).split("{sub}").join(a.sub)
+      .split("{pay}").join(a.pay).split("{aud}").join(a.aud)
+      .split("{role}").join(a.role).split("{term}").join(a.term);
+  }
+  function lines2(s){ return String(s).split("|"); }
+  var imgCache = {};
+  function loadImg(url){
+    if(!url) return Promise.resolve(null);
+    if(imgCache[url]) return imgCache[url];
+    imgCache[url] = new Promise(function(res){
+      var im = new Image();
+      im.onload = function(){ res(im); };
+      im.onerror = function(){ res(null); };
+      im.src = url;
+    });
+    return imgCache[url];
+  }
+  function rr(ctx,x,y,w,h,r){ r=Math.min(r,w/2,h/2); ctx.beginPath();
+    ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+  function cover(ctx,img,x,y,w,h){
+    if(!img){ ctx.fillStyle="#33465e"; ctx.fillRect(x,y,w,h); return; }
+    var s=Math.max(w/img.width, h/img.height), iw=img.width*s, ih=img.height*s;
+    ctx.save(); ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip();
+    ctx.drawImage(img, x+(w-iw)/2, y+(h-ih)/2, iw, ih); ctx.restore();
+  }
+  var clampN=function(v,lo,hi){ return Math.max(lo,Math.min(hi,v)); };
+  function wrapLines(ctx,text,maxW){
+    var out=[], paras=String(text).split("|");
+    for(var p=0;p<paras.length;p++){
+      var words=paras[p].split(" "), line="";
+      for(var i=0;i<words.length;i++){
+        var t=line?line+" "+words[i]:words[i];
+        if(ctx.measureText(t).width>maxW && line){ out.push(line); line=words[i]; }
+        else line=t;
+      }
+      if(line) out.push(line);
+    }
+    return out;
+  }
+  /* fit text into a box bounded by BOTH width and height (never overflows either) */
+  function fitBox(ctx,text,boxW,boxH,weight,font,hiPx){
+    var px=Math.max(9,Math.round(hiPx));
+    while(px>=9){
+      ctx.font=weight+" "+px+"px "+font;
+      var lh=px*1.14, lines=wrapLines(ctx,text,boxW);
+      var wOK=true; for(var i=0;i<lines.length;i++){ if(ctx.measureText(lines[i]).width>boxW){ wOK=false; break; } }
+      if(wOK && lines.length*lh<=boxH) return {px:px, lines:lines, lh:lh};
+      px -= Math.max(1, Math.round(px*0.06));
+    }
+    ctx.font=weight+" 9px "+font;
+    return {px:9, lines:wrapLines(ctx,text,boxW), lh:9*1.14};
+  }
+  function fitOneLine(ctx,text,maxW,weight,font,hiPx){
+    var px=Math.max(8,Math.round(hiPx));
+    while(px>=8){ ctx.font=weight+" "+px+"px "+font; if(ctx.measureText(text).width<=maxW) return px; px-=1; }
+    return 8;
+  }
+  function ctaPill(ctx,text,cx,cy,scale,fill,textColor,arrow){
+    var tc=textColor||"#fff";
+    ctx.font="800 "+(22*scale)+"px "+SANS;
+    var tw=ctx.measureText(text).width, padX=26*scale, h=54*scale, aw=arrow?20*scale:0;
+    var w=tw+padX*2+aw, x=cx-w/2, y=cy-h/2;
+    rr(ctx,x,y,w,h,h/2); ctx.fillStyle=fill; ctx.fill();
+    ctx.fillStyle=tc; ctx.textAlign="left"; ctx.textBaseline="middle";
+    ctx.fillText(text, x+padX, cy+scale);
+    if(arrow){ var ax=x+padX+tw+11*scale; ctx.beginPath(); ctx.moveTo(ax,cy-7*scale);
+      ctx.lineTo(ax+9*scale,cy); ctx.lineTo(ax,cy+7*scale); ctx.lineWidth=4*scale;
+      ctx.strokeStyle=tc; ctx.lineJoin="round"; ctx.lineCap="round"; ctx.stroke(); }
+    ctx.textBaseline="alphabetic";
+    return w;
+  }
+  function chip(ctx,text,x,y,scale,fill,textColor){
+    ctx.font="800 "+(15*scale)+"px "+SANS;
+    var tw=ctx.measureText(text).width, padX=12*scale, h=28*scale;
+    rr(ctx,x,y,tw+padX*2,h,h/2); ctx.fillStyle=fill; ctx.fill();
+    ctx.fillStyle=textColor||"#fff"; ctx.textAlign="left"; ctx.textBaseline="middle";
+    ctx.fillText(text, x+padX, y+h/2+scale*0.6); ctx.textBaseline="alphabetic";
+    return tw+padX*2;
+  }
+  function brandMark(ctx,x,y,scale,onDark){
+    ctx.font="800 "+(15*scale)+"px "+SANS;
+    var t=SITE_NAME, tw=ctx.measureText(t).width, r=6*scale, gap=8*scale;
+    ctx.beginPath(); ctx.arc(x+r, y+r, r, 0, 7);
+    ctx.fillStyle=onDark?"#fff":"#0b57d0"; ctx.fill();
+    ctx.fillStyle=onDark?"rgba(255,255,255,.92)":"#0f2033"; ctx.textAlign="left"; ctx.textBaseline="middle";
+    ctx.fillText(t, x+r*2+gap, y+r+scale*0.5); ctx.textBaseline="alphabetic";
+  }
+  function scrim(ctx,W,H){
+    // Full-height scrim: dark top (behind the headline) + dark bottom (behind CTA/brand), photo
+    // peeks through the middle. Keeps white text legible over a bright photo at BOTH ends.
+    var g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,"rgba(8,20,38,.64)"); g.addColorStop(0.42,"rgba(8,20,38,.18)");
+    g.addColorStop(0.72,"rgba(8,20,38,.30)"); g.addColorStop(1,"rgba(8,20,38,.88)");
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  }
+  // simple stroked glyph inside an accent disc
+  function glyph(ctx,name,cx,cy,r,disc,fg){
+    if(disc){ ctx.beginPath(); ctx.arc(cx,cy,r,0,7); ctx.fillStyle=disc; ctx.fill(); }
+    ctx.strokeStyle=fg; ctx.fillStyle=fg; ctx.lineWidth=Math.max(2,r*0.16);
+    ctx.lineCap="round"; ctx.lineJoin="round";
+    var u=r*0.52;
+    if(name==="laptop"){
+      ctx.strokeRect(cx-u, cy-u*0.7, u*2, u*1.25);
+      ctx.beginPath(); ctx.moveTo(cx-u*1.35, cy+u*0.75); ctx.lineTo(cx+u*1.35, cy+u*0.75); ctx.stroke();
+    } else if(name==="clock"){
+      ctx.beginPath(); ctx.arc(cx,cy,u,0,7); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx,cy-u*0.6);
+      ctx.moveTo(cx,cy); ctx.lineTo(cx+u*0.5,cy); ctx.stroke();
+    } else if(name==="shield"){
+      ctx.beginPath(); ctx.moveTo(cx,cy-u); ctx.lineTo(cx+u*0.85,cy-u*0.55);
+      ctx.lineTo(cx+u*0.85,cy+u*0.2); ctx.quadraticCurveTo(cx+u*0.85,cy+u*0.85, cx,cy+u*1.05);
+      ctx.quadraticCurveTo(cx-u*0.85,cy+u*0.85, cx-u*0.85,cy+u*0.2);
+      ctx.lineTo(cx-u*0.85,cy-u*0.55); ctx.closePath(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx-u*0.38,cy+u*0.05); ctx.lineTo(cx-u*0.08,cy+u*0.38);
+      ctx.lineTo(cx+u*0.45,cy-u*0.3); ctx.stroke();
+    } else if(name==="help"){
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.font="800 "+(r*1.15)+"px "+SANS; ctx.fillText("?",cx,cy+r*0.05);
+      ctx.textAlign="left"; ctx.textBaseline="alphabetic";
+    } else if(name==="bell"){
+      ctx.beginPath(); ctx.moveTo(cx-u*0.8,cy+u*0.4);
+      ctx.quadraticCurveTo(cx-u*0.8,cy-u*0.7, cx,cy-u*0.85);
+      ctx.quadraticCurveTo(cx+u*0.8,cy-u*0.7, cx+u*0.8,cy+u*0.4); ctx.closePath(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx,cy+u*0.75,u*0.22,0,7); ctx.fillStyle=fg; ctx.fill();
+    } else if(name==="search"){
+      ctx.beginPath(); ctx.arc(cx-u*0.2,cy-u*0.2,u*0.62,0,7); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx+u*0.3,cy+u*0.3); ctx.lineTo(cx+u*0.85,cy+u*0.85); ctx.stroke();
+    }
+  }
+  function checkRow(ctx,text,x,y,sz,accent,textColor){
+    var r=sz*0.62;
+    ctx.beginPath(); ctx.arc(x+r,y,r,0,7); ctx.fillStyle=accent; ctx.fill();
+    ctx.strokeStyle="#fff"; ctx.lineWidth=Math.max(2,sz*0.14); ctx.lineCap="round"; ctx.lineJoin="round";
+    ctx.beginPath(); ctx.moveTo(x+r-r*0.42,y+r*0.02); ctx.lineTo(x+r-r*0.08,y+r*0.38);
+    ctx.lineTo(x+r+r*0.45,y-r*0.35); ctx.stroke();
+    ctx.fillStyle=textColor; ctx.font="700 "+(sz*1.05)+"px "+SANS;
+    ctx.textAlign="left"; ctx.textBaseline="middle"; ctx.fillText(text, x+r*2+sz*0.5, y+sz*0.05);
+    ctx.textBaseline="alphabetic";
+  }
+
+  /* ---------- backgrounds ---------- */
+  function paintBg(ctx,W,H,tpl,acc,img){
+    if(tpl.bg==="photo" && img){ cover(ctx,img,0,0,W,H); scrim(ctx,W,H); return; }
+    if(tpl.bg==="photo"){ // graceful fallback: gradient
+      var gg=ctx.createLinearGradient(0,0,W,H); gg.addColorStop(0,acc.a); gg.addColorStop(1,acc.b);
+      ctx.fillStyle=gg; ctx.fillRect(0,0,W,H); return;
+    }
+    if(tpl.bg==="solid"){ ctx.fillStyle=acc.solid; ctx.fillRect(0,0,W,H); return; }
+    if(tpl.bg==="light"){ ctx.fillStyle="#eef3fb"; ctx.fillRect(0,0,W,H); return; }
+    var g=ctx.createLinearGradient(0,0,W,H); g.addColorStop(0,acc.a); g.addColorStop(1,acc.b);
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    // faint dot texture (matches the site banners)
+    ctx.fillStyle="rgba(255,255,255,.06)";
+    for(var yy=W*0.04; yy<H; yy+=W*0.06){ for(var xx=W*0.04; xx<W; xx+=W*0.06){ ctx.beginPath(); ctx.arc(xx,yy,Math.max(1,W*0.004),0,7); ctx.fill(); } }
+  }
+
+  /* text color model for a template's content zone */
+  function isDarkText(tpl){ return tpl.bg==="light"; }
+
+  /* ---------- content stack: badge -> head -> sub -> bullets -> cta -> brand ----------
+     Lays the blocks top-down inside rect, each fitted so nothing overflows or overlaps.
+     Used by both the full-panel and the right column of the wide layout. */
+  function contentStack(ctx, rx, ry, rw, rh, tpl, ang, acc, dark, align, brandOn){
+    var ink = dark ? INK : "#fff";
+    var soft = dark ? INKSOFT : "rgba(255,255,255,.86)";
+    var scale = clampN(Math.min(rw, rh)/430, 0.42, 1.7);
+    var pillFill = dark ? acc.solid : "#fff";
+    var pillText = dark ? "#fff" : acc.b;
+    var cx = align==="center" ? rx+rw/2 : rx;
+    var y = ry;
+
+    // ---- badge (pay / hiring) ----
+    if(tpl.badge==="pay"){
+      var pf = fitOneLine(ctx, ang.pay, rw, "900", SANS, rh*0.20);
+      ctx.font="900 "+pf+"px "+SANS; ctx.fillStyle=dark?acc.solid:"#fff";
+      ctx.textAlign=align==="center"?"center":"left"; ctx.textBaseline="top";
+      ctx.fillText(ang.pay, cx, y);
+      ctx.font="700 "+(pf*0.34)+"px "+SANS; ctx.fillStyle=soft;
+      ctx.fillText("commonly advertised", cx, y+pf*1.02);
+      y += pf*1.5;
+    } else if(tpl.badge==="hiring"){
+      ctx.textAlign="left";
+      var bw = chip(ctx, "NOW HIRING", align==="center"? cx - 0 : rx, y, scale*1.05, dark?acc.solid:"rgba(255,255,255,.18)", "#fff");
+      if(align==="center"){ /* redo centered */ }
+      y += 34*scale;
+    }
+
+    // ---- reserve cta + brand at the BOTTOM ----
+    var ctaH = 54*scale;
+    var brandH = brandOn ? 24*scale : 0;
+    var bottomY = ry+rh;
+    var ctaCY = bottomY - (brandOn ? brandH+10*scale : 0) - ctaH/2;
+    var contentBottom = ctaCY - ctaH/2 - 12*scale;
+
+    // ---- bullets (reserve above cta) ----
+    var bulletList = tpl.trust ? TRUST_BULLETS : DEFAULT_BULLETS;
+    var bulletsH = 0, bsz = 0;
+    if(tpl.bullets || tpl.trust){
+      bsz = clampN(rh*0.05, 12, 30*scale);
+      var per = bsz*2.05;
+      bulletsH = bulletList.length*per;
+    }
+
+    // ---- headline + sub area (between y and contentBottom-bulletsH) ----
+    var areaTop = y + 6*scale;
+    var areaBottom = contentBottom - (bulletsH ? bulletsH+10*scale : 0);
+    var areaH = Math.max(30, areaBottom-areaTop);
+
+    var subText = (tpl.headSrc==="role") ? ang.sub : ang.sub;
+    var showSub = !!subText && areaH > rh*0.22 && !tpl.badge;
+    var headBoxH = showSub ? areaH*0.66 : areaH;
+    var headText = (tpl.headSrc==="role") ? ang.role : ang.head;
+    var headWeight = "900";
+    var fh = fitBox(ctx, headText, rw, headBoxH, headWeight, SANS, Math.min(rw*0.14, headBoxH));
+    ctx.font=headWeight+" "+fh.px+"px "+SANS; ctx.fillStyle=ink;
+    ctx.textAlign=align==="center"?"center":"left"; ctx.textBaseline="top";
+    if(!dark){ ctx.shadowColor="rgba(0,0,0,.35)"; ctx.shadowBlur=rw*0.015; ctx.shadowOffsetY=rw*0.003; }
+    var hy=areaTop;
+    for(var i=0;i<fh.lines.length;i++){ ctx.fillText(fh.lines[i], cx, hy+i*fh.lh); }
+    ctx.shadowColor="transparent";
+    var afterHead = hy + fh.lines.length*fh.lh;
+
+    // ---- sub ----
+    if(showSub){
+      var subBoxH = areaBottom - afterHead - 6*scale;
+      if(subBoxH > 14){
+        var fs = fitBox(ctx, subText, rw, subBoxH, "600", SANS, Math.min(fh.px*0.5, subBoxH*0.9, 30*scale));
+        ctx.font="600 "+fs.px+"px "+SANS; ctx.fillStyle=soft; ctx.textBaseline="top";
+        if(!dark){ ctx.shadowColor="rgba(0,0,0,.5)"; ctx.shadowBlur=rw*0.012; ctx.shadowOffsetY=rw*0.002; }
+        var sy=afterHead+8*scale;
+        for(var j=0;j<fs.lines.length;j++){ ctx.fillText(fs.lines[j], cx, sy+j*fs.lh); }
+        ctx.shadowColor="transparent";
+      }
+    }
+
+    // ---- bullets ----
+    if(bulletsH){
+      var by = areaBottom + 8*scale, bx = align==="center" ? rx+rw*0.14 : rx;
+      for(var k=0;k<bulletList.length;k++){
+        checkRow(ctx, bulletList[k], bx, by+bsz*0.6+k*(bsz*2.05), bsz*0.62, acc.solid, ink);
+      }
+    }
+
+    // ---- CTA ----
+    var ccx = align==="center" ? rx+rw/2 : rx + ( (function(){ ctx.font="800 "+(22*scale)+"px "+SANS; return ctx.measureText(fmt(tpl.cta,ang)).width+52*scale+20*scale; })() )/2;
+    ctaPill(ctx, fmt(tpl.cta,ang), ccx, ctaCY, scale, pillFill, pillText, true);
+
+    // ---- brand ----
+    if(brandOn){ brandMark(ctx, align==="center"? rx+rw/2 - measureBrand(ctx,scale)/2 : rx, bottomY-brandH+2*scale, scale, !dark); }
+  }
+  function measureBrand(ctx,scale){ ctx.font="800 "+(15*scale)+"px "+SANS; return 12*scale + ctx.measureText(SITE_NAME).width + 8*scale; }
+
+  /* ---------- chrome ---------- */
+  // white "native" card inset; returns the inner content rect
+  function cardPanel(ctx,W,H,pad){
+    var m=pad, x=m, y=m, w=W-m*2, h=H-m*2, r=Math.min(W,H)*0.045;
+    ctx.save(); ctx.shadowColor="rgba(8,20,38,.28)"; ctx.shadowBlur=W*0.03; ctx.shadowOffsetY=W*0.01;
+    rr(ctx,x,y,w,h,r); ctx.fillStyle="#fff"; ctx.fill(); ctx.restore();
+    ctx.lineWidth=Math.max(1,W*0.002); ctx.strokeStyle="#e2e9f4"; rr(ctx,x,y,w,h,r); ctx.stroke();
+    var ip=Math.min(W,H)*0.07;
+    return {x:x+ip, y:y+ip, w:w-ip*2, h:h-ip*2};
+  }
+  function notifHeader(ctx,rx,ry,rw,acc,scale){
+    var r=16*scale;
+    glyph(ctx,"bell", rx+r, ry+r, r, acc.solid, "#fff");
+    ctx.fillStyle=INK; ctx.font="800 "+(15*scale)+"px "+SANS; ctx.textAlign="left"; ctx.textBaseline="middle";
+    ctx.fillText("New remote job alert", rx+r*2+10*scale, ry+r*0.75);
+    ctx.fillStyle=INKSOFT; ctx.font="600 "+(12*scale)+"px "+SANS;
+    ctx.fillText("Just now · hiring nationwide", rx+r*2+10*scale, ry+r*1.55);
+    ctx.textBaseline="alphabetic";
+    return ry + r*2 + 12*scale;
+  }
+  function searchHeader(ctx,rx,ry,rw,ang,acc,scale){
+    var h=40*scale, r=h/2;
+    rr(ctx,rx,ry,rw,h,r); ctx.fillStyle="#f1f5fb"; ctx.fill();
+    ctx.lineWidth=Math.max(1,scale); ctx.strokeStyle="#d6e0ef"; ctx.stroke();
+    glyph(ctx,"search", rx+h*0.55, ry+h/2, h*0.32, null, INKSOFT);
+    var term = ang.term;
+    var tf = fitOneLine(ctx, term, rw-h*1.5, "600", SANS, 15*scale);
+    ctx.font="600 "+tf+"px "+SANS; ctx.fillStyle=INK; ctx.textAlign="left"; ctx.textBaseline="middle";
+    ctx.fillText(term, rx+h, ry+h/2); ctx.textBaseline="alphabetic";
+    ctx.fillStyle=INKSOFT; ctx.font="700 "+(13*scale)+"px "+SANS;
+    ctx.fillText("Remote openings · apply on reputable boards", rx, ry+h+18*scale);
+    return ry + h + 30*scale;
+  }
+  function ribbon(ctx,W,H){
+    ctx.save(); var s=Math.min(W,H)*0.34;
+    ctx.translate(W,0); ctx.rotate(Math.PI/2*0.5);
+    ctx.fillStyle="#e8730c"; ctx.fillRect(-s, -s*0.28, s*2, s*0.28);
+    ctx.fillStyle="#fff"; ctx.font="800 "+(s*0.13)+"px "+SANS; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText("NOW HIRING", 0, -s*0.14); ctx.restore();
+  }
+  function listingCard(ctx,rx,ry,rw,rh,ang,acc,scale){
+    // role title + pay pill + "Remote" location row + accent apply button, inside a card
+    ctx.fillStyle=INK; ctx.textAlign="left"; ctx.textBaseline="top";
+    var rf=fitBox(ctx, ang.role, rw, rh*0.34, "900", SANS, Math.min(rw*0.11, rh*0.2));
+    ctx.font="900 "+rf.px+"px "+SANS;
+    for(var i=0;i<rf.lines.length;i++){ ctx.fillText(rf.lines[i], rx, ry+i*rf.lh); }
+    var y=ry+rf.lines.length*rf.lh+10*scale;
+    // meta rows
+    ctx.font="700 "+(15*scale)+"px "+SANS; ctx.fillStyle=INKSOFT;
+    glyph(ctx,"laptop", rx+8*scale, y+8*scale, 8*scale, null, acc.solid);
+    ctx.fillStyle=INKSOFT; ctx.textBaseline="middle"; ctx.fillText("Remote · Work from home", rx+22*scale, y+8*scale);
+    y += 26*scale;
+    var pw = chip(ctx, ang.pay+" · F/T · P/T", rx, y, scale, "#eaf2ff", acc.b);
+    y += 34*scale;
+    ctx.textBaseline="alphabetic";
+    // apply button pinned bottom-left
+    ctaPill(ctx, "View Job", rx + (function(){ctx.font="800 "+(22*scale)+"px "+SANS; return ctx.measureText("View Job").width+52*scale+20*scale;})()/2, ry+rh-27*scale, scale, acc.solid, "#fff", true);
+  }
+
+  /* ---------- layout classes ---------- */
+  function layoutClass(W,H){
+    if(H<=140) return "strip";
+    if(W/H>=1.7) return "wide";
+    return "panel";
+  }
+
+  // very short strips (leaderboards, mobile banners): accent block left, headline + cta right
+  function drawStrip(ctx,W,H,tpl,ang,acc,img){
+    var iw=Math.min(H*1.2, W*0.4);
+    if(tpl.bg==="photo" && img){ cover(ctx,img,0,0,iw,H); }
+    else { var g=ctx.createLinearGradient(0,0,iw,H); g.addColorStop(0,acc.a); g.addColorStop(1,acc.b); ctx.fillStyle=g; ctx.fillRect(0,0,iw,H); }
+    ctx.fillStyle=acc.solid; ctx.fillRect(iw,0,W-iw,H);
+    var pad=Math.max(6,H*0.16), px=iw+pad, pw=W-iw-pad*1.4;
+    var head=fmt(tpl.headSrc==="role"?"{role}":"{head}", ang).split("|").join(" ");
+    if(H>=74){
+      var fh=fitBox(ctx, head, pw, H*0.52, "900", SANS, H*0.34);
+      ctx.font="900 "+fh.px+"px "+SANS; ctx.fillStyle="#fff"; ctx.textAlign="left"; ctx.textBaseline="top";
+      for(var i=0;i<fh.lines.length;i++){ ctx.fillText(fh.lines[i], px, pad*0.6+i*fh.lh); }
+      var cta=fmt(tpl.cta,ang)+" ›", cpx=fitOneLine(ctx,cta,pw,"800",SANS,H*0.24);
+      ctx.font="800 "+cpx+"px "+SANS; ctx.textBaseline="alphabetic"; ctx.fillText(cta, px, H-pad*0.7);
+    } else {
+      var cta2=fmt(tpl.cta,ang)+" ›", cpx2=fitOneLine(ctx, head+"  "+cta2, pw, "800", SANS, H*0.4);
+      ctx.font="800 "+cpx2+"px "+SANS; ctx.fillStyle="#fff"; ctx.textAlign="left"; ctx.textBaseline="middle";
+      ctx.fillText(head, px, H*0.5);
+    }
+    ctx.textBaseline="alphabetic";
+  }
+
+  // landscape: left media/accent panel, right content stack
+  function drawWide(ctx,W,H,tpl,ang,acc,img){
+    var lw=Math.round(W*0.42);
+    if(tpl.bg==="photo" && img){ cover(ctx,img,0,0,lw,H); scrim(ctx,lw,H); }
+    else { var g=ctx.createLinearGradient(0,0,lw,H); g.addColorStop(0,acc.a); g.addColorStop(1,acc.b); ctx.fillStyle=g; ctx.fillRect(0,0,lw,H); }
+    // right panel background: light for light/native templates else white card feel
+    var rightLight = (tpl.bg==="light");
+    ctx.fillStyle = rightLight ? "#eef3fb" : "#ffffff";
+    ctx.fillRect(lw,0,W-lw,H);
+    // decorative icon or badge on the left panel
+    if(tpl.ic){ glyph(ctx, tpl.ic, lw*0.5, H*0.42, Math.min(lw,H)*0.16, "rgba(255,255,255,.16)", "#fff"); }
+    else if(tpl.bg!=="photo"){ chip(ctx,"Work From Home", lw*0.12, H*0.12, clampN(H/300,0.6,1.3), "rgba(255,255,255,.18)","#fff"); }
+    var pad=clampN(H*0.12,16,54);
+    contentStack(ctx, lw+pad, pad, W-lw-pad*2, H-pad*2, tpl, ang, acc, true /*dark text on light/white*/, "left", true);
+  }
+
+  // square / portrait / tall
+  function drawPanel(ctx,W,H,tpl,ang,acc,img){
+    var pad=clampN(W*0.06,14,64);
+    paintBg(ctx,W,H,tpl,acc,img);
+    if(tpl.ribbon) ribbon(ctx,W,H);
+
+    // card templates: draw a white card and lay content dark inside it
+    if(tpl.card){
+      var rect=cardPanel(ctx,W,H,pad);
+      var scale=clampN(Math.min(rect.w,rect.h)/430,0.42,1.7);
+      var cy=rect.y;
+      if(tpl.header==="notif"){ cy=notifHeader(ctx,rect.x,rect.y,rect.w,acc,scale);
+        contentStack(ctx, rect.x, cy, rect.w, rect.y+rect.h-cy, tpl, ang, acc, true, "left", true); return; }
+      if(tpl.header==="search"){ cy=searchHeader(ctx,rect.x,rect.y,rect.w,ang,acc,scale);
+        contentStack(ctx, rect.x, cy, rect.w, rect.y+rect.h-cy, tpl, ang, acc, true, "left", true); return; }
+      if(tpl.headSrc==="role" && tpl.payPill){ listingCard(ctx,rect.x,rect.y,rect.w,rect.h,ang,acc,scale); return; }
+      if(tpl.ic){ var gr=Math.min(rect.w,rect.h)*0.11; glyph(ctx,tpl.ic,rect.x+gr,rect.y+gr,gr,acc.solid,"#fff");
+        contentStack(ctx, rect.x, rect.y+gr*2+10*scale, rect.w, rect.h-(gr*2+10*scale), tpl, ang, acc, true, "left", true); return; }
+      contentStack(ctx, rect.x, rect.y, rect.w, rect.h, tpl, ang, acc, true, "left", true);
+      return;
+    }
+
+    // non-card templates
+    var dark = isDarkText(tpl);
+    var align = (tpl.bg==="photo" || tpl.bg==="solid" || tpl.id==="pay" || tpl.id==="question") ? "left" : "left";
+    // minimal editorial: light bg, an accent rule + icon, centered-left content
+    if(tpl.id==="minimal"){
+      var gr2=Math.min(W,H)*0.09; glyph(ctx,"laptop", pad+gr2, pad+gr2, gr2, acc.solid, "#fff");
+      ctx.fillStyle=acc.solid; ctx.fillRect(pad, pad+gr2*2+H*0.02, W*0.16, Math.max(3,H*0.008));
+      contentStack(ctx, pad, pad+gr2*2+H*0.03, W-pad*2, H-(pad+gr2*2+H*0.03)-pad, tpl, ang, acc, true, "left", true);
+      return;
+    }
+    if(tpl.ic && !tpl.card){
+      var gr3=Math.min(W,H)*0.10; glyph(ctx,tpl.ic, pad+gr3, pad+gr3, gr3, dark?acc.solid:"rgba(255,255,255,.22)", "#fff");
+      contentStack(ctx, pad, pad+gr3*2+H*0.02, W-pad*2, H-(pad+gr3*2+H*0.02)-pad, tpl, ang, acc, dark, "left", true);
+      return;
+    }
+    // default: photo/solid/grad overlay, content bottom-weighted
+    contentStack(ctx, pad, pad, W-pad*2, H-pad*2, tpl, ang, acc, dark, "left", true);
+  }
+
+  function render(canvas, tpl, ang, accIdx, size){
+    canvas.width=size.w; canvas.height=size.h;
+    var ctx=canvas.getContext("2d");
+    var acc=ACCENTS[accIdx % ACCENTS.length];
+    var needPhoto = (tpl.bg==="photo" && PHOTO);
+    return loadImg(needPhoto?PHOTO.src:null).then(function(img){
+      var W=size.w,H=size.h,cls=layoutClass(W,H);
+      ctx.clearRect(0,0,W,H); ctx.fillStyle="#0e1726"; ctx.fillRect(0,0,W,H);
+      if(cls==="strip") drawStrip(ctx,W,H,tpl,ang,acc,img);
+      else if(cls==="wide") drawWide(ctx,W,H,tpl,ang,acc,img);
+      else drawPanel(ctx,W,H,tpl,ang,acc,img);
+      return canvas;
+    });
+  }
+
+  /* ---------- app: Size -> Style -> Angle ---------- */
+  var state={ size:null, tpl:null, acc:0, idx:{} };
+  ANGLES.forEach(function(a){ state.idx[a.id]=0; });
+  var SAMPLE=ANGLES[0];
+
+  function initApp(){
+    buildSizeStep();
+    document.getElementById("dlAllBtn").addEventListener("click", downloadAll);
+    document.getElementById("crumbSize").addEventListener("click", goSize);
+    document.getElementById("crumbTpl").addEventListener("click", function(){ if(state.size) goTpl(); });
+    document.getElementById("crumbAngle").addEventListener("click", function(){ if(state.tpl) goAngle(); });
+    goSize();
+  }
+  function previewSize(s){
+    var cap=560, lng=Math.max(s.w,s.h);
+    if(lng<=cap) return {w:s.w,h:s.h};
+    var k=cap/lng; return {w:Math.round(s.w*k), h:Math.round(s.h*k)};
+  }
+  function setCrumbs(step){
+    var cs=document.getElementById("crumbSize"), ct=document.getElementById("crumbTpl"), ca=document.getElementById("crumbAngle");
+    cs.querySelector(".cl").textContent = state.size ? (state.size.w+"×"+state.size.h) : "Size";
+    ct.querySelector(".cl").textContent = state.tpl ? state.tpl.name : "Style";
+    cs.className="crumb "+(step===1?"active":"done");
+    ct.className="crumb "+(step===2?"active":(state.tpl?"done":"todo"));
+    ca.className="crumb "+(step===3?"active":(state.tpl?"done":"todo"));
+    document.getElementById("dlAllBtn").classList.toggle("hide", step!==3);
+  }
+  function showStep(id){
+    ["stepSize","stepTpl","stepAngle"].forEach(function(s){ document.getElementById(s).classList.toggle("hide", s!==id); });
+    window.scrollTo(0,0);
+  }
+
+  /* STEP 1 — size */
+  function buildSizeStep(){
+    var host=document.getElementById("stepSize"); host.innerHTML="";
+    var h=document.createElement("div"); h.className="step-h";
+    h.innerHTML="Choose an ad size <span>&mdash; the platform &amp; format you are buying</span>"; host.appendChild(h);
+    var groups={}, order=[];
+    SIZES.forEach(function(s){ if(!groups[s.g]){ groups[s.g]=[]; order.push(s.g); } groups[s.g].push(s); });
+    order.forEach(function(g){
+      var gh=document.createElement("div"); gh.className="grp"; gh.textContent=g; host.appendChild(gh);
+      var grid=document.createElement("div"); grid.className="size-grid"; host.appendChild(grid);
+      groups[g].forEach(function(s){
+        var card=document.createElement("div"); card.className="size-card";
+        var tb=document.createElement("div"); tb.className="size-thumb";
+        var ar=document.createElement("div"); ar.className="size-ar";
+        var mx=Math.max(s.w,s.h);
+        ar.style.width=Math.max(10,Math.round(s.w/mx*96))+"px";
+        ar.style.height=Math.max(10,Math.round(s.h/mx*96))+"px";
+        tb.appendChild(ar);
+        var b=document.createElement("b"); b.textContent=s.w+"×"+s.h;
+        var sm=document.createElement("small"); sm.textContent=s.label.replace(/\s*\(.*\)/,"");
+        card.appendChild(tb); card.appendChild(b); card.appendChild(sm);
+        card.addEventListener("click", function(){ state.size=s; buildTplStep(); goTpl(); });
+        grid.appendChild(card);
+      });
+    });
+  }
+  function goSize(){ setCrumbs(1); showStep("stepSize"); }
+
+  /* STEP 2 — style (previews at the chosen size) */
+  function buildTplStep(){
+    var host=document.getElementById("stepTpl"); host.innerHTML="";
+    var ps=previewSize(state.size);
+    var h=document.createElement("div"); h.className="step-h";
+    h.innerHTML="Choose a style <span>&mdash; shown at "+state.size.w+"×"+state.size.h+", your selected size</span>";
+    host.appendChild(h);
+    var groups={}, order=[];
+    TEMPLATES.forEach(function(t){ if(!groups[t.group]){ groups[t.group]=[]; order.push(t.group); } groups[t.group].push(t); });
+    order.forEach(function(g){
+      var gh=document.createElement("div"); gh.className="grp"; gh.textContent=g; host.appendChild(gh);
+      var grid=document.createElement("div"); grid.className="tpl-grid"; host.appendChild(grid);
+      groups[g].forEach(function(t){
+        var card=document.createElement("div"); card.className="tcard";
+        var st=document.createElement("div"); st.className="st";
+        var cv=document.createElement("canvas"); st.appendChild(cv);
+        var m=document.createElement("div"); m.className="m"; m.innerHTML="<b></b><span></span>";
+        m.querySelector("b").textContent=t.name;
+        m.querySelector("span").textContent=t.group;
+        card.appendChild(st); card.appendChild(m);
+        card.addEventListener("click", function(){ state.tpl=t; buildAngleStep(); goAngle(); });
+        grid.appendChild(card);
+        render(cv, t, SAMPLE, state.acc, ps);
+      });
+    });
+  }
+  function goTpl(){ setCrumbs(2); showStep("stepTpl"); }
+
+  /* STEP 3 — angle (full-res ads, one per audience; pick + download) */
+  function buildAngleStep(){
+    var host=document.getElementById("stepAngle"); host.innerHTML="";
+    var h=document.createElement("div"); h.className="step-h";
+    h.innerHTML="Choose an angle <span>&mdash; "+state.tpl.name+" at "+state.size.w+"×"+state.size.h+"; "+ANGLES.length+" audiences. Download the ones you'll run.</span>";
+    host.appendChild(h);
+    // accent swatch row
+    var ar=document.createElement("div"); ar.className="acc-row";
+    var lbl=document.createElement("span"); lbl.className="lbl"; lbl.textContent="Accent:"; ar.appendChild(lbl);
+    ACCENTS.forEach(function(a,ai){
+      var sw=document.createElement("button"); sw.className="sw"+(ai===state.acc?" on":"");
+      sw.style.background="linear-gradient(135deg,"+a.a+","+a.b+")"; sw.title=a.name;
+      sw.addEventListener("click", function(){ state.acc=ai;
+        [].forEach.call(ar.querySelectorAll(".sw"), function(el,ei){ el.className="sw"+(ei===ai?" on":""); });
+        redrawAll(); });
+      ar.appendChild(sw);
+    });
+    host.appendChild(ar);
+    var grid=document.createElement("div"); grid.className="ex-grid"; host.appendChild(grid);
+    ANGLES.forEach(function(a){
+      var card=document.createElement("div"); card.className="ex"; card._ang=a;
+      var stage=document.createElement("div"); stage.className="stage";
+      var cv=document.createElement("canvas"); stage.appendChild(cv); card._cv=cv;
+      card.appendChild(stage);
+      var foot=document.createElement("div"); foot.className="foot";
+      var nm=document.createElement("div"); nm.className="name"; nm.textContent=a.aud;
+      var sub=document.createElement("div"); sub.className="sub"; sub.textContent="→ /"+a.url;
+      var lic=document.createElement("div"); lic.className="lic";
+      var dl=document.createElement("button"); dl.className="btn"; dl.textContent="Download PNG";
+      dl.addEventListener("click", function(){ downloadOne(cv,a); });
+      foot.appendChild(nm); foot.appendChild(sub); foot.appendChild(lic); foot.appendChild(dl);
+      card.appendChild(foot); grid.appendChild(card);
+      lic.textContent = licLine();
+      render(cv, state.tpl, a, state.acc, state.size);
+    });
+  }
+  function goAngle(){ setCrumbs(3); showStep("stepAngle"); }
+  function licLine(){
+    if(state.tpl.bg==="photo" && PHOTO){ return "["+(PHOTO.license||"")+"] "+(PHOTO.credit||""); }
+    return "Generated — no photo, brand-safe";
+  }
+  function redrawAll(){
+    var cards=document.querySelectorAll("#stepAngle .ex");
+    [].forEach.call(cards, function(card){ render(card._cv, state.tpl, card._ang, state.acc, state.size); card.querySelector(".lic").textContent=licLine(); });
+  }
+
+  function fileName(a){ return "remote-"+a.id+"-"+state.tpl.id+"-"+ACCENTS[state.acc].name.toLowerCase()+"-"+state.size.w+"x"+state.size.h+".png"; }
+  function saveCanvas(cv,name){
+    cv.toBlob(function(b){
+      if(!b){ alert("Export blocked — open this tool on the live domain or a local http server (not file://) so the canvas can save."); return; }
+      var url=URL.createObjectURL(b), aEl=document.createElement("a"); aEl.href=url; aEl.download=name;
+      document.body.appendChild(aEl); aEl.click();
+      setTimeout(function(){ URL.revokeObjectURL(url); aEl.remove(); }, 4000);
+    }, "image/png");
+  }
+  function downloadOne(cv,a){ saveCanvas(cv, fileName(a)); }
+  function downloadAll(){
+    var btn=document.getElementById("dlAllBtn"); btn.disabled=true; var old=btn.textContent;
+    var off=document.createElement("canvas"), i=0;
+    function next(){
+      if(i>=ANGLES.length){ btn.disabled=false; btn.textContent=old; return; }
+      var a=ANGLES[i]; btn.textContent="Saving "+(i+1)+"/"+ANGLES.length+"...";
+      render(off, state.tpl, a, state.acc, state.size).then(function(){
+        saveCanvas(off, fileName(a)); i++; setTimeout(next, 350);
+      });
+    }
+    next();
+  }
+
+  try{ if(sessionStorage.getItem("jgm_ad_ok")==="1"){ unlock(); } }catch(e){}
+})();
+</script>
+</body>
+</html>

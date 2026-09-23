@@ -1,0 +1,132 @@
+{
+  "type": "category",
+  "id": "remote-jobs",
+  "category": "Remote Jobs",
+  "icon": "laptop",
+  "title": "Remote Jobs Hiring Now — Work From Home Roles",
+  "subtitle": "Customer service, data entry, virtual assistant, and support roles you can do from home.",
+  "hero": {
+    "openings": "Hiring nationwide",
+    "pay": "$15 – $28 / hr",
+    "type": "Full & part-time",
+    "location": "Work from home"
+  },
+  "ctaLine": "Legitimate work-from-home roles are hiring. See current openings and apply directly.",
+  "openingsLead": "Tap a role or a popular search below to see current remote openings and apply on a reputable job board.",
+  "intro": "Remote work has become a permanent option for many roles, especially in customer support, data entry, scheduling, and virtual assistance. The key is applying through reputable job boards and official company pages to avoid scams — legitimate remote jobs never ask you to pay to start. Working from home offers real flexibility, but it also calls for self-discipline, a quiet workspace, and reliable internet. Because these roles hire nationwide rather than by location, openings can come from employers anywhere in the country. Here's an overview of realistic work-from-home roles and where to find them.",
+  "sections": [
+    {
+      "h": "Realistic remote roles",
+      "bullets": [
+        "Customer service / support representative",
+        "Data entry and administrative support",
+        "Virtual assistant / scheduling",
+        "Sales and appointment setting",
+        "Content moderation and QA"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Most entry-level remote roles are computer-and-phone based. Customer-service reps handle calls, chats, or emails from a queue, following scripts and looking up account details. Data-entry and admin roles involve entering, checking, and organizing information accurately. Virtual assistants manage calendars, email, and small tasks for a client or team. The day is largely independent, so you'll need to stay focused and manage your own time, but many roles use scheduled shifts and check-ins to keep everyone on track."
+    },
+    {
+      "h": "How to spot a legitimate remote job",
+      "bullets": [
+        "A real employer never asks you to pay to get started",
+        "Apply through official careers pages or known job boards",
+        "Be cautious of offers that seem too good to be true",
+        "Legitimate roles list clear duties, hours, and pay"
+      ]
+    },
+    {
+      "h": "What you'll need to work from home",
+      "p": "Requirements vary by employer, but common needs include a reliable computer, stable high-speed internet, and a quiet place to work without background noise, especially for phone-based roles. Some employers provide a laptop, headset, or software, while others expect you to use your own equipment. Each posting spells out the technical requirements, so check before applying.",
+      "bullets": [
+        "Reliable computer and stable internet",
+        "A quiet, distraction-free workspace",
+        "A headset for phone or video roles",
+        "Basic comfort with common software and typing"
+      ]
+    },
+    {
+      "h": "Pay overview",
+      "p": "Entry-level remote support and data-entry roles sit at the lower end of the range above; specialized support, sales, and experienced roles pay more. Equipment and hours vary — check each posting for specifics."
+    }
+  ],
+  "steps": [
+    "Choose a role type that matches your skills",
+    "Search remote openings on a reputable board",
+    "Read the requirements and confirm it's legitimate",
+    "Apply directly — never pay a fee to start"
+  ],
+  "roles": [
+    {
+      "title": "Customer Service Rep (Remote)",
+      "pay": "$15 – $22 / hr"
+    },
+    {
+      "title": "Data Entry Clerk",
+      "pay": "$15 – $20 / hr"
+    },
+    {
+      "title": "Virtual Assistant",
+      "pay": "$16 – $25 / hr"
+    },
+    {
+      "title": "Remote Sales / Appointment Setter",
+      "pay": "$17 – $28 / hr"
+    },
+    {
+      "title": "Content Moderator / QA",
+      "pay": "$16 – $23 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Remote jobs near me hiring",
+    "Work from home jobs no experience",
+    "Data entry jobs remote",
+    "Customer service work from home",
+    "Virtual assistant jobs hiring",
+    "Part time remote jobs",
+    "Remote jobs no degree",
+    "Legitimate work from home jobs",
+    "Remote appointment setter jobs"
+  ],
+  "faqs": [
+    {
+      "q": "Are remote jobs legitimate?",
+      "a": "Many are. The safest approach is to apply through official company pages and established job boards, and to avoid any 'job' that asks you to pay a fee to start."
+    },
+    {
+      "q": "Do remote jobs require experience?",
+      "a": "Some entry-level support and data-entry roles don't. Others prefer relevant experience. Each posting lists its requirements."
+    },
+    {
+      "q": "What equipment do I need?",
+      "a": "It varies. Many roles require a reliable computer and internet; some employers provide equipment. Check the posting."
+    },
+    {
+      "q": "How do I avoid work-from-home scams?",
+      "a": "Never pay to start a job, be wary of offers that promise unrealistic pay for little work, avoid roles that ask for bank or payment details up front, and stick to official careers pages and well-known job boards."
+    },
+    {
+      "q": "Are remote roles full-time or part-time?",
+      "a": "Both. Many customer-service and data-entry roles offer scheduled full-time or part-time shifts, while some virtual-assistant and moderation roles are more flexible. The posting describes the hours."
+    }
+  ],
+  "applyUrl": "https://www.indeed.com/q-remote-jobs.html",
+  "recommendations": [
+    "cleaning-jobs",
+    "driver-jobs",
+    "mcdonalds"
+  ],
+  "image": {
+    "src": "assets/img/remote-jobs.jpg",
+    "alt": "Remote Jobs — Couple working at home (Unsplash).jpg",
+    "credit": "Couple working at home (Unsplash).jpg — Crew crew (CC0) via Wikimedia Commons",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Couple_working_at_home_(Unsplash).jpg",
+    "w": 800,
+    "h": 663
+  }
+}

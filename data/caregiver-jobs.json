@@ -1,0 +1,37 @@
+{
+  "type": "category",
+  "id": "caregiver-jobs",
+  "category": "Caregiver & Home Care Jobs",
+  "icon": "heart",
+  "imageQuery": "caregiver nurse helping elderly home care",
+  "title": "Caregiver & Home Care Jobs Near You Are Hiring",
+  "subtitle": "Home care aide, caregiver, and CNA-support roles — flexible hours, training provided, steady demand.",
+  "hero": { "openings": "Hiring in most areas", "pay": "$15 – $24 / hr", "type": "Full, part-time & flexible", "location": "Search by ZIP" },
+  "ctaLine": "Care roles are in high demand and hire year-round. See openings near you.",
+  "openingsLead": "Tap a role or a popular search below to see current caregiver openings and apply on a reputable job board.",
+  "intro": "Caregiving and home-care jobs are among the fastest-growing and most consistently available roles in the country, driven by a large and aging population. Many are entry-level with training, helping people with daily living, companionship, and light support in homes and care settings. Hours are often flexible, which makes these roles a good fit for people who need part-time, overnight, or weekend schedules. Some roles ask for a CNA or HHA certification, which employers sometimes help you obtain. Here's an overview of the work and where to find openings.",
+  "sections": [
+    { "h": "Common care roles", "bullets": ["Home care aide / caregiver", "Companion caregiver", "Personal care assistant (PCA)", "CNA / HHA (certification may be required or supported)", "Overnight or live-in care"] },
+    { "h": "What the work is really like day-to-day", "p": "Caregiving is people-focused and hands-on. Depending on the role and the client's needs, a shift might include helping with bathing, dressing, and mobility, preparing meals, light housekeeping, reminding clients to take medication, running errands, and simply providing company and conversation. Companion roles are lighter, focused on supervision and companionship, while personal-care and CNA roles involve more direct physical assistance. Patience, dependability, and compassion matter as much as any technical skill." },
+    { "h": "Schedules and shifts", "p": "Care work is known for flexible scheduling because clients need support at all hours.", "bullets": ["Part-time, full-time, overnight, and live-in options", "Weekend and evening shifts are common", "Some roles are a few hours a day with a single client", "Overnight and live-in roles are often priced differently"] },
+    { "h": "Why consider care work", "bullets": ["High, steady demand", "Many roles entry-level with training", "Flexible and part-time schedules common", "Meaningful, people-focused work"] },
+    { "h": "What it pays", "p": "Pay depends on location, certification, and whether care is hourly, overnight, or live-in. Certified roles (CNA/HHA) pay toward the higher end of the range above. Confirm on each posting; certification requirements vary by state." }
+  ],
+  "steps": ["Pick the care role that fits your experience", "Search openings by your ZIP code", "Check any certification requirements", "Apply on the job board and complete screening"],
+  "roles": [
+    { "title": "Home Care Aide", "pay": "$15 – $20 / hr" },
+    { "title": "Companion Caregiver", "pay": "$15 – $20 / hr" },
+    { "title": "Personal Care Assistant", "pay": "$16 – $21 / hr" },
+    { "title": "Overnight / Live-In Caregiver", "pay": "$16 – $22 / hr" },
+    { "title": "CNA / HHA", "pay": "$17 – $24 / hr" }
+  ],
+  "searchTerms": ["Caregiver jobs near me", "Home care jobs hiring", "Caregiver jobs no experience", "CNA jobs near me hiring", "Part time caregiver jobs", "Overnight caregiver jobs pay", "Personal care assistant jobs", "Home health aide jobs near me", "Live in caregiver jobs near me"],
+  "faqs": [
+    { "q": "Do I need a certification?", "a": "Some caregiver and companion roles need none and provide training. CNA and HHA roles require certification, which some employers help you obtain." },
+    { "q": "Are there flexible hours?", "a": "Yes — care work commonly offers part-time, overnight, and flexible schedules." },
+    { "q": "Is caregiving physically demanding?", "a": "It can be, since some clients need help with mobility, transfers, and daily tasks. Companion roles are lighter, while personal-care and CNA roles involve more physical assistance. Each posting describes the client's needs." },
+    { "q": "What qualities make a good caregiver?", "a": "Patience, reliability, compassion, and good communication. A background check is common, and some roles ask for a driver's license if errands or transportation are involved." }
+  ],
+  "applyUrl": "https://www.indeed.com/q-caregiver-jobs.html",
+  "recommendations": ["cleaning-jobs", "hospitality-jobs", "remote-jobs"]
+}

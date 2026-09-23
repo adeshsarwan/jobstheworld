@@ -1,0 +1,37 @@
+{
+  "type": "category",
+  "id": "admin-jobs",
+  "category": "Office & Admin Jobs",
+  "icon": "briefcase",
+  "imageQuery": "office desk administrative worker computer",
+  "title": "Office & Admin Jobs Near You Are Hiring Now",
+  "subtitle": "Receptionist, data entry, office assistant, and clerk roles — on-site and remote, many entry-level.",
+  "hero": { "openings": "Hiring in most areas", "pay": "$15 – $25 / hr", "type": "Full & part-time", "location": "On-site or remote" },
+  "ctaLine": "Office and admin roles are hiring on-site and remotely. See openings near you.",
+  "openingsLead": "Tap a role or a popular search below to see current office & admin openings and apply on a reputable job board.",
+  "intro": "Office and administrative jobs keep businesses running — answering phones, scheduling, data entry, and supporting teams. Many are entry-level, and some can be done remotely, which makes them a flexible option for a wide range of people. They suit those who are organized, reliable, and comfortable with basic computer tasks like email, spreadsheets, and word processing. Employers of all sizes hire for these roles, so openings tend to be available in most areas year-round. Here's an overview of common roles and where to find openings.",
+  "sections": [
+    { "h": "Common office roles", "bullets": ["Receptionist / front desk", "Data entry clerk", "Office / administrative assistant", "Scheduling coordinator", "Filing & records clerk"] },
+    { "h": "What the work is really like day-to-day", "p": "Office and admin work is steady and detail-oriented. A typical day can involve answering calls and greeting visitors, entering and checking data, organizing files and records, scheduling appointments or meetings, and supporting other staff with paperwork and email. Reception roles are more people-facing, while data-entry and records roles are quieter and focused on accuracy. Most of the day is spent at a desk using a computer, so comfort with common office software helps." },
+    { "h": "Schedules and shifts", "p": "Office roles often follow regular business hours, though part-time and remote arrangements are common.", "bullets": ["Weekday daytime hours are typical", "Part-time and full-time options", "Some roles are fully remote or hybrid", "Exact hours are listed on each posting"] },
+    { "h": "Why consider office work", "bullets": ["Many roles entry-level with training", "On-site and remote options", "Regular weekday schedules common", "A path into coordinator and specialist roles"] },
+    { "h": "What it pays", "p": "Pay depends on location, whether the role is on-site or remote, and responsibilities. Specialized administrative roles pay toward the higher end of the range above. Confirm on each posting." }
+  ],
+  "steps": ["Pick the role that matches your skills", "Search openings by ZIP or filter for remote", "Read the requirements and confirm it's legitimate", "Apply on the job board — never pay a fee to start"],
+  "roles": [
+    { "title": "Receptionist / Front Desk", "pay": "$15 – $20 / hr" },
+    { "title": "Data Entry Clerk", "pay": "$15 – $20 / hr" },
+    { "title": "Office Assistant", "pay": "$16 – $22 / hr" },
+    { "title": "Scheduling Coordinator", "pay": "$16 – $22 / hr" },
+    { "title": "Administrative Assistant", "pay": "$18 – $25 / hr" }
+  ],
+  "searchTerms": ["Office jobs near me", "Administrative assistant jobs hiring", "Data entry jobs no experience", "Receptionist jobs near me", "Remote admin jobs hiring", "Part time office jobs", "Clerk jobs hiring immediately", "Entry level office jobs", "Scheduling coordinator jobs near me"],
+  "faqs": [
+    { "q": "Do office jobs require experience?", "a": "Many entry-level receptionist and data-entry roles don't. Others prefer some office experience. Each posting lists requirements." },
+    { "q": "Are remote office jobs legitimate?", "a": "Many are — apply through reputable job boards and official company pages, and never pay a fee to start." },
+    { "q": "What skills help me get hired?", "a": "Organization, reliability, clear communication, and comfort with common office software like email, word processing, and spreadsheets. Typing speed and attention to detail help for data-entry roles." },
+    { "q": "Can office jobs lead to higher-paying roles?", "a": "Yes. Entry-level admin roles often lead into coordinator, executive-assistant, or specialist positions over time as you gain experience and take on more responsibility." }
+  ],
+  "applyUrl": "https://www.indeed.com/q-administrative-assistant-jobs.html",
+  "recommendations": ["remote-jobs", "cleaning-jobs", "caregiver-jobs"]
+}

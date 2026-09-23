@@ -1,0 +1,110 @@
+{
+  "type": "employer",
+  "id": "starbucks",
+  "employer": "Starbucks",
+  "icon": "food",
+  "imageQuery": "coffee shop barista cafe",
+  "title": "Starbucks Is Hiring Baristas & Shift Supervisors",
+  "subtitle": "Barista and shift supervisor roles with flexible hours, benefits for part-timers, and training.",
+  "hero": {
+    "openings": "Cafes nationwide",
+    "pay": "$15 – $22 / hr",
+    "type": "Full & part-time",
+    "location": "U.S. — nationwide"
+  },
+  "ctaLine": "Starbucks hires baristas year-round with flexible schedules. See openings near you.",
+  "intro": "Starbucks hires baristas and shift supervisors across its cafes throughout the country. Barista roles are entry-level with training, often with flexible scheduling that suits students and people balancing other work. Starbucks is also widely known for extending benefits to eligible part-time employees, which sets it apart from many other cafe and retail jobs. Many baristas move up into shift supervisor and store leadership roles over time. Here's an overview of what's typically available and how to apply.",
+  "sections": [
+    {
+      "h": "Roles that open often",
+      "bullets": [
+        "Barista",
+        "Shift supervisor",
+        "Cafe attendant",
+        "Seasonal roles at busy times"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "A barista shift is hands-on and customer-focused. You take orders, prepare espresso drinks and other beverages, handle food items, run the register, and keep the cafe clean and stocked. Mornings can be intense with steady lines, so the work is fast-paced and requires staying organized under pressure. Shift supervisors do the same barista tasks while also directing the team, handling cash, and keeping the shift running smoothly. New hires are trained on recipes and equipment before working solo."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Cafe hours span early mornings through evenings, so schedules are flexible and often built around opening and closing blocks.",
+      "bullets": [
+        "Early opening shifts and evening closing shifts",
+        "Part-time schedules that can fit around school",
+        "Weekend availability often helps when applying",
+        "Exact hours are set by each store"
+      ]
+    },
+    {
+      "h": "Benefits and perks",
+      "p": "Starbucks is well known for offering benefits to eligible part-time as well as full-time employees. Commonly advertised offerings include health coverage options, a college-tuition assistance program, and stock or savings programs, with eligibility depending on hours worked. Confirm the current details and eligibility on the official careers site.",
+      "bullets": [
+        "Benefits available to eligible part-time employees",
+        "Tuition-assistance program (eligibility applies)",
+        "Free or discounted drinks and beans during shifts",
+        "Tips can add to take-home pay in many locations"
+      ]
+    },
+    {
+      "h": "Pay overview",
+      "p": "Barista pay varies by location and local wage; shift supervisors earn more. Tips can add to take-home pay in many locations. Confirm details on the official posting."
+    }
+  ],
+  "steps": [
+    "Choose barista or supervisor and your area",
+    "Open the official Starbucks careers site",
+    "Search openings by ZIP code",
+    "Apply online and complete any interview steps"
+  ],
+  "roles": [
+    {
+      "title": "Barista",
+      "pay": "$15 – $19 / hr"
+    },
+    {
+      "title": "Shift Supervisor",
+      "pay": "$17 – $22 / hr"
+    },
+    {
+      "title": "Cafe Attendant",
+      "pay": "$15 – $18 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Starbucks jobs near me",
+    "Starbucks barista hiring",
+    "Starbucks careers apply online",
+    "Starbucks part time jobs",
+    "Starbucks shift supervisor pay",
+    "Starbucks jobs no experience",
+    "Starbucks hiring immediately",
+    "Starbucks benefits part time"
+  ],
+  "faqs": [
+    {
+      "q": "Do baristas need experience?",
+      "a": "No — barista roles are entry-level with training provided."
+    },
+    {
+      "q": "Are benefits really available part-time?",
+      "a": "Starbucks is known for offering benefits to eligible part-time employees; eligibility details are on the official site."
+    },
+    {
+      "q": "Is the barista job fast-paced?",
+      "a": "It can be, especially during morning rushes. You'll be making drinks, serving customers, and multitasking, so staying organized helps. Training covers the recipes and equipment before you work on your own."
+    },
+    {
+      "q": "Can I move up from barista?",
+      "a": "Yes. Many baristas advance to shift supervisor and, over time, into store leadership roles. Advancement depends on performance and openings at your store."
+    }
+  ],
+  "applyUrl": "https://careers.starbucks.com/",
+  "recommendations": [
+    "mcdonalds",
+    "hospitality-jobs",
+    "target"
+  ]
+}

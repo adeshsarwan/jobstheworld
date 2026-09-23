@@ -1,0 +1,132 @@
+{
+  "type": "employer",
+  "id": "mcdonalds",
+  "employer": "McDonald's",
+  "icon": "food",
+  "title": "McDonald's Is Hiring Across the U.S. in 2026",
+  "subtitle": "Flexible shifts, paid training, and real growth — crew and management roles are open at restaurants nationwide.",
+  "hero": {
+    "openings": "Thousands nationwide",
+    "pay": "$13 – $21 / hr",
+    "type": "Full & part-time",
+    "location": "U.S. — nationwide"
+  },
+  "ctaLine": "McDonald's restaurants hire year-round. See which roles are open near you today.",
+  "intro": "McDonald's is one of the largest employers in the country, and its restaurants hire continuously for crew, kitchen, and management positions. Whether you want a first job, a flexible second income, or a path into restaurant management, there are roles that fit different schedules and experience levels. Most locations are owned and run by local franchisees, so exact pay, benefits, and scheduling are set locally and can differ from one restaurant to the next. Crew roles are entry-level with training provided, which makes them a common starting point for students, parents, and career changers. Below is a plain-English guide to what's typically available, what it pays, and how to apply on the official site.",
+  "sections": [
+    {
+      "h": "Why people choose McDonald's",
+      "p": "It's a well-known employer that hires people without prior experience and provides on-the-job training. Many locations offer flexible scheduling, which works well for students, parents, and anyone balancing other commitments.",
+      "bullets": [
+        "No experience required for most crew roles — training provided",
+        "Flexible shifts, including mornings, evenings, and weekends",
+        "Opportunities to move up into shift lead and management",
+        "Benefits vary by location and role — ask during the interview"
+      ]
+    },
+    {
+      "h": "Roles that are commonly open",
+      "p": "Individual restaurants set their own hiring needs, so availability changes by location. These are the roles most often advertised.",
+      "bullets": [
+        "Crew Member — front counter, drive-thru, and kitchen",
+        "Cook / Kitchen Team",
+        "Shift Manager",
+        "Department or Assistant Manager"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "A crew shift is fast-paced and team-based. Depending on your station you might take orders at the front counter or drive-thru, prepare food in the kitchen, keep the dining area clean, or restock supplies during busy rushes. Expect to be on your feet and moving for most of the shift, especially during meal-time peaks. New crew members are trained station by station, so you learn one area before taking on more."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Because many restaurants are open long hours, schedules are flexible and built around several dayparts.",
+      "bullets": [
+        "Morning, midday, evening, overnight, and weekend shifts at many locations",
+        "Part-time schedules that can fit around school",
+        "Full-time hours for those who want them",
+        "Availability and exact hours are set by each restaurant"
+      ]
+    },
+    {
+      "h": "What the pay looks like",
+      "p": "Pay depends heavily on your location, the local minimum wage, and the role. Crew positions are commonly advertised in the range shown above, with higher pay for shift leads and managers. Always confirm the exact rate on the official job posting for your area."
+    }
+  ],
+  "steps": [
+    "Choose the role and location closest to you",
+    "Open the official McDonald's careers page",
+    "Create a short profile and pick your restaurant",
+    "Submit the application — many locations reply quickly"
+  ],
+  "roles": [
+    {
+      "title": "Crew Member",
+      "pay": "$13 – $17 / hr"
+    },
+    {
+      "title": "Cook / Kitchen Team",
+      "pay": "$13 – $18 / hr"
+    },
+    {
+      "title": "Drive-Thru / Front Counter",
+      "pay": "$13 – $17 / hr"
+    },
+    {
+      "title": "Shift Manager",
+      "pay": "$16 – $21 / hr"
+    },
+    {
+      "title": "Assistant Manager",
+      "pay": "$18 – $24 / hr"
+    }
+  ],
+  "searchTerms": [
+    "McDonald's jobs near me",
+    "McDonald's careers application 2026",
+    "McDonald's crew member hiring",
+    "McDonald's part time jobs",
+    "McDonald's shift manager salary",
+    "McDonald's hiring 16 year olds",
+    "McDonald's night shift jobs",
+    "McDonald's jobs no experience"
+  ],
+  "faqs": [
+    {
+      "q": "Do I need experience to apply?",
+      "a": "No. Most crew roles are entry-level and include training. Management roles may ask for prior supervisory experience."
+    },
+    {
+      "q": "How old do I have to be?",
+      "a": "Minimum age varies by location and local law, often 14–16 for crew roles with restrictions on hours. The official posting for your restaurant will list the requirement."
+    },
+    {
+      "q": "How long does it take to hear back?",
+      "a": "It varies by restaurant. Many locations that are actively hiring respond within a few days of an application."
+    },
+    {
+      "q": "Are there opportunities to move up?",
+      "a": "Yes. Many crew members advance to shift lead and management over time. Because most restaurants are locally owned, promotion paths and timing are set by each franchisee."
+    },
+    {
+      "q": "Does McDonald's offer benefits?",
+      "a": "Benefits vary by location and role since restaurants are independently operated. Some franchisees advertise perks such as flexible scheduling, meal discounts, and education-assistance programs. Ask during the interview and check the posting."
+    }
+  ],
+  "applyUrl": "https://careers.mcdonalds.com/",
+  "recommendations": [
+    "walmart",
+    "amazon-warehouse",
+    "cleaning-jobs"
+  ],
+  "logo": {
+    "src": "assets/img/mcdonalds-logo.png",
+    "alt": "McDonald's logo",
+    "credit": "McDonald's logo.svg — McDonald's (Public domain) via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:McDonald%27s_logo.svg",
+    "w": 400,
+    "h": 303,
+    "trademark": "McDonald's is a trademark of its owner; used for identification only."
+  }
+}

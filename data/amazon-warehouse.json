@@ -1,0 +1,127 @@
+{
+  "type": "employer",
+  "id": "amazon-warehouse",
+  "employer": "Amazon",
+  "icon": "box",
+  "title": "Amazon Warehouse & Delivery Jobs Are Hiring Near You",
+  "subtitle": "Fulfillment, sortation, and delivery-station roles with fast hiring, weekly-style pay, and flexible shifts.",
+  "hero": {
+    "openings": "Fulfillment & delivery",
+    "pay": "$16 – $23 / hr",
+    "type": "Full & part-time",
+    "location": "U.S. — nationwide"
+  },
+  "ctaLine": "Amazon facilities hire quickly and often. Check current openings near you.",
+  "intro": "Amazon hires warehouse and delivery associates across its fulfillment centers, sortation centers, and delivery stations throughout the country. These roles are known for a fast application process, straightforward entry requirements, and a range of shift options including part-time, overnight, and weekend. Because Amazon operates so many facilities, openings tend to be available locally rather than only in major hubs, and hiring often ramps up around busy shopping seasons. Most roles are entry-level with training provided, so no prior experience or degree is required to start. Here's what to expect and how to apply on the official jobs site.",
+  "sections": [
+    {
+      "h": "Types of roles",
+      "p": "Availability depends on which facilities are near you and current demand.",
+      "bullets": [
+        "Fulfillment center associate — picking, packing, stowing",
+        "Sortation center associate — sorting packages",
+        "Delivery station associate — loading and dispatch",
+        "Seasonal and flexible-shift roles at peak times"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Warehouse roles are active and physical. In a fulfillment center you might spend the shift picking items from shelves, packing orders, or stowing incoming inventory, often with the help of scanners and conveyor systems that set the pace. Sortation and delivery-station roles focus on moving, scanning, and staging packages so they reach the right route. Expect to be on your feet, walking, lifting, and repeating tasks — many people find the time passes quickly because the work is steady and hands-on."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "One of the main draws is shift variety. Facilities run around the clock, so there are day, evening, overnight, and weekend options, plus shorter part-time and flexible schedules at many locations.",
+      "bullets": [
+        "Full-time, part-time, and reduced-time shifts",
+        "Overnight and weekend shifts, which may pay more",
+        "Seasonal roles during peak periods",
+        "Exact shift blocks are shown when you search by location"
+      ]
+    },
+    {
+      "h": "Benefits and perks",
+      "p": "Benefits and eligibility vary by role, hours, and location, and the details are presented during the application. Commonly advertised offerings include health coverage options for eligible associates and education or upskilling programs. Confirm what applies to a specific role on the official posting."
+    },
+    {
+      "h": "Pay and shifts",
+      "p": "Starting pay varies by facility and region, and some shifts (overnight, weekend) may carry higher rates. The exact pay and available shifts are listed on the official posting when you search by location."
+    }
+  ],
+  "steps": [
+    "Choose warehouse or delivery and your area",
+    "Open the official Amazon jobs site",
+    "Search by ZIP and pick an available shift",
+    "Complete the short application to reserve your spot"
+  ],
+  "roles": [
+    {
+      "title": "Fulfillment Center Associate",
+      "pay": "$16 – $22 / hr"
+    },
+    {
+      "title": "Sortation Center Associate",
+      "pay": "$16 – $21 / hr"
+    },
+    {
+      "title": "Delivery Station Associate",
+      "pay": "$17 – $23 / hr"
+    },
+    {
+      "title": "Overnight Warehouse Shift",
+      "pay": "$18 – $23 / hr"
+    },
+    {
+      "title": "Seasonal Associate",
+      "pay": "$16 – $22 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Amazon warehouse jobs near me",
+    "Amazon jobs apply online",
+    "Amazon delivery station hiring",
+    "Amazon part time warehouse jobs",
+    "Amazon overnight shift pay",
+    "Amazon fulfillment center jobs",
+    "Amazon seasonal jobs hiring",
+    "Amazon jobs no experience",
+    "Amazon sortation center jobs"
+  ],
+  "faqs": [
+    {
+      "q": "How fast is the hiring process?",
+      "a": "Amazon's warehouse hiring is known for being quick — often a matter of days from application to a start date when shifts are available in your area."
+    },
+    {
+      "q": "Do I need experience?",
+      "a": "No. Warehouse and delivery associate roles are entry-level with training provided."
+    },
+    {
+      "q": "Are there part-time options?",
+      "a": "Yes. Many facilities offer part-time and flexible-shift roles alongside full-time positions."
+    },
+    {
+      "q": "Is the work physically demanding?",
+      "a": "It can be. Most roles involve standing, walking, lifting, and repetitive tasks for the length of the shift. The specific physical requirements are listed on each posting so you can decide what fits you."
+    },
+    {
+      "q": "What should I expect when I apply?",
+      "a": "You search openings by location on the official jobs site, pick an available shift, and complete a short application. Some roles ask you to reserve a shift and complete pre-hire steps online before your start date."
+    }
+  ],
+  "applyUrl": "https://www.jobsatamazon.com/",
+  "recommendations": [
+    "walmart",
+    "warehouse-jobs",
+    "driver-jobs"
+  ],
+  "logo": {
+    "src": "assets/img/amazon-warehouse-logo.png",
+    "alt": "Amazon logo",
+    "credit": "Amazon logo.svg — Amazon.com, Inc. (Public domain) via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Amazon_logo.svg",
+    "w": 400,
+    "h": 121,
+    "trademark": "Amazon is a trademark of its owner; used for identification only."
+  }
+}

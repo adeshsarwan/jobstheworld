@@ -1,0 +1,37 @@
+{
+  "type": "category",
+  "id": "hospitality-jobs",
+  "category": "Hospitality Jobs",
+  "icon": "building",
+  "imageQuery": "hotel restaurant hospitality staff",
+  "title": "Hospitality Jobs Near You — Hotels & Restaurants Hiring",
+  "subtitle": "Server, host, housekeeping, front desk, and kitchen roles with flexible shifts and tips.",
+  "hero": { "openings": "Hiring in most areas", "pay": "$13 – $22 / hr", "type": "Full & part-time", "location": "Search by ZIP" },
+  "ctaLine": "Hotels and restaurants hire year-round. See hospitality openings near you.",
+  "openingsLead": "Tap a role or a popular search below to see current hospitality openings and apply on a reputable job board.",
+  "intro": "Hospitality covers hotels, restaurants, and events, and it's one of the easier fields to enter with many roles requiring no experience. Positions span front desk, servers and hosts, housekeeping, and kitchen support, often with flexible shifts and, in tipped roles, extra take-home pay. The field suits outgoing, dependable people who enjoy fast-paced, customer-facing work, though there are behind-the-scenes roles too. Because hotels and restaurants operate every day, openings tend to be available year-round with extra demand in busy seasons. Here's an overview and where to find openings.",
+  "sections": [
+    { "h": "Types of hospitality roles", "bullets": ["Server / host (tipped roles)", "Hotel front desk / guest services", "Housekeeping / room attendant", "Kitchen / prep cook", "Banquet & event staff"] },
+    { "h": "What the work is really like day-to-day", "p": "Hospitality is active and people-centered. Servers and hosts greet guests, take and deliver orders, and keep tables turning during busy rushes. Front-desk staff check guests in and out, answer questions, and handle requests. Housekeepers clean and reset a set number of rooms per shift. Kitchen and prep roles focus on food preparation and keeping the line moving. Most roles keep you on your feet and moving, and teamwork matters, especially during peak meal or check-in times." },
+    { "h": "Schedules and shifts", "p": "Hospitality schedules are flexible because hotels and restaurants run early mornings through late nights.", "bullets": ["Morning, evening, overnight, and weekend shifts", "Part-time and full-time options", "Busy seasons and events add extra shifts", "Exact hours vary by property and role"] },
+    { "h": "Why it's a practical option", "bullets": ["Many roles need no experience — training provided", "Flexible and part-time schedules", "Tips can boost pay in server roles", "Steady demand across hotels and restaurants"] },
+    { "h": "Pay overview", "p": "Base pay depends on location and role; tipped roles (servers, bartenders) can earn more with gratuities. Confirm base pay and tip structure on each posting." }
+  ],
+  "steps": ["Choose the setting — hotel, restaurant, or events", "Search openings by your ZIP code", "Compare hours, pay, and tips", "Apply on the job board and expect a quick reply"],
+  "roles": [
+    { "title": "Server / Host", "pay": "$13 – $18 / hr + tips" },
+    { "title": "Hotel Front Desk", "pay": "$15 – $20 / hr" },
+    { "title": "Housekeeper / Room Attendant", "pay": "$14 – $19 / hr" },
+    { "title": "Kitchen / Prep Cook", "pay": "$15 – $22 / hr" },
+    { "title": "Banquet & Event Staff", "pay": "$14 – $20 / hr + tips" }
+  ],
+  "searchTerms": ["Hospitality jobs near me", "Restaurant jobs hiring immediately", "Hotel jobs near me hiring", "Server jobs no experience", "Housekeeping jobs part time", "Front desk jobs hiring", "Kitchen jobs near me", "Weekend hospitality jobs", "Banquet event staff jobs near me"],
+  "faqs": [
+    { "q": "Do I need experience?", "a": "Many hospitality roles are entry-level with training. Some kitchen and front-desk roles prefer experience." },
+    { "q": "Can I earn tips?", "a": "Server, host, and bartender roles are often tipped, which can meaningfully increase take-home pay." },
+    { "q": "Are shifts flexible?", "a": "Generally yes. Hotels and restaurants run long hours, so part-time, evening, overnight, and weekend shifts are common — useful if you're balancing school or another job." },
+    { "q": "Is hospitality work fast-paced?", "a": "It can be, especially during meal rushes, check-in times, and events. The work keeps you moving and on your feet, and teamwork helps get through the busy periods." }
+  ],
+  "applyUrl": "https://www.indeed.com/q-hospitality-jobs.html",
+  "recommendations": ["cleaning-jobs", "starbucks", "caregiver-jobs"]
+}

@@ -1,0 +1,8 @@
+# node
+node_modules/
+
+# os / editor
+.DS_Store
+*.log
+
+# NOTE: dist/ is intentionally NOT ignored — Cloudflare serves the committed build.

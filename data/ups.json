@@ -1,0 +1,118 @@
+{
+  "type": "employer",
+  "id": "ups",
+  "employer": "UPS",
+  "icon": "truck",
+  "imageQuery": "delivery van parcel courier",
+  "title": "UPS Is Hiring Package Handlers & Drivers",
+  "subtitle": "Warehouse package handling, driver helper, and delivery driver roles — many with fast hiring and benefits.",
+  "hero": {
+    "openings": "Warehouse & delivery",
+    "pay": "$17 – $28 / hr",
+    "type": "Full, part-time & seasonal",
+    "location": "U.S. — nationwide"
+  },
+  "ctaLine": "UPS hires package handlers and drivers year-round, with peaks in busy seasons. See what's open near you.",
+  "intro": "UPS hires across its package-handling hubs and delivery operations throughout the country. Package handler roles are entry-level and physical, often part-time with early or overnight shifts, and they're a common starting point that requires no prior experience. Driver and driver-helper roles vary in their requirements, and many positions are known for benefits and a path toward higher-paying driving work over time. Hiring runs year-round and typically ramps up during busy shipping seasons, when extra seasonal roles open. Here's an overview and how to apply.",
+  "sections": [
+    {
+      "h": "Types of roles",
+      "bullets": [
+        "Package handler / warehouse (loading, sorting)",
+        "Driver helper (seasonal, ride-along)",
+        "Delivery driver (requirements vary)",
+        "Seasonal roles at peak times"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Package handling is active, physical work. A typical shift means loading and unloading trailers and package cars, scanning, and sorting parcels to keep them moving toward the right routes. Expect steady lifting, bending, and time on your feet. Driver helpers ride along with a delivery driver and handle packages at each stop, which involves a lot of in-and-out movement. Full delivery-driver roles combine road time with repeated stops and package handling throughout the day."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "UPS hubs operate around the clock, and handler shifts are often built around sort windows early in the morning or late at night.",
+      "bullets": [
+        "Early morning, evening, and overnight shifts",
+        "Part-time schedules that can fit school or a second job",
+        "Seasonal driver-helper and handler roles at peak times",
+        "Exact shift times are shown on each posting"
+      ]
+    },
+    {
+      "h": "Benefits and perks",
+      "p": "UPS is often noted for offering benefits to eligible employees, including some part-time roles. Commonly advertised offerings include health coverage options and education or tuition assistance programs, with eligibility depending on role, hours, and tenure. Confirm what applies to a specific role on the official posting."
+    },
+    {
+      "h": "Pay range",
+      "p": "Package handler roles sit at the lower-to-middle of the range above; driver roles pay more, with experienced drivers well beyond it. Confirm pay and shift on the official posting."
+    }
+  ],
+  "steps": [
+    "Choose warehouse or driving and your area",
+    "Open the official UPS jobs site",
+    "Search openings by ZIP and shift",
+    "Apply and complete any orientation steps"
+  ],
+  "roles": [
+    {
+      "title": "Package Handler / Warehouse",
+      "pay": "$17 – $21 / hr"
+    },
+    {
+      "title": "Driver Helper (Seasonal)",
+      "pay": "$16 – $20 / hr"
+    },
+    {
+      "title": "Delivery Driver",
+      "pay": "$21 – $28 / hr"
+    },
+    {
+      "title": "Warehouse Sorter",
+      "pay": "$17 – $21 / hr"
+    }
+  ],
+  "searchTerms": [
+    "UPS jobs near me",
+    "UPS package handler hiring",
+    "UPS driver jobs apply",
+    "UPS part time warehouse jobs",
+    "UPS seasonal jobs hiring",
+    "UPS overnight jobs pay",
+    "UPS driver helper jobs",
+    "UPS jobs no experience"
+  ],
+  "faqs": [
+    {
+      "q": "Is package handling hard work?",
+      "a": "It's physical and fast-paced, involving lifting and moving packages. Many people take it for the schedule flexibility and benefits."
+    },
+    {
+      "q": "Do I need a special license to drive?",
+      "a": "Some driving roles require a commercial license; driver-helper roles do not. Check each posting."
+    },
+    {
+      "q": "Is the driver-helper role a way in?",
+      "a": "Driver-helper roles are often seasonal and require no special license, making them a common entry point. They can be a way to get familiar with the work before pursuing other roles."
+    },
+    {
+      "q": "What benefits are available to part-timers?",
+      "a": "UPS is frequently noted for extending benefits to eligible part-time employees, with details depending on role, hours, and tenure. Eligibility is explained during hiring, so confirm on the posting."
+    }
+  ],
+  "applyUrl": "https://www.jobs-ups.com/",
+  "recommendations": [
+    "fedex",
+    "amazon-warehouse",
+    "driver-jobs"
+  ],
+  "logo": {
+    "src": "assets/img/ups-logo.png",
+    "alt": "UPS logo",
+    "credit": "UPS Logo Shield 2017.svg — Unknown authorUnknown author (Public domain) via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:UPS_Logo_Shield_2017.svg",
+    "w": 400,
+    "h": 477,
+    "trademark": "UPS is a trademark of its owner; used for identification only."
+  }
+}

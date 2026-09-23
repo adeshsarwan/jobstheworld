@@ -1,0 +1,122 @@
+{
+  "type": "employer",
+  "id": "target",
+  "employer": "Target",
+  "icon": "cart",
+  "imageQuery": "Target store retail associate",
+  "title": "Target Is Hiring Store & Distribution Team Members",
+  "subtitle": "Sales floor, cashier, fulfillment, and warehouse roles with flexible shifts and team discounts.",
+  "hero": {
+    "openings": "Stores & DCs",
+    "pay": "$15 – $24 / hr",
+    "type": "Full & part-time",
+    "location": "U.S. — nationwide"
+  },
+  "ctaLine": "Target hires across stores and distribution centers year-round. See openings near you.",
+  "intro": "Target employs team members across its stores and distribution centers, from guest-facing sales-floor and cashier roles to behind-the-scenes fulfillment and warehouse positions. Many roles are entry-level with training, so prior retail experience usually isn't required. The company is known for a starting-wage floor and a culture of internal promotion, so an entry role can grow into a lead position over time. Hiring runs year-round with additional seasonal roles opening during busy periods. Here's what's typically available and how to apply.",
+  "sections": [
+    {
+      "h": "Where Target hires",
+      "bullets": [
+        "Sales floor & guest service",
+        "Cashier & front-of-store",
+        "Order pickup & fulfillment (drive-up)",
+        "Distribution / warehouse team"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Store roles are active and guest-focused. On the sales floor you restock shelves, set up displays, and help guests find items; at the front of store you run a register and handle returns; in fulfillment you pick online orders and bring them out for drive-up pickup. Distribution-center roles are more physical, involving unloading, sorting, and moving inventory at a steady pace. Across roles, expect to be on your feet and part of a team, with training provided before you work independently."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Target offers full- and part-time schedules built around store and warehouse operating hours.",
+      "bullets": [
+        "Daytime, evening, and some overnight shifts",
+        "Early-morning stocking and truck-unload shifts at many stores",
+        "Seasonal roles during busy shopping periods",
+        "Exact hours are set by each store or distribution center"
+      ]
+    },
+    {
+      "h": "Benefits and perks",
+      "p": "Benefits vary by role and hours, and eligibility is explained during hiring. Commonly advertised offerings include a team member discount, health coverage options for eligible employees, and education-assistance programs. Confirm what applies to a specific role on the official posting."
+    },
+    {
+      "h": "Pay overview",
+      "p": "Starting pay varies by location and role; distribution-center and specialized roles typically pay more than entry-level store roles. Confirm the exact rate on the official posting for your area."
+    }
+  ],
+  "steps": [
+    "Pick the role and your nearest store or DC",
+    "Open the official Target careers site",
+    "Search openings by ZIP code",
+    "Apply online and complete any short assessment"
+  ],
+  "roles": [
+    {
+      "title": "Sales Floor Team Member",
+      "pay": "$15 – $19 / hr"
+    },
+    {
+      "title": "Cashier / Front of Store",
+      "pay": "$15 – $18 / hr"
+    },
+    {
+      "title": "Fulfillment / Drive-Up",
+      "pay": "$15 – $20 / hr"
+    },
+    {
+      "title": "Distribution Center",
+      "pay": "$18 – $24 / hr"
+    },
+    {
+      "title": "Team Lead",
+      "pay": "$20 – $26 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Target jobs near me",
+    "Target careers apply online",
+    "Target warehouse jobs hiring",
+    "Target part time cashier jobs",
+    "Target distribution center pay",
+    "Target fulfillment jobs near me",
+    "Target seasonal jobs hiring",
+    "Target hiring immediately"
+  ],
+  "faqs": [
+    {
+      "q": "Do I need experience?",
+      "a": "Most store roles are entry-level with training. Some distribution roles prefer experience but many don't."
+    },
+    {
+      "q": "Are there part-time shifts?",
+      "a": "Yes — Target offers both full- and part-time schedules across stores and DCs."
+    },
+    {
+      "q": "What benefits does Target offer?",
+      "a": "Benefits vary by role and hours. Commonly advertised offerings include a team member discount, health coverage options for eligible employees, and education-assistance programs. Eligibility is explained during hiring."
+    },
+    {
+      "q": "Does Target hire seasonally?",
+      "a": "Yes. Additional store and fulfillment roles typically open during busy shopping periods, and some seasonal team members are later considered for ongoing roles depending on openings."
+    }
+  ],
+  "applyUrl": "https://corporate.target.com/careers",
+  "recommendations": [
+    "walmart",
+    "costco",
+    "warehouse-jobs"
+  ],
+  "logo": {
+    "src": "assets/img/target-logo.png",
+    "alt": "Target logo",
+    "credit": "Super Target Logo.png — Target Corporation (Public domain) via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Super_Target_Logo.png",
+    "w": 400,
+    "h": 150,
+    "trademark": "Target is a trademark of its owner; used for identification only."
+  }
+}

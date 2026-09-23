@@ -1,0 +1,118 @@
+{
+  "type": "employer",
+  "id": "fedex",
+  "employer": "FedEx",
+  "icon": "truck",
+  "imageQuery": "delivery truck warehouse logistics parcel",
+  "title": "FedEx Is Hiring Package Handlers & Drivers",
+  "subtitle": "Warehouse package handling and delivery roles with flexible shifts and fast hiring at busy times.",
+  "hero": {
+    "openings": "Hubs & delivery",
+    "pay": "$17 – $27 / hr",
+    "type": "Full, part-time & seasonal",
+    "location": "U.S. — nationwide"
+  },
+  "ctaLine": "FedEx hires package handlers and drivers across its hubs. See openings near you.",
+  "intro": "FedEx hires across its sorting hubs and delivery operations, from entry-level package handlers to delivery drivers. Package handling is physical warehouse work with early, evening, or overnight shifts, and it's a common entry point that requires no prior experience. Driving roles vary in their requirements, and some can offer a step up in pay for those who qualify. Hiring often speeds up during peak shipping seasons, when additional seasonal roles open as well. Here's what to expect and how to apply on the official careers site.",
+  "sections": [
+    {
+      "h": "Types of roles",
+      "bullets": [
+        "Package handler / warehouse (sort, load)",
+        "Delivery driver (requirements vary)",
+        "Warehouse support",
+        "Seasonal roles at peak times"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Package handling is hands-on, fast-paced warehouse work. A typical shift involves loading and unloading trailers, scanning parcels, and moving packages along sorting lines to keep freight flowing. It's physical — expect lifting, bending, and being on your feet the whole shift, sometimes in a warehouse that isn't climate-controlled. Driving roles are different: more time on the road making deliveries, with the physical part coming from repeated stops and handling packages at each one."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "FedEx hubs run at all hours, and package-handler shifts are often built around the early-morning and late-night sort windows.",
+      "bullets": [
+        "Early morning, evening, and overnight shifts",
+        "Part-time shifts that can suit a second job or school",
+        "Seasonal roles during peak shipping periods",
+        "Exact shift times are listed on each posting"
+      ]
+    },
+    {
+      "h": "Benefits and perks",
+      "p": "Benefits vary by role and hours, and details are provided during hiring. Commonly advertised offerings for eligible employees include health coverage options and, for some part-time roles, tuition or education assistance. Confirm what applies to a specific role on the official posting."
+    },
+    {
+      "h": "Pay range",
+      "p": "Package handler roles are toward the lower-middle of the range above; driver roles pay more. Confirm pay and shift on the official posting."
+    }
+  ],
+  "steps": [
+    "Choose warehouse or driving and your area",
+    "Open the official FedEx careers site",
+    "Search openings by ZIP and shift",
+    "Apply and complete orientation"
+  ],
+  "roles": [
+    {
+      "title": "Package Handler / Warehouse",
+      "pay": "$17 – $21 / hr"
+    },
+    {
+      "title": "Delivery Driver",
+      "pay": "$20 – $27 / hr"
+    },
+    {
+      "title": "Warehouse Sorter",
+      "pay": "$17 – $21 / hr"
+    },
+    {
+      "title": "Seasonal Handler",
+      "pay": "$17 – $21 / hr"
+    }
+  ],
+  "searchTerms": [
+    "FedEx jobs near me",
+    "FedEx package handler hiring",
+    "FedEx driver jobs apply",
+    "FedEx part time warehouse jobs",
+    "FedEx seasonal jobs hiring",
+    "FedEx overnight jobs pay",
+    "FedEx warehouse jobs no experience",
+    "FedEx hiring immediately"
+  ],
+  "faqs": [
+    {
+      "q": "Is package handling physical?",
+      "a": "Yes — it involves lifting and moving packages at a fast pace. Many take it for the flexible shifts."
+    },
+    {
+      "q": "Do driver roles need a special license?",
+      "a": "Some do; requirements vary by role and vehicle. Check each posting."
+    },
+    {
+      "q": "Are part-time and seasonal roles available?",
+      "a": "Yes. Package-handler roles are often part-time, and additional seasonal roles typically open during busy shipping periods."
+    },
+    {
+      "q": "What happens after I apply?",
+      "a": "You search openings by location on the official careers site, apply for a specific role and shift, and, if selected, complete orientation before starting. Timelines vary by hub, and hiring often moves faster during peak seasons."
+    }
+  ],
+  "applyUrl": "https://careers.fedex.com/",
+  "recommendations": [
+    "ups",
+    "amazon-warehouse",
+    "warehouse-jobs"
+  ],
+  "logo": {
+    "src": "assets/img/fedex-logo.png",
+    "alt": "FedEx logo",
+    "credit": "FedEx Office Logo.svg — Logo: FedEx File: Blob5824 at English Wikipedia (Public domain) via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:FedEx_Office_Logo.svg",
+    "w": 400,
+    "h": 223,
+    "trademark": "FedEx is a trademark of its owner; used for identification only."
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "type": "employer",
+  "id": "walmart",
+  "employer": "Walmart",
+  "icon": "cart",
+  "title": "Walmart Careers: Store, Warehouse & Delivery Jobs Hiring Now",
+  "subtitle": "One of America's biggest employers is hiring for stores, distribution centers, and online pickup — full-time and part-time.",
+  "hero": {
+    "openings": "Stores & warehouses",
+    "pay": "$14 – $26 / hr",
+    "type": "Full & part-time",
+    "location": "U.S. — nationwide"
+  },
+  "ctaLine": "Walmart hires across stores and warehouses year-round. See openings near you.",
+  "intro": "Walmart employs people in a wide range of roles — from store associates and cashiers to warehouse and distribution-center workers to online order pickers and drivers. Many positions are entry-level with training provided, so prior retail or warehouse experience usually isn't required to get started. The company operates stores and facilities in nearly every part of the country, which means openings tend to be available locally year-round rather than only in big cities. Walmart is also known for internal promotion paths, and many associates move from part-time into full-time and lead roles over time. Here's what's typically available and how to apply directly on the official careers site.",
+  "sections": [
+    {
+      "h": "Where Walmart is hiring",
+      "p": "Openings fall into a few broad areas. Which ones are available depends on the store or facility nearest you.",
+      "bullets": [
+        "Retail store roles — cashier, stocking, customer service",
+        "Online pickup & delivery — order picking, curbside",
+        "Warehouse & distribution center roles",
+        "Pharmacy, auto care, and specialty departments"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "The daily routine depends a lot on the role. Store associates spend most of the shift on their feet — helping customers, running a register, or keeping shelves stocked and tidy. Online pickup roles involve walking the store to gather orders and staging them for curbside handoff. Warehouse and distribution roles are more physical, with lifting, moving, and processing inventory at a steady pace. Most roles are team-based, and new hires are paired with training before working independently."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Walmart runs long hours, so schedules vary widely and can include mornings, evenings, overnights, and weekends. Overnight stocking and some warehouse shifts may carry higher pay than daytime store shifts.",
+      "bullets": [
+        "Full-time and part-time schedules both common",
+        "Overnight and early-morning stocking shifts at many stores",
+        "Weekend availability often helps when applying",
+        "Exact hours are set by each store or facility"
+      ]
+    },
+    {
+      "h": "Benefits and perks",
+      "p": "Benefits depend on the role, the hours worked, and location, and eligibility details are listed during the hiring process. Commonly advertised benefits include an associate discount, health coverage options for eligible employees, retirement savings plans, and education-assistance programs. Confirm what applies to a specific role on the official posting rather than assuming."
+    },
+    {
+      "h": "Pay overview",
+      "p": "Starting pay depends on your location, the department, and whether the role is in a store or a warehouse. Warehouse and specialized roles typically pay more than entry-level store roles, and overnight shifts can carry a differential. Confirm the exact rate on the official posting for your area."
+    }
+  ],
+  "steps": [
+    "Pick the type of role and your nearest location",
+    "Open the official Walmart careers site",
+    "Search openings by ZIP code",
+    "Apply online and complete any short assessment"
+  ],
+  "roles": [
+    {
+      "title": "Store Associate / Cashier",
+      "pay": "$14 – $18 / hr"
+    },
+    {
+      "title": "Stocking & Unloading",
+      "pay": "$15 – $19 / hr"
+    },
+    {
+      "title": "Online Order Filler / Pickup",
+      "pay": "$14 – $18 / hr"
+    },
+    {
+      "title": "Warehouse / Distribution",
+      "pay": "$17 – $26 / hr"
+    },
+    {
+      "title": "Auto Care Center Technician",
+      "pay": "$15 – $21 / hr"
+    },
+    {
+      "title": "Team Lead",
+      "pay": "$18 – $24 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Walmart jobs near me",
+    "Walmart careers apply online",
+    "Walmart warehouse jobs hiring",
+    "Walmart part time cashier jobs",
+    "Walmart distribution center pay",
+    "Walmart overnight stocker jobs",
+    "Walmart online pickup jobs",
+    "Walmart hiring immediately",
+    "Walmart auto care center jobs"
+  ],
+  "faqs": [
+    {
+      "q": "What's the difference between store and warehouse jobs?",
+      "a": "Store roles are customer-facing (cashier, stocking, pickup). Warehouse and distribution roles involve moving and processing inventory and often pay more, sometimes with shift differentials."
+    },
+    {
+      "q": "Is training provided?",
+      "a": "Yes, most entry-level roles include training. No prior retail or warehouse experience is required for many positions."
+    },
+    {
+      "q": "Can part-time turn into full-time?",
+      "a": "Often, yes. Many associates move from part-time to full-time and into team lead roles over time."
+    },
+    {
+      "q": "How do I apply and how long does it take?",
+      "a": "Apply on the official Walmart careers site, search by ZIP, and submit an application for a specific store or facility. Some roles include a short online assessment. Response times vary by location, but stores that are actively hiring often reply quickly."
+    },
+    {
+      "q": "Are there benefits for part-time associates?",
+      "a": "Some benefits, such as the associate discount, are commonly available, while others depend on hours and role. Eligibility is explained during hiring, so confirm the specifics on the posting."
+    }
+  ],
+  "applyUrl": "https://careers.walmart.com/",
+  "recommendations": [
+    "amazon-warehouse",
+    "mcdonalds",
+    "driver-jobs"
+  ],
+  "logo": {
+    "src": "assets/img/walmart-logo.png",
+    "alt": "Walmart logo",
+    "credit": "Walmart logo (1992–2007).svg — Wal-Mart Stores, Inc. (Public domain) via Wikimedia Commons",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Walmart_logo_(1992%E2%80%932007).svg",
+    "w": 400,
+    "h": 53,
+    "trademark": "Walmart is a trademark of its owner; used for identification only."
+  }
+}

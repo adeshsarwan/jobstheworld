@@ -1,0 +1,8 @@
+name = "content-arb-jobs-world"
+compatibility_date = "2024-11-01"
+
+# Static site: dist/ is COMMITTED on this branch, so Cloudflare can serve it
+# directly with no build step. If you do enable a build, the command is
+# `node build.js` and the output directory is `dist`.
+[assets]
+directory = "./dist"

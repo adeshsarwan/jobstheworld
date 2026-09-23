@@ -1,0 +1,123 @@
+{
+  "type": "category",
+  "id": "driver-jobs",
+  "category": "Driver & Delivery Jobs",
+  "icon": "truck",
+  "title": "Driver & Delivery Jobs Near You Are Hiring Now",
+  "subtitle": "Delivery driver, CDL truck driver, courier, and rideshare roles — full-time, part-time, and flexible.",
+  "hero": {
+    "openings": "Hiring in most areas",
+    "pay": "$16 – $28 / hr",
+    "type": "Full, part-time & flexible",
+    "location": "Search by ZIP"
+  },
+  "ctaLine": "Driving roles range from flexible delivery to full-time CDL. See what's open near you.",
+  "openingsLead": "Tap a role or a popular search below to see current driving openings and apply on a reputable job board.",
+  "intro": "Driving and delivery jobs cover a wide spectrum — from flexible local delivery and courier work you can do part-time, to full-time CDL truck driving that pays well and is in steady demand. Requirements vary a lot by role: local delivery usually needs a standard license and clean record, while commercial trucking requires a CDL. Some roles provide the vehicle, while gig-style delivery uses your own car. Because goods move everywhere, driving openings tend to be available in most areas year-round. Here's how the roles compare and where to find current openings.",
+  "sections": [
+    {
+      "h": "Types of driving jobs",
+      "bullets": [
+        "Local delivery driver (van / car)",
+        "Courier and same-day delivery",
+        "CDL truck driver — regional and long-haul",
+        "Non-CDL box truck driver",
+        "Rideshare and on-demand (flexible hours)"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "The daily routine depends heavily on the role. Local delivery and courier drivers make many stops per shift, so the day is a mix of driving and getting in and out to hand off packages, which involves some lifting. Box-truck drivers handle larger loads and often help load and unload. CDL drivers spend long stretches on the road on regional or long-haul routes, following hours-of-service rules and managing their time carefully. Rideshare and on-demand work lets you choose when to drive, with earnings tied to how much you take on."
+    },
+    {
+      "h": "Requirements to know",
+      "bullets": [
+        "Most local delivery: valid license + clean driving record",
+        "CDL roles: commercial license (some employers help you train)",
+        "Age and background requirements vary by employer",
+        "Some roles provide the vehicle; others use your own"
+      ]
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Driving covers everything from fixed full-time routes to fully flexible gig work.",
+      "bullets": [
+        "Full-time regional and local routes",
+        "Part-time and weekend delivery shifts",
+        "Flexible, choose-your-own-hours gig delivery",
+        "Long-haul roles can mean days away from home"
+      ]
+    },
+    {
+      "h": "Pay range",
+      "p": "Flexible and local delivery roles sit at the lower-to-middle of the range above; CDL and specialized trucking roles pay the most, sometimes well beyond it for experienced long-haul drivers. Confirm pay, mileage, and bonuses on each posting."
+    }
+  ],
+  "steps": [
+    "Pick a role that matches your license and schedule",
+    "Search openings by your ZIP code",
+    "Check the license and vehicle requirements",
+    "Apply on the job board and complete any screening"
+  ],
+  "roles": [
+    {
+      "title": "Local Delivery Driver",
+      "pay": "$16 – $22 / hr"
+    },
+    {
+      "title": "Courier / Same-Day",
+      "pay": "$16 – $23 / hr"
+    },
+    {
+      "title": "Non-CDL Box Truck Driver",
+      "pay": "$18 – $24 / hr"
+    },
+    {
+      "title": "CDL Truck Driver",
+      "pay": "$22 – $28 / hr"
+    },
+    {
+      "title": "Flexible / On-Demand Driver",
+      "pay": "Varies"
+    }
+  ],
+  "searchTerms": [
+    "Driver jobs near me",
+    "Delivery driver jobs hiring",
+    "CDL truck driver jobs no experience",
+    "Part time delivery jobs",
+    "Box truck driver jobs near me",
+    "Courier jobs immediate start",
+    "Local driving jobs hiring",
+    "Weekend delivery jobs",
+    "CDL training provided jobs"
+  ],
+  "faqs": [
+    {
+      "q": "Do I need a CDL to drive for delivery?",
+      "a": "No — most local delivery, courier, and box-truck roles use a standard driver's license. A CDL is required for larger commercial trucks, and some employers help you train for one."
+    },
+    {
+      "q": "Are there flexible driving jobs?",
+      "a": "Yes. Delivery, courier, and on-demand roles often let you choose part-time or flexible hours."
+    },
+    {
+      "q": "Which driving jobs pay the most?",
+      "a": "Experienced CDL and long-haul trucking roles generally pay the most, followed by specialized box-truck and regional routes."
+    },
+    {
+      "q": "What do employers check before hiring?",
+      "a": "Most driving roles require a valid license and a review of your driving record, plus a background check. CDL roles have additional requirements, and some include a road test or drug screening. Each posting lists the specifics."
+    },
+    {
+      "q": "Can I use my own car?",
+      "a": "For gig-style and some courier roles, yes — you drive your own vehicle. Many local-delivery and box-truck roles provide a company vehicle instead. The posting will say which applies."
+    }
+  ],
+  "applyUrl": "https://www.indeed.com/q-driver-jobs.html",
+  "recommendations": [
+    "warehouse-jobs",
+    "amazon-warehouse",
+    "walmart"
+  ]
+}

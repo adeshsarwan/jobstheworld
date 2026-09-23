@@ -1,0 +1,123 @@
+{
+  "type": "category",
+  "id": "cleaning-jobs",
+  "category": "Cleaning Jobs",
+  "icon": "spark",
+  "title": "Cleaning Jobs Near You — Flexible Hours, Hiring Now",
+  "subtitle": "Office, hotel, residential, and janitorial cleaning roles with day, evening, and part-time shifts.",
+  "hero": {
+    "openings": "Hiring in most areas",
+    "pay": "$13 – $20 / hr",
+    "type": "Full & part-time",
+    "location": "Search by ZIP"
+  },
+  "ctaLine": "Cleaning roles are hiring across offices, hotels, and homes. See openings near you.",
+  "openingsLead": "Tap a role or a popular search below to see current cleaning openings and apply on a reputable job board.",
+  "intro": "Cleaning and janitorial work is in steady demand and is one of the easier fields to enter, with many roles requiring no prior experience. Positions span commercial offices, hotels and hospitality, residential house cleaning, and specialized janitorial work. Hours are often flexible, which suits people looking for part-time, early-morning, or evening schedules around other commitments. Because every kind of building needs regular cleaning, openings tend to be available year-round in most areas. Here's an overview and where to find current openings.",
+  "sections": [
+    {
+      "h": "Types of cleaning jobs",
+      "bullets": [
+        "Office / commercial cleaner",
+        "Hotel housekeeping / room attendant",
+        "Residential house cleaner",
+        "Janitor / custodian",
+        "Post-construction or specialized cleaning"
+      ]
+    },
+    {
+      "h": "What the work is really like day-to-day",
+      "p": "Cleaning work is physical and independent. Depending on the setting you might vacuum and mop floors, empty trash, sanitize restrooms, dust and wipe surfaces, restock supplies, and make spaces tidy and presentable. Hotel housekeepers work through a set number of rooms per shift, while office and janitorial cleaners often work a route through a building after hours. Residential cleaners move between homes. Expect steady standing, walking, bending, and lifting, and comfort working on your own or in a small crew."
+    },
+    {
+      "h": "Schedules and shifts",
+      "p": "Cleaning is one of the more flexible fields, with hours that fit around when buildings are empty or guests check out.",
+      "bullets": [
+        "Early-morning, daytime, evening, and overnight shifts",
+        "Part-time and full-time options",
+        "Weekend shifts common in hotels",
+        "Exact hours are set by each employer and site"
+      ]
+    },
+    {
+      "h": "Why it's a practical option",
+      "bullets": [
+        "Many roles need no experience — training provided",
+        "Flexible and part-time schedules are common",
+        "Steady, ongoing demand across industries",
+        "Independent and team-based options available"
+      ]
+    },
+    {
+      "h": "Pay overview",
+      "p": "Cleaning pay depends on location, the setting, and whether the role is part-time or full-time. Specialized and overnight commercial cleaning can pay toward the higher end of the range above. Check each posting for the exact rate."
+    }
+  ],
+  "steps": [
+    "Choose the setting that fits you — office, hotel, or home",
+    "Search openings by your ZIP code",
+    "Compare hours, pay, and location",
+    "Apply on the job board and expect a quick response"
+  ],
+  "roles": [
+    {
+      "title": "Office / Commercial Cleaner",
+      "pay": "$14 – $19 / hr"
+    },
+    {
+      "title": "Hotel Housekeeper",
+      "pay": "$13 – $18 / hr"
+    },
+    {
+      "title": "Residential House Cleaner",
+      "pay": "$15 – $22 / hr"
+    },
+    {
+      "title": "Janitor / Custodian",
+      "pay": "$14 – $20 / hr"
+    },
+    {
+      "title": "Night Commercial Cleaner",
+      "pay": "$15 – $21 / hr"
+    }
+  ],
+  "searchTerms": [
+    "Cleaning jobs near me",
+    "House cleaning jobs hiring",
+    "Office cleaning jobs part time",
+    "Hotel housekeeping jobs near me",
+    "Janitor jobs no experience",
+    "Night cleaning jobs hiring",
+    "Cleaning jobs immediate start",
+    "Weekend cleaning jobs",
+    "Commercial cleaning jobs near me"
+  ],
+  "faqs": [
+    {
+      "q": "Do I need experience to clean professionally?",
+      "a": "Usually not. Most entry-level cleaning and housekeeping roles provide training. Specialized roles may prefer some experience."
+    },
+    {
+      "q": "Are there part-time and evening shifts?",
+      "a": "Yes. Cleaning is one of the more flexible fields, with many part-time, evening, and early-morning options."
+    },
+    {
+      "q": "Is this a good option for steady work?",
+      "a": "Cleaning demand is consistent across offices, hotels, and homes, so openings tend to be available year-round."
+    },
+    {
+      "q": "Is cleaning work physically demanding?",
+      "a": "It's an active job that involves standing, walking, bending, and lifting for the length of the shift. Hotel housekeeping in particular can be fast-paced with a set number of rooms per shift."
+    },
+    {
+      "q": "Do I need my own supplies or transportation?",
+      "a": "Most commercial and hotel roles provide the equipment and supplies. Some residential cleaning roles may ask you to bring supplies or travel between homes, so check the posting for details."
+    }
+  ],
+  "applyUrl": "https://www.indeed.com/q-cleaning-jobs.html",
+  "recommendations": [
+    "warehouse-jobs",
+    "mcdonalds",
+    "remote-jobs"
+  ]
+}
