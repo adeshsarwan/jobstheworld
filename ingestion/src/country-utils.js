@@ -1,4 +1,5 @@
 const countryAliases = new Map([
+  ['DE', 'DE'], ['GERMANY', 'DE'], ['AU', 'AU'], ['AUSTRALIA', 'AU'],
   ['US', 'US'],
   ['USA', 'US'],
   ['UNITED STATES', 'US'],

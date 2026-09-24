@@ -36,9 +36,9 @@ class FakeQuerySyncConnection {
 }
 
 describe('phase 2 ingestion configuration', () => {
-  it('country configuration contains exactly 10 countries', () => {
-    expect(countries).toHaveLength(10);
-    expect(countries.map((country) => country.code)).toEqual(['US', 'GB', 'CA', 'IN', 'AE', 'SA', 'QA', 'KW', 'OM', 'BH']);
+  it('country configuration contains the 12 configured countries', () => {
+    expect(countries).toHaveLength(12);
+    expect(countries.map((country) => country.code)).toEqual(['US', 'GB', 'CA', 'IN', 'NG', 'ZA', 'AE', 'SA', 'QA', 'KW', 'OM', 'BH']);
   });
 
   it('category configuration contains exactly 20 categories', () => {
@@ -46,8 +46,8 @@ describe('phase 2 ingestion configuration', () => {
     expect(categories.every((category) => category.queries.length === 8)).toBe(true);
   });
 
-  it('query generator produces exactly 1,600 combinations', () => {
-    expect(generateQueries()).toHaveLength(1600);
+  it('query generator produces exactly 1,629 combinations', () => {
+    expect(generateQueries()).toHaveLength(1629);
   });
 
   it('query text format is correct', () => {
@@ -65,7 +65,7 @@ describe('phase 2 ingestion configuration', () => {
     await syncQueries(connection);
     await syncQueries(connection);
 
-    expect(connection.rows.size).toBe(1600);
+    expect(connection.rows.size).toBe(1629);
     expect([...connection.rows.values()].every((row) => row.run_count === 7 && row.total_jobs_saved === 11)).toBe(true);
   });
 

@@ -1,0 +1,19 @@
+[Unit]
+Description=JobsTheWorld daily inventory evaluation
+After=network-online.target mysql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=adesh
+Group=adesh
+WorkingDirectory=/var/www/job-guide-match
+Environment=ENV_FILE=/etc/job-guide-match/ingestion.env
+ExecStart=/usr/bin/npm run jobs:inventory
+TimeoutStartSec=20min
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/etc/job-guide-match

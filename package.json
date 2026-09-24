@@ -20,7 +20,9 @@
     "jobs:coverage": "npm run jobs:coverage -w ingestion",
     "jobs:query-stats": "npm run jobs:query-stats -w ingestion",
     "jobs:cleanup:dry": "npm run jobs:cleanup:dry -w ingestion",
-    "jobs:cleanup": "npm run jobs:cleanup -w ingestion"
+    "jobs:cleanup": "npm run jobs:cleanup -w ingestion",
+    "jobs:inventory": "node ingestion/inventory/run.js",
+    "db:migrate:inventory": "node database/migrate-inventory.js"
   },
   "engines": {
     "node": ">=20"

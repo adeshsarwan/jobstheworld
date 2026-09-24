@@ -1,0 +1,444 @@
+openapi: 3.1.0
+info:
+  title: JobsTheWorld Admin API
+  version: 1.0.0
+  description: Internal operational API. Never distribute this specification or its
+    credential externally.
+servers:
+- url: https://api.jobsthe.world
+paths:
+  /api/admin/jobs/inventory:
+    get:
+      summary: Inventory status
+      operationId: inventory_status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    oneOf:
+                    - $ref: '#/components/schemas/Inventory'
+                    - $ref: '#/components/schemas/Busy'
+                required:
+                - success
+                - data
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+        '400': &id001
+          description: Request failed; responses are not cached.
+          content: &id002
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500': *id001
+        '401':
+          description: Missing or invalid X-Admin-API-Key.
+          content: *id002
+        '429':
+          description: More than 10 authenticated admin requests/minute/process.
+          content: *id002
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds until the rate window resets.
+        '503':
+          description: Server admin key is not configured.
+          content: *id002
+      security:
+      - AdminKey: []
+      description: Recounts and persists bucket health without upstream calls. Returns
+        daily and admin eligibility reasons. A busy response means another evaluator
+        holds the MySQL lock.
+  /api/admin/jobs/refresh:
+    post:
+      summary: Refresh bucket
+      operationId: refresh_bucket
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/RefreshResult'
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                  status: complete
+                  decisions:
+                  - country: DE
+                    category: warehouse-logistics
+                    reason: disabled
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+        '400': *id001
+        '500': *id001
+        '401':
+          description: Missing or invalid X-Admin-API-Key.
+          content: *id002
+        '429':
+          description: More than 10 authenticated admin requests/minute/process.
+          content: *id002
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds until the rate window resets.
+        '503':
+          description: Server admin key is not configured.
+          content: *id002
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+            example:
+              country: DE
+              category: warehouse-logistics
+      security:
+      - AdminKey: []
+      description: Synchronous, one explicit bucket. All safety gates apply; no force
+        override. HTTP 200 may contain a skipped decision or busy state. Upstream
+        429 opens the persistent breaker and is recorded in audit; HTTP 429 at this
+        endpoint means its own admin rate limit. Allow a client timeout of at least
+        120 seconds.
+  /api/admin/jobs/budget:
+    get:
+      summary: Read budget
+      operationId: read_budget
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/Budget'
+                required:
+                - success
+                - data
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+        '400': &id003
+          description: Request failed; responses are not cached.
+          content: &id004
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500': *id003
+        '401':
+          description: Missing or invalid X-Admin-API-Key.
+          content: *id004
+        '429':
+          description: More than 10 authenticated admin requests/minute/process.
+          content: *id004
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds until the rate window resets.
+        '503':
+          description: Server admin key is not configured.
+          content: *id004
+      security:
+      - AdminKey: []
+      description: Internal only. Authenticated and never cached.
+  /api/admin/jobs/audit:
+    get:
+      summary: Read audit
+      operationId: read_audit
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/AuditPage'
+                required:
+                - success
+                - data
+          headers:
+            Cache-Control:
+              schema:
+                const: no-store
+        '400': &id005
+          description: Request failed; responses are not cached.
+          content: &id006
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500': *id005
+        '401':
+          description: Missing or invalid X-Admin-API-Key.
+          content: *id006
+        '429':
+          description: More than 10 authenticated admin requests/minute/process.
+          content: *id006
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds until the rate window resets.
+        '503':
+          description: Server admin key is not configured.
+          content: *id006
+      security:
+      - AdminKey: []
+      description: Internal only. Authenticated and never cached.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100000
+          default: 1
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+components:
+  securitySchemes:
+    AdminKey:
+      type: apiKey
+      in: header
+      name: X-Admin-API-Key
+      description: Separate server-side JOBS_ADMIN_API_KEY. Never use the RapidAPI
+        key here.
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          const: false
+        error: &id007
+          type: string
+      required:
+      - success
+      - error
+    Decision:
+      type: string
+      enum:
+      - healthy
+      - disabled
+      - circuit_open
+      - locked
+      - cooldown
+      - monthly_budget
+      - admin_reserve
+      - daily_budget
+      - eligible
+      - missing_key
+    Bucket:
+      type: object
+      properties:
+        country_code:
+          type: string
+          enum:
+          - US
+          - GB
+          - DE
+          - AU
+        category_slug: *id007
+        usable_count: &id008
+          type: integer
+          minimum: 0
+        fresh_3d_count: *id008
+        healthy:
+          type: boolean
+        last_evaluated_at: &id009
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_refresh_attempt_at: *id009
+        last_refresh_success_at: *id009
+        cooldown_until: *id009
+        lock_until: *id009
+        last_refresh_reason: &id010
+          type:
+          - string
+          - 'null'
+        last_error: *id010
+        reason:
+          $ref: '#/components/schemas/Decision'
+        adminReason:
+          $ref: '#/components/schemas/Decision'
+    Busy:
+      type: object
+      properties:
+        status:
+          const: busy
+    Inventory:
+      type: object
+      properties:
+        status:
+          const: ok
+        enabled:
+          type: boolean
+        budget:
+          type: object
+          properties:
+            monthlyLimit: *id008
+            dailyLimit: *id008
+            adminReserve: *id008
+            monthUsed: *id008
+            dayUsed: *id008
+        circuitBlocked:
+          type: boolean
+        buckets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bucket'
+    RefreshRequest:
+      type: object
+      properties:
+        country:
+          type: string
+          enum:
+          - US
+          - GB
+          - DE
+          - AU
+        category:
+          type: string
+          minLength: 1
+          maxLength: 100
+      required:
+      - country
+      - category
+      additionalProperties: false
+    RefreshResult:
+      type: object
+      properties:
+        status:
+          enum:
+          - complete
+          - busy
+        decisions:
+          type: array
+          items:
+            type: object
+            properties:
+              country: *id007
+              category: *id007
+              reason: *id007
+              auditId: *id008
+    Budget:
+      type: object
+      properties:
+        monthlyLimit: &id011
+          type: integer
+          minimum: 0
+        dailyLimit: *id011
+        adminReserve: *id011
+        monthUsed: *id011
+        dayUsed: *id011
+        circuitBlocked:
+          type: boolean
+        blockedAt: &id012
+          type:
+          - string
+          - 'null'
+          format: date-time
+        safeHeaders:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+    Audit:
+      type: object
+      properties:
+        id: *id011
+        trigger_type:
+          enum:
+          - daily
+          - admin
+        country_code:
+          type: string
+        category_slug:
+          type: string
+        query_text:
+          type: string
+        usable_count: *id011
+        fresh_3d_count: *id011
+        upstream_request_count: *id011
+        jobs_returned: *id011
+        inserted_count: *id011
+        updated_count: *id011
+        failed_count: *id011
+        decision:
+          type: string
+        http_status:
+          type:
+          - integer
+          - 'null'
+        safe_headers:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        status:
+          type: string
+        error_text:
+          type:
+          - string
+          - 'null'
+        started_at: *id012
+        completed_at: *id012
+        cooldown_until: *id012
+    AuditPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Audit'
+        page: *id011
+        limit: *id011
+security:
+- AdminKey: []

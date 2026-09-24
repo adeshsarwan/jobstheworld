@@ -1,0 +1,410 @@
+openapi: 3.1.0
+info:
+  title: JobsTheWorld Public API
+  version: 1.0.0
+  description: Public frontend API for querying jobs and guided matching.
+servers:
+- url: https://api.jobsthe.world
+paths:
+  /api/health:
+    get:
+      summary: Health
+      operationId: health
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        const: ok
+                required:
+                - success
+                - data
+        '400': &id001
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500': *id001
+  /api/jobs:
+    get:
+      summary: Search jobs
+      operationId: search_jobs
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/JobList'
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                  jobs: []
+                  pagination:
+                    page: 1
+                    limit: 20
+                    total: 0
+                    totalPages: 1
+          headers:
+            Cache-Control:
+              schema: &id002
+                type: string
+              example: public, max-age=0, s-maxage=1800, must-revalidate
+        '400': *id001
+        '500': *id001
+      parameters:
+      - name: country
+        in: query
+        required: false
+        description: ISO country code; US, GB, DE and AU supported, alongside retained
+          markets. Unsupported countries currently behave as no country filter.
+        schema:
+          type: string
+      - name: category
+        in: query
+        required: false
+        description: Canonical category slug or recognized label/alias; unknown values
+          currently behave as no category filter. Category matches existing category
+          aliases and title/description terms.
+        schema:
+          type: string
+      - name: q
+        in: query
+        required: false
+        description: Substring search across title, company, location and description.
+        schema:
+          type: string
+      - name: city
+        in: query
+        required: false
+        description: Substring match.
+        schema:
+          type: string
+      - name: state
+        in: query
+        required: false
+        description: Substring match.
+        schema:
+          type: string
+      - name: remote
+        in: query
+        required: false
+        description: true/1/yes/remote or false/0/no; unrecognized strings currently
+          mean no filter.
+        schema:
+          type: string
+      - name: employment_type
+        in: query
+        required: false
+        description: Full-time, Part-time, Contract, Internship, Temporary; flexible/any
+          means no filter.
+        schema:
+          type: string
+      - name: experience_level
+        in: query
+        required: false
+        description: Entry/no experience or experienced uses title/description keywords;
+          some means no filter.
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Pagination
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: limit
+        in: query
+        required: false
+        description: Pagination
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      description: 'Search active stored jobs. TTL: free text 300s, city/state 900s,
+        otherwise 1800s. Cache keys include every query dimension.'
+  /api/jobs/{slug}:
+    get:
+      summary: Get job
+      operationId: get_job
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/Job'
+                required:
+                - success
+                - data
+          headers:
+            Cache-Control:
+              schema: *id002
+              example: public, max-age=0, s-maxage=3600, must-revalidate
+        '400': *id001
+        '500': *id001
+        '404': *id001
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 1
+  /api/categories:
+    get:
+      summary: List categories
+      operationId: list_categories
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+                required:
+                - success
+                - data
+        '400': *id001
+        '500': *id001
+      description: Retained canonical categories. Counts are currently zero placeholders,
+        not live inventory counts.
+  /api/match:
+    post:
+      summary: Match jobs
+      operationId: match_jobs
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/JobList'
+                required:
+                - success
+                - data
+        '400': *id001
+        '500': *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchRequest'
+  /api/chat:
+    post:
+      summary: Guided chat
+      operationId: guided_chat
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    const: true
+                  data:
+                    $ref: '#/components/schemas/ChatResult'
+                required:
+                - success
+                - data
+        '400': *id001
+        '500': *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          const: false
+        error: &id003
+          type: string
+      required:
+      - success
+      - error
+    Job:
+      type: object
+      properties:
+        id: &id004
+          type: integer
+          minimum: 0
+        slug: *id003
+        title: *id003
+        company:
+          type: object
+          properties:
+            id: *id004
+            name: *id003
+            logoUrl: &id005
+              type:
+              - string
+              - 'null'
+        category: *id005
+        location: *id005
+        city: *id005
+        state: *id005
+        country: *id005
+        employmentType: *id005
+        salaryPeriod: *id005
+        isRemote:
+          type: boolean
+        salaryMin:
+          type:
+          - number
+          - 'null'
+        salaryMax:
+          type:
+          - number
+          - 'null'
+        postedAt: &id006
+          type:
+          - string
+          - 'null'
+          format: date-time
+        firstSeenAt: *id006
+        lastSeenAt: *id006
+        description: *id005
+        applyUrl: *id005
+      required:
+      - id
+      - slug
+      - title
+      - company
+      - isRemote
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          minimum: 1
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+        total: *id004
+        totalPages:
+          type: integer
+          minimum: 1
+      required:
+      - page
+      - limit
+      - total
+      - totalPages
+    JobList:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - jobs
+      - pagination
+    Answers:
+      type: object
+      properties:
+        work: *id003
+        location: *id003
+        schedule: *id003
+        experience: *id003
+    MatchRequest:
+      type: object
+      properties:
+        answers:
+          $ref: '#/components/schemas/Answers'
+        country: *id003
+        city: *id003
+        state: *id003
+        page:
+          type: integer
+          minimum: 1
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+    ChatRequest:
+      type: object
+      properties:
+        answers:
+          $ref: '#/components/schemas/Answers'
+        message: *id003
+        city: *id003
+        state: *id003
+    Category:
+      type: object
+      properties:
+        value: *id003
+        label: *id003
+        count: *id004
+    ChatResult:
+      type: object
+      properties:
+        message: *id003
+        nextQuestion:
+          oneOf:
+          - type: 'null'
+          - type: object
+            properties:
+              key: *id003
+              question: *id003
+              options:
+                type: array
+                items: *id003
+        answers:
+          $ref: '#/components/schemas/Answers'
+        jobs:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/JobList'
+security: []

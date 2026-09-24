@@ -142,6 +142,8 @@ export const workCategories = [
 ];
 
 export const supportedCountries = [
+  { code: 'DE', name: 'Germany' },
+  { code: 'AU', name: 'Australia' },
   { code: 'US', name: 'United States' },
   { code: 'GB', name: 'United Kingdom' },
   { code: 'CA', name: 'Canada' },

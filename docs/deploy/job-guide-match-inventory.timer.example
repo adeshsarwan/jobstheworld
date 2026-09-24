@@ -1,0 +1,11 @@
+[Unit]
+Description=Evaluate JobsTheWorld inventory once daily
+
+[Timer]
+OnCalendar=*-*-* 03:00:00 UTC
+RandomizedDelaySec=10min
+Persistent=true
+Unit=job-guide-match-inventory.service
+
+[Install]
+WantedBy=timers.target

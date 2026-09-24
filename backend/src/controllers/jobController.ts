@@ -58,6 +58,8 @@ export class JobController {
   listJobs = async (req: Request, res: Response) => {
     const filters = parseOrThrow(jobQuerySchema, req.query);
     const data = await this.service.searchJobs(filters);
+    const ttl = filters.q ? 300 : filters.city || filters.state ? 900 : 1800;
+    res.set('Cache-Control', `public, max-age=0, s-maxage=${ttl}, must-revalidate`);
     res.json({ success: true, data });
   };
 
@@ -65,6 +67,7 @@ export class JobController {
     const { slug } = parseOrThrow(slugSchema, req.params);
     const data = await this.service.getJob(slug);
     if (!data) throw new HttpError(404, 'Job not found');
+    res.set('Cache-Control', 'public, max-age=0, s-maxage=3600, must-revalidate');
     res.json({ success: true, data });
   };
 
