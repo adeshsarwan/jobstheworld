@@ -3,6 +3,8 @@ import { z } from 'zod';
 import { HttpError } from '../middleware/errorHandler.js';
 import type { JobService } from '../services/jobService.js';
 
+import { searchQuerySchema, searchTtl } from '../services/searchFilters.js';
+
 const jobQuerySchema = z.object({
   q: z.string().optional(),
   category: z.string().optional(),
@@ -60,6 +62,13 @@ export class JobController {
     const data = await this.service.searchJobs(filters);
     const ttl = filters.q ? 300 : filters.city || filters.state ? 900 : 1800;
     res.set('Cache-Control', `public, max-age=0, s-maxage=${ttl}, must-revalidate`);
+    res.json({ success: true, data });
+  };
+
+  searchJobs = async (req: Request, res: Response) => {
+    const filters = parseOrThrow(searchQuerySchema, req.query);
+    const data = await this.service.searchNormalizedJobs(filters);
+    res.set('Cache-Control', `public, max-age=0, s-maxage=${searchTtl(filters)}, must-revalidate`);
     res.json({ success: true, data });
   };
 

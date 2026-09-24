@@ -10,6 +10,7 @@ export function createRoutes(jobService: JobService) {
     res.json({ success: true, data: { status: 'ok' } });
   });
   router.get('/api/jobs', controller.listJobs);
+  router.get('/api/jobs/search', controller.searchJobs);
   router.get('/api/jobs/:slug', controller.getJob);
   router.get('/api/categories', controller.getCategories);
   router.post('/api/match', controller.match);

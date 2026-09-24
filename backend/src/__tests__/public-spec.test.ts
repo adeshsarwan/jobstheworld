@@ -21,6 +21,6 @@ describe('Swagger import portability', () => {
   it.each(['public', 'admin'])('exports %s without YAML anchors or aliases', (name) => {
     const text = readFileSync(new URL(`../../../docs/api/openapi-${name}.yaml`, import.meta.url), 'utf8');
     expect(text).not.toMatch(/(?:^|\s)[&*][A-Za-z_][\w-]*(?=\s|$)/m);
-    expect(text).toMatch(/^openapi: 3\.1\.0$/m);
+    expect(text).toMatch(/^\s*openapi: 3\.1\.0$/m);
   });
 });

@@ -1,3 +1,4 @@
+import type { SearchFilters } from './searchFilters.js';
 import type { CategoryResult, Job, JobListResult } from '../models/job.js';
 import { JobRepository, type RepositoryJobFilters } from '../repositories/jobRepository.js';
 import { findWorkCategory, normalizeSupportedCountry, workCategories } from './categoryConfig.js';
@@ -146,6 +147,23 @@ export class JobService {
 
   async searchJobs(filters: ApiJobFilters): Promise<JobListResult> {
     return this.repository.findJobs(this.toRepositoryFilters(filters));
+  }
+
+  async searchNormalizedJobs(filters: SearchFilters): Promise<JobListResult> {
+    const category = findWorkCategory(filters.category);
+    const terms = {
+      'entry-level': ['entry', 'trainee', 'associate', 'assistant', 'training'],
+      'mid-level': ['mid-level', 'intermediate'],
+      senior: ['senior', 'lead', 'manager', 'specialist']
+    };
+    return this.repository.findJobs({
+      normalizedSearch: true,
+      country: filters.country, categoryValues: category?.databaseCategories,
+      q: filters.q, city: filters.city, state: filters.state, remote: filters.remote,
+      employmentTypeValues: filters.employment_type ? [filters.employment_type] : undefined,
+      experienceTerms: filters.experience_level ? terms[filters.experience_level] : undefined,
+      page: filters.page, limit: filters.limit
+    });
   }
 
   async getJob(slug: string): Promise<Job | null> {

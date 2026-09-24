@@ -3,6 +3,7 @@ import { pool as defaultPool } from '../config/database.js';
 import type { CategoryResult, Job, JobListResult } from '../models/job.js';
 
 export interface RepositoryJobFilters {
+  normalizedSearch?: boolean;
   q?: string;
   categoryValues?: string[];
   categoryTerms?: string[];
@@ -196,7 +197,7 @@ export class JobRepository {
       `${baseSelect}
        ${baseFrom}
        ${where.sql}
-       ORDER BY COALESCE(j.posted_at, j.last_seen_at, j.created_at) DESC, j.id DESC
+       ORDER BY ${filters.normalizedSearch ? 'j.posted_at DESC, j.id DESC' : 'COALESCE(j.posted_at, j.last_seen_at, j.created_at) DESC, j.id DESC'}
        LIMIT ${limit} OFFSET ${offset}`,
       where.params
     );
@@ -207,7 +208,7 @@ export class JobRepository {
         page,
         limit,
         total,
-        totalPages: Math.max(1, Math.ceil(total / limit))
+        totalPages: filters.normalizedSearch ? Math.ceil(total / limit) : Math.max(1, Math.ceil(total / limit))
       }
     };
   }

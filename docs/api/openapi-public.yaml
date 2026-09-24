@@ -1,788 +1,120 @@
-openapi: 3.1.0
-info:
-  title: JobsTheWorld Public API
-  version: 1.0.0
-  description: Public frontend API for querying jobs and guided matching. Response
-    examples use sanitized stored job data where available; examples are snapshots,
-    not a promise of current availability.
-servers:
-- url: https://api.jobsthe.world
-paths:
-  /api/health:
-    get:
-      summary: Health
-      operationId: health
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    const: true
-                  data:
-                    type: object
-                    properties:
-                      status:
-                        const: ok
-                required:
-                - success
-                - data
-        '400':
-          description: Invalid request parameters or body.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Invalid request
-        '500':
-          description: Unexpected server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Internal server error
-  /api/jobs:
-    get:
-      summary: Search jobs
-      operationId: search_jobs
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    const: true
-                  data:
-                    $ref: '#/components/schemas/JobList'
-                required:
-                - success
-                - data
-              examples:
-                usSalesRecent:
-                  summary: Recent US sales/customer-care result — PNC
-                  description: Observed on 2026-09-24 for /api/jobs?country=US&category=sales&page=1&limit=1.
-                    Category searches also match title/description keywords, so this
-                    sales/customer-care role has stored category remote-work. The
-                    pagination is the actual response, not a count of exact-category
-                    rows. Employer logo omitted.
-                  value:
-                    success: true
+  openapi: 3.1.0
+  info:
+    title: JobsTheWorld Public API
+    version: 1.0.0
+    description: Public frontend API for querying jobs and guided matching. Response
+      examples use sanitized stored job data where available; examples are snapshots,
+      not a promise of current availability.
+  servers:
+  - url: https://api.jobsthe.world
+  paths:
+    /api/health:
+      get:
+        summary: Health
+        operationId: health
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      const: true
                     data:
-                      jobs:
-                      - id: 1675
-                        slug: sales-service-representative-customer-care-center-389d988d
-                        title: Sales & Service Representative-Customer Care Center
-                        company:
-                          id: 1676
-                          name: PNC
-                          logoUrl: null
-                        category: remote-work
-                        location: Anywhere
-                        city: null
-                        state: null
-                        country: US
-                        employmentType: Full-time
-                        isRemote: true
-                        salaryMin: null
-                        salaryMax: null
-                        salaryPeriod: null
-                        postedAt: '2026-09-23T08:30:00.000Z'
-                        firstSeenAt: '2026-09-24T01:03:50.000Z'
-                        lastSeenAt: '2026-09-24T01:03:50.000Z'
-                      pagination:
-                        page: 1
-                        limit: 1
-                        total: 124
-                        totalPages: 124
-                usWarehouseSingleJob:
-                  summary: Stored US warehouse result
-                  description: 'Sanitized snapshot of stored JobsTheWorld data, captured
-                    2026-09-24. Results and availability may change. Employer logos
-                    and application destinations are omitted; any description shown
-                    is an excerpt. Request: /api/jobs?country=US&category=warehouse-logistics&page=1&limit=1.
-                    The 217 total includes the existing category/keyword matching
-                    behavior.'
-                  value:
-                    success: true
+                      type: object
+                      properties:
+                        status:
+                          const: ok
+                  required:
+                  - success
+                  - data
+          '400':
+            description: Invalid request parameters or body.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Invalid request
+          '500':
+            description: Unexpected server error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Internal server error
+    /api/jobs:
+      get:
+        summary: Search jobs
+        operationId: search_jobs
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      const: true
                     data:
-                      jobs:
-                      - id: 465
-                        slug: shipping-receiving-clerk-70d9e218
-                        title: Shipping/Receiving Clerk
-                        company:
-                          id: 466
-                          name: Metals USA
-                          logoUrl: null
-                        category: warehouse-logistics
-                        location: Torrington, CT
-                        city: Torrington
-                        state: Connecticut
-                        country: US
-                        employmentType: Full-time
-                        isRemote: false
-                        salaryMin: 22
-                        salaryMax: 24
-                        salaryPeriod: HOUR
-                        postedAt: null
-                        firstSeenAt: '2026-07-25T13:29:09.000Z'
-                        lastSeenAt: '2026-07-25T13:29:09.000Z'
-                      pagination:
-                        page: 1
-                        limit: 1
-                        total: 217
-                        totalPages: 217
-                gbRemoteCustomerService:
-                  summary: No matching GB remote jobs
-                  description: Observed response to /api/jobs?country=GB&q=customer%20service&remote=true&page=1&limit=20
-                    on 2026-09-24. An empty result still reports totalPages=1.
-                  value:
-                    success: true
-                    data:
-                      jobs: []
-                      pagination:
-                        page: 1
-                        limit: 20
-                        total: 0
-                        totalPages: 1
-          headers:
-            Cache-Control:
-              schema:
-                type: string
-              example: public, max-age=0, s-maxage=1800, must-revalidate
-        '400':
-          description: Invalid request parameters or body.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Invalid request
-        '500':
-          description: Unexpected server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Internal server error
-      parameters:
-      - name: country
-        in: query
-        required: false
-        description: ISO country code; US, GB, DE and AU supported, alongside retained
-          markets. Unsupported countries currently behave as no country filter.
-        schema:
-          type: string
-        examples:
-          us:
-            summary: United States
-            value: US
-          gb:
-            summary: United Kingdom
-            value: GB
-          de:
-            summary: Germany
-            value: DE
-          au:
-            summary: Australia
-            value: AU
-      - name: category
-        in: query
-        required: false
-        description: Canonical category slug or recognized label/alias; unknown values
-          currently behave as no category filter. Category matches existing category
-          aliases and title/description terms.
-        schema:
-          type: string
-        examples:
-          warehouse:
-            summary: Warehouse and logistics
-            value: warehouse-logistics
-          retail:
-            summary: Retail and store
-            value: retail-store
-          sales:
-            summary: Sales
-            value: sales
-      - name: q
-        in: query
-        required: false
-        description: Substring search across title, company, location and description.
-        schema:
-          type: string
-        examples:
-          customerService:
-            summary: Customer service text search
-            value: customer service
-      - name: city
-        in: query
-        required: false
-        description: Substring match.
-        schema:
-          type: string
-        examples:
-          berlin:
-            summary: Berlin
-            value: Berlin
-          torrington:
-            summary: Torrington
-            value: Torrington
-      - name: state
-        in: query
-        required: false
-        description: Substring match.
-        schema:
-          type: string
-        examples:
-          connecticut:
-            summary: Connecticut
-            value: Connecticut
-      - name: remote
-        in: query
-        required: false
-        description: true/1/yes/remote or false/0/no; unrecognized strings currently
-          mean no filter.
-        schema:
-          type: string
-        examples:
-          remoteOnly:
-            summary: Remote only
-            value: 'true'
-          onSite:
-            summary: Non-remote only
-            value: 'false'
-      - name: employment_type
-        in: query
-        required: false
-        description: Full-time, Part-time, Contract, Internship, Temporary; flexible/any
-          means no filter.
-        schema:
-          type: string
-        examples:
-          fullTime:
-            summary: Full-time
-            value: Full-time
-          partTime:
-            summary: Part-time
-            value: Part-time
-      - name: experience_level
-        in: query
-        required: false
-        description: Entry/no experience or experienced uses title/description keywords;
-          some means no filter.
-        schema:
-          type: string
-        examples:
-          entry:
-            summary: Entry-level keywords
-            value: entry
-          experienced:
-            summary: Experienced-role keywords
-            value: experienced
-      - name: page
-        in: query
-        required: false
-        description: Pagination
-        schema:
-          type: integer
-          minimum: 1
-          default: 1
-        examples:
-          firstPage:
-            summary: First page
-            value: 1
-      - name: limit
-        in: query
-        required: false
-        description: Pagination
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 20
-        examples:
-          standard:
-            summary: Standard page size
-            value: 20
-          compact:
-            summary: One-job example
-            value: 1
-      description: 'Search active stored jobs. Use category values returned by GET
-        /api/categories; warehouse-logistics and retail-store are the supported values
-        for warehouse and retail searches. The shorter words warehouse and retail
-        are not recognized category aliases and must not be used as category filters.
-
-
-        Example searches:
-
-        - Recent US sales/customer-care example: `/api/jobs?country=US&category=sales&page=1&limit=1`
-
-        - US warehouse jobs: `/api/jobs?country=US&category=warehouse-logistics&page=1&limit=20`
-
-        - GB remote customer service: `/api/jobs?country=GB&q=customer%20service&remote=true&page=1&limit=20`
-
-        - Berlin full-time jobs: `/api/jobs?country=DE&city=Berlin&employment_type=Full-time&page=1&limit=20`
-
-        - AU retail jobs: `/api/jobs?country=AU&category=retail-store&page=1&limit=20`
-
-
-        These examples use independent combinations of filters; they are not one combined
-        query. Response example usWarehouseSingleJob uses limit=1 to keep the sample
-        concise and retains the actual pagination totals. gbRemoteCustomerService
-        demonstrates an observed empty result. No populated DE/AU results are asserted.
-
-
-        Shared-cache TTL: free text 300 seconds, city/state 900 seconds, otherwise
-        1800 seconds. Cache keys include every query dimension.
-
-
-        The usSalesRecent response shows a recently posted PNC role with a populated
-        postedAt value; other named examples retain their original capture context.'
-  /api/jobs/{slug}:
-    get:
-      summary: Get job
-      operationId: get_job
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    const: true
-                  data:
-                    $ref: '#/components/schemas/Job'
-                required:
-                - success
-                - data
-              examples:
-                recentPncCustomerCare:
-                  summary: Recent PNC sales/customer-care job
-                  description: Same stored job as usSalesRecent, observed on 2026-09-24.
-                    Employer logo and application destination are omitted; description
-                    is shortened for public documentation.
-                  value:
-                    success: true
-                    data:
-                      id: 1675
-                      slug: sales-service-representative-customer-care-center-389d988d
-                      title: Sales & Service Representative-Customer Care Center
-                      company:
-                        id: 1676
-                        name: PNC
-                        logoUrl: null
-                      category: remote-work
-                      location: Anywhere
-                      city: null
-                      state: null
-                      country: US
-                      employmentType: Full-time
-                      isRemote: true
-                      salaryMin: null
-                      salaryMax: null
-                      salaryPeriod: null
-                      postedAt: '2026-09-23T08:30:00.000Z'
-                      firstSeenAt: '2026-09-24T01:03:50.000Z'
-                      lastSeenAt: '2026-09-24T01:03:50.000Z'
-                      description: 'Position Overview
-
-
-                        At PNC, our people are our greatest differentiator and competitive
-                        advantage in the markets we serve. We are all united in delivering
-                        the best experience for our customers.'
-                      applyUrl: null
-                storedShippingClerk:
-                  summary: Metals USA job detail
-                  description: Sanitized snapshot of stored JobsTheWorld data, captured
-                    2026-09-24. Results and availability may change. Employer logos
-                    and application destinations are omitted; any description shown
-                    is an excerpt.
-                  value:
-                    success: true
-                    data:
-                      id: 465
-                      slug: shipping-receiving-clerk-70d9e218
-                      title: Shipping/Receiving Clerk
-                      company:
-                        id: 466
-                        name: Metals USA
-                        logoUrl: null
-                      category: warehouse-logistics
-                      location: Torrington, CT
-                      city: Torrington
-                      state: Connecticut
-                      country: US
-                      employmentType: Full-time
-                      isRemote: false
-                      salaryMin: 22
-                      salaryMax: 24
-                      salaryPeriod: HOUR
-                      postedAt: null
-                      firstSeenAt: '2026-07-25T13:29:09.000Z'
-                      lastSeenAt: '2026-07-25T13:29:09.000Z'
-                      description: 'Shipping/Receiving Clerk
-
-
-                        Metals USA - Gregor Technologies Division is seeking a Shipping/Receiving
-                        Clerk in Torrington, CT.'
-                      applyUrl: null
-          headers:
-            Cache-Control:
-              schema:
-                type: string
-              example: public, max-age=0, s-maxage=3600, must-revalidate
-        '400':
-          description: Invalid request parameters or body.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Invalid request
-        '500':
-          description: Unexpected server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Internal server error
-        '404':
-          description: No active job exists for this slug.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Job not found
-      parameters:
-      - name: slug
-        in: path
-        required: true
-        schema:
-          type: string
-          minLength: 1
-        example: sales-service-representative-customer-care-center-389d988d
-      description: Look up a job using the slug returned in a search result. The default
-        example is a recent PNC Sales & Service Representative-Customer Care Center
-        role. The earlier Metals USA example remains available for comparison. A null
-        postedAt means the posting date is unavailable; do not substitute firstSeenAt.
-        Sample application destinations are omitted for public documentation; production
-        responses may contain an applyUrl.
-  /api/categories:
-    get:
-      summary: List categories
-      operationId: list_categories
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    const: true
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Category'
-                required:
-                - success
-                - data
-              examples:
-                canonicalCategories:
-                  summary: Actual category choices
-                  description: Captured from GET /api/categories on 2026-09-24. All
-                    twenty category values are shown.
-                  value:
-                    success: true
-                    data:
-                    - value: warehouse-logistics
-                      label: Warehouse & Logistics
-                      count: 0
-                    - value: retail-store
-                      label: Retail & Store
-                      count: 0
-                    - value: driving-delivery
-                      label: Driving & Delivery
-                      count: 0
-                    - value: food-service
-                      label: Food Service
-                      count: 0
-                    - value: cleaning-facilities
-                      label: Cleaning & Facilities
-                      count: 0
-                    - value: healthcare-care
-                      label: Healthcare & Care
-                      count: 0
-                    - value: hospitality
-                      label: Hospitality
-                      count: 0
-                    - value: security
-                      label: Security
-                      count: 0
-                    - value: remote-work
-                      label: Remote / Work from Home
-                      count: 0
-                    - value: office-admin
-                      label: Office & Admin
-                      count: 0
-                    - value: customer-service
-                      label: Customer Service
-                      count: 0
-                    - value: sales
-                      label: Sales
-                      count: 0
-                    - value: construction-trades
-                      label: Construction & Trades
-                      count: 0
-                    - value: manufacturing
-                      label: Manufacturing
-                      count: 0
-                    - value: technology
-                      label: Technology
-                      count: 0
-                    - value: finance-accounting
-                      label: Finance & Accounting
-                      count: 0
-                    - value: education
-                      label: Education
-                      count: 0
-                    - value: marketing
-                      label: Marketing
-                      count: 0
-                    - value: human-resources
-                      label: Human Resources
-                      count: 0
-                    - value: engineering
-                      label: Engineering
-                      count: 0
-        '400':
-          description: Invalid request parameters or body.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Invalid request
-        '500':
-          description: Unexpected server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Internal server error
-      description: Returns canonical category values and display labels. Use value
-        in search parameters and label in guided answers. The current API returns
-        count=0 placeholders; these numbers do not indicate that a category has no
-        jobs.
-  /api/match:
-    post:
-      summary: Match jobs
-      operationId: match_jobs
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    const: true
-                  data:
-                    $ref: '#/components/schemas/JobList'
-                required:
-                - success
-                - data
-              examples:
-                torringtonWarehouse:
-                  summary: Observed guided-match result
-                  description: Sanitized snapshot of stored JobsTheWorld data, captured
-                    2026-09-24. Results and availability may change. Employer logos
-                    and application destinations are omitted; any description shown
-                    is an excerpt. Corresponds to the torringtonWarehouse request
-                    example.
-                  value:
-                    success: true
-                    data:
-                      jobs:
-                      - id: 465
-                        slug: shipping-receiving-clerk-70d9e218
-                        title: Shipping/Receiving Clerk
-                        company:
-                          id: 466
-                          name: Metals USA
-                          logoUrl: null
-                        category: warehouse-logistics
-                        location: Torrington, CT
-                        city: Torrington
-                        state: Connecticut
-                        country: US
-                        employmentType: Full-time
-                        isRemote: false
-                        salaryMin: 22
-                        salaryMax: 24
-                        salaryPeriod: HOUR
-                        postedAt: null
-                        firstSeenAt: '2026-07-25T13:29:09.000Z'
-                        lastSeenAt: '2026-07-25T13:29:09.000Z'
-                      pagination:
-                        page: 1
-                        limit: 1
-                        total: 1
-                        totalPages: 1
-        '400':
-          description: Invalid request parameters or body.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Invalid request
-        '500':
-          description: Unexpected server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Internal server error
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MatchRequest'
-            examples:
-              torringtonWarehouse:
-                summary: Full-time warehouse work in Torrington
-                value:
-                  answers:
-                    work: Warehouse & Logistics
-                    location: In my local area
-                    schedule: Full-time
-                    experience: Some experience
-                  country: US
-                  city: Torrington
-                  page: 1
-                  limit: 1
-      description: Match stored jobs using guided answers and optional country/city/state
-        filters. This example requests one full-time warehouse role in Torrington,
-        US. Some experience adds no experience-keyword restriction. The omitted limit
-        defaults to 10.
-  /api/chat:
-    post:
-      summary: Guided chat
-      operationId: guided_chat
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    const: true
-                  data:
-                    $ref: '#/components/schemas/ChatResult'
-                required:
-                - success
-                - data
-              examples:
-                start:
-                  summary: First question
-                  description: Response to the start request example.
-                  value:
-                    success: true
-                    data:
-                      message: What kind of work are you looking for?
-                      nextQuestion:
-                        key: work
-                        question: What kind of work are you looking for?
-                        options:
-                        - Warehouse & Logistics
-                        - Retail & Store
-                        - Driving & Delivery
-                        - Food Service
-                        - Cleaning & Facilities
-                        - Healthcare & Care
-                        - Hospitality
-                        - Security
-                        - Remote / Work from Home
-                        - Office & Admin
-                        - Customer Service
-                        - Sales
-                        - Construction & Trades
-                        - Manufacturing
-                        - Technology
-                        - Finance & Accounting
-                        - Education
-                        - Marketing
-                        - Human Resources
-                        - Engineering
-                      answers: {}
-                      jobs: null
-                chooseWork:
-                  summary: Next question after selecting work
-                  description: Response to chooseWork; carry the returned answers
-                    into the next request.
-                  value:
-                    success: true
-                    data:
-                      message: Where do you want to work?
-                      nextQuestion:
-                        key: location
-                        question: Where do you want to work?
-                        options:
-                        - In my local area
-                        - Remote
-                        - Anywhere in the U.S.
-                      answers:
-                        work: Warehouse & Logistics
-                      jobs: null
-                completedAnswers:
-                  summary: Completed flow with stored job
-                  description: Sanitized snapshot of stored JobsTheWorld data, captured
-                    2026-09-24. Results and availability may change. Employer logos
-                    and application destinations are omitted; any description shown
-                    is an excerpt. Response to completedAnswers. Completed chat returns
-                    up to five jobs.
-                  value:
-                    success: true
-                    data:
-                      message: Here are jobs that match your answers.
-                      nextQuestion: null
-                      answers:
-                        work: Warehouse & Logistics
-                        location: In my local area
-                        schedule: Full-time
-                        experience: Some experience
-                      jobs:
+                      $ref: '#/components/schemas/JobList'
+                  required:
+                  - success
+                  - data
+                examples:
+                  usSalesRecent:
+                    summary: Recent US sales/customer-care result — PNC
+                    description: Observed on 2026-09-24 for /api/jobs?country=US&category=sales&page=1&limit=1.
+                      Category searches also match title/description keywords, so this
+                      sales/customer-care role has stored category remote-work. The
+                      pagination is the actual response, not a count of exact-category
+                      rows. Employer logo omitted.
+                    value:
+                      success: true
+                      data:
+                        jobs:
+                        - id: 1675
+                          slug: sales-service-representative-customer-care-center-389d988d
+                          title: Sales & Service Representative-Customer Care Center
+                          company:
+                            id: 1676
+                            name: PNC
+                            logoUrl: null
+                          category: remote-work
+                          location: Anywhere
+                          city: null
+                          state: null
+                          country: US
+                          employmentType: Full-time
+                          isRemote: true
+                          salaryMin: null
+                          salaryMax: null
+                          salaryPeriod: null
+                          postedAt: '2026-09-23T08:30:00.000Z'
+                          firstSeenAt: '2026-09-24T01:03:50.000Z'
+                          lastSeenAt: '2026-09-24T01:03:50.000Z'
+                        pagination:
+                          page: 1
+                          limit: 1
+                          total: 124
+                          totalPages: 124
+                  usWarehouseSingleJob:
+                    summary: Stored US warehouse result
+                    description: 'Sanitized snapshot of stored JobsTheWorld data, captured
+                      2026-09-24. Results and availability may change. Employer logos
+                      and application destinations are omitted; any description shown
+                      is an excerpt. Request: /api/jobs?country=US&category=warehouse-logistics&page=1&limit=1.
+                      The 217 total includes the existing category/keyword matching
+                      behavior.'
+                    value:
+                      success: true
+                      data:
                         jobs:
                         - id: 465
                           slug: shipping-receiving-clerk-70d9e218
@@ -806,263 +138,1175 @@ paths:
                           lastSeenAt: '2026-07-25T13:29:09.000Z'
                         pagination:
                           page: 1
-                          limit: 5
+                          limit: 1
+                          total: 217
+                          totalPages: 217
+                  gbRemoteCustomerService:
+                    summary: No matching GB remote jobs
+                    description: Observed response to /api/jobs?country=GB&q=customer%20service&remote=true&page=1&limit=20
+                      on 2026-09-24. An empty result still reports totalPages=1.
+                    value:
+                      success: true
+                      data:
+                        jobs: []
+                        pagination:
+                          page: 1
+                          limit: 20
+                          total: 0
+                          totalPages: 1
+            headers:
+              Cache-Control:
+                schema:
+                  type: string
+                example: public, max-age=0, s-maxage=1800, must-revalidate
+          '400':
+            description: Invalid request parameters or body.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Invalid request
+          '500':
+            description: Unexpected server error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Internal server error
+        parameters:
+        - name: country
+          in: query
+          required: false
+          description: ISO country code; US, GB, DE and AU supported, alongside retained
+            markets. Unsupported countries currently behave as no country filter.
+          schema:
+            type: string
+          examples:
+            us:
+              summary: United States
+              value: US
+            gb:
+              summary: United Kingdom
+              value: GB
+            de:
+              summary: Germany
+              value: DE
+            au:
+              summary: Australia
+              value: AU
+        - name: category
+          in: query
+          required: false
+          description: Canonical category slug or recognized label/alias; unknown values
+            currently behave as no category filter. Category matches existing category
+            aliases and title/description terms.
+          schema:
+            type: string
+          examples:
+            warehouse:
+              summary: Warehouse and logistics
+              value: warehouse-logistics
+            retail:
+              summary: Retail and store
+              value: retail-store
+            sales:
+              summary: Sales
+              value: sales
+        - name: q
+          in: query
+          required: false
+          description: Substring search across title, company, location and description.
+          schema:
+            type: string
+          examples:
+            customerService:
+              summary: Customer service text search
+              value: customer service
+        - name: city
+          in: query
+          required: false
+          description: Substring match.
+          schema:
+            type: string
+          examples:
+            berlin:
+              summary: Berlin
+              value: Berlin
+            torrington:
+              summary: Torrington
+              value: Torrington
+        - name: state
+          in: query
+          required: false
+          description: Substring match.
+          schema:
+            type: string
+          examples:
+            connecticut:
+              summary: Connecticut
+              value: Connecticut
+        - name: remote
+          in: query
+          required: false
+          description: true/1/yes/remote or false/0/no; unrecognized strings currently
+            mean no filter.
+          schema:
+            type: string
+          examples:
+            remoteOnly:
+              summary: Remote only
+              value: 'true'
+            onSite:
+              summary: Non-remote only
+              value: 'false'
+        - name: employment_type
+          in: query
+          required: false
+          description: Full-time, Part-time, Contract, Internship, Temporary; flexible/any
+            means no filter.
+          schema:
+            type: string
+          examples:
+            fullTime:
+              summary: Full-time
+              value: Full-time
+            partTime:
+              summary: Part-time
+              value: Part-time
+        - name: experience_level
+          in: query
+          required: false
+          description: Entry/no experience or experienced uses title/description keywords;
+            some means no filter.
+          schema:
+            type: string
+          examples:
+            entry:
+              summary: Entry-level keywords
+              value: entry
+            experienced:
+              summary: Experienced-role keywords
+              value: experienced
+        - name: page
+          in: query
+          required: false
+          description: Pagination
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          examples:
+            firstPage:
+              summary: First page
+              value: 1
+        - name: limit
+          in: query
+          required: false
+          description: Pagination
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          examples:
+            standard:
+              summary: Standard page size
+              value: 20
+            compact:
+              summary: One-job example
+              value: 1
+        description: 'Search active stored jobs. Use category values returned by GET
+          /api/categories; warehouse-logistics and retail-store are the supported values
+          for warehouse and retail searches. The shorter words warehouse and retail
+          are not recognized category aliases and must not be used as category filters.
+
+
+          Example searches:
+
+          - Recent US sales/customer-care example: `/api/jobs?country=US&category=sales&page=1&limit=1`
+
+          - US warehouse jobs: `/api/jobs?country=US&category=warehouse-logistics&page=1&limit=20`
+
+          - GB remote customer service: `/api/jobs?country=GB&q=customer%20service&remote=true&page=1&limit=20`
+
+          - Berlin full-time jobs: `/api/jobs?country=DE&city=Berlin&employment_type=Full-time&page=1&limit=20`
+
+          - AU retail jobs: `/api/jobs?country=AU&category=retail-store&page=1&limit=20`
+
+
+          These examples use independent combinations of filters; they are not one combined
+          query. Response example usWarehouseSingleJob uses limit=1 to keep the sample
+          concise and retains the actual pagination totals. gbRemoteCustomerService
+          demonstrates an observed empty result. No populated DE/AU results are asserted.
+
+
+          Shared-cache TTL: free text 300 seconds, city/state 900 seconds, otherwise
+          1800 seconds. Cache keys include every query dimension.
+
+
+          The usSalesRecent response shows a recently posted PNC role with a populated
+          postedAt value; other named examples retain their original capture context.'
+    /api/jobs/search:
+      get:
+        summary: Normalized job search
+        operationId: search_stored_jobs
+        description: 'Search active stored jobs. Results use posted_at DESC, id DESC;
+          null posting dates sort last. Empty results have totalPages 0. String filters
+          are trimmed; blank values, repeated parameters, unknown parameters and invalid
+          values return 400 with Cache-Control: no-store. Reads stored data only. Pagination
+          is deterministic for unchanged data, not a snapshot across concurrent writes.
+
+
+          Examples:
+
+          - /api/jobs/search?country=US&category=warehouse-logistics&page=1&limit=20
+
+          - /api/jobs/search?country=US&q=customer%20service&remote=true&page=1&limit=20
+
+          - /api/jobs/search?country=US&city=New%20York&employment_type=Full-time&page=1&limit=20'
+        parameters:
+        - name: country
+          in: query
+          required: false
+          description: ISO 3166-1 alpha-2 country, trimmed and uppercased; unknown codes
+            return 400.
+          schema:
+            type: string
+            pattern: ^[A-Za-z]{2}$
+          example: US
+        - name: category
+          in: query
+          required: false
+          description: Canonical category, label or existing alias; trimmed and case-insensitive.
+            Unknown values return 400. Matches mapped stored categories, without keyword
+            expansion.
+          schema:
+            type: string
+          example: warehouse-logistics
+        - name: q
+          in: query
+          required: false
+          description: Trimmed text matched against title, company, location and description
+            using SQL LIKE.
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 200
+          example: customer service
+        - name: city
+          in: query
+          required: false
+          description: Trimmed city substring (SQL LIKE).
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 200
+          example: New York
+        - name: state
+          in: query
+          required: false
+          description: Trimmed state substring (SQL LIKE).
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 200
+          example: New York
+        - name: remote
+          in: query
+          required: false
+          description: Trimmed, case-insensitive true/false or 1/0 only.
+          schema:
+            type: string
+            enum:
+            - 'true'
+            - 'false'
+            - '1'
+            - '0'
+          example: 'true'
+        - name: employment_type
+          in: query
+          required: false
+          description: Trimmed, case-insensitive supported employment type.
+          schema:
+            type: string
+            enum:
+            - Full-time
+            - Part-time
+            - Contract
+            - Internship
+            - Temporary
+          example: Full-time
+        - name: experience_level
+          in: query
+          required: false
+          description: 'Keyword approximation in title/description: entry-level uses entry/trainee/associate/assistant/training;
+            mid-level uses mid-level/intermediate; senior uses senior/lead/manager/specialist.'
+          schema:
+            type: string
+            enum:
+            - entry-level
+            - mid-level
+            - senior
+          example: entry-level
+        - name: page
+          in: query
+          required: false
+          description: Positive integer; offset must be a safe integer. Decimal and exponent
+            forms are rejected.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 9007199254740991
+            default: 1
+          example: 1
+        - name: limit
+          in: query
+          required: false
+          description: Results per page.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          example: 20
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      const: true
+                    data:
+                      $ref: '#/components/schemas/SearchJobList'
+                  required:
+                  - success
+                  - data
+                examples:
+                  storedWarehouse:
+                    summary: Representative stored warehouse job
+                    description: Sanitized real stored job captured 2026-09-24. This one-row
+                      illustrative dataset demonstrates the response shape; totals are
+                      illustrative, not current production counts.
+                    value:
+                      success: true
+                      data:
+                        jobs:
+                        - id: 465
+                          slug: shipping-receiving-clerk-70d9e218
+                          title: Shipping/Receiving Clerk
+                          company:
+                            id: 466
+                            name: Metals USA
+                            logoUrl: null
+                          category: warehouse-logistics
+                          location: Torrington, CT
+                          city: Torrington
+                          state: Connecticut
+                          country: US
+                          employmentType: Full-time
+                          isRemote: false
+                          salaryMin: 22
+                          salaryMax: 24
+                          salaryPeriod: HOUR
+                          postedAt: null
+                          firstSeenAt: '2026-07-25T13:29:09.000Z'
+                          lastSeenAt: '2026-07-25T13:29:09.000Z'
+                        pagination:
+                          page: 1
+                          limit: 20
                           total: 1
                           totalPages: 1
-        '400':
-          description: Invalid request parameters or body.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Invalid request
-        '500':
-          description: Unexpected server error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                success: false
-                error: Internal server error
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChatRequest'
-            examples:
-              start:
-                summary: 1. Start the questions
-                value: {}
-              chooseWork:
-                summary: 2. Select a work category
-                value:
-                  answers: {}
-                  message: Warehouse & Logistics
-              completedAnswers:
-                summary: 3. Submit all collected answers
-                value:
-                  answers:
-                    work: Warehouse & Logistics
-                    location: In my local area
-                    schedule: Full-time
-                    experience: Some experience
-                  city: Torrington
-      description: 'A guided question flow. Start with an empty JSON object; the API
-        returns nextQuestion. Send the returned answers with a recognized option as
-        message, or supply accumulated answers directly. Once all four answers are
-        present, nextQuestion becomes null and jobs contains a paginated result. Requests
-        are stateless: resend answers each time. The completed example uses city=Torrington;
-        this endpoint currently has no country input.'
-components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        success:
-          const: false
-        error:
-          type: string
-      required:
-      - success
-      - error
-    Job:
-      type: object
-      properties:
-        id:
-          type: integer
-          minimum: 0
-        slug:
-          type: string
-        title:
-          type: string
-        company:
-          type: object
-          properties:
-            id:
-              type: integer
-              minimum: 0
-            name:
-              type: string
-            logoUrl:
-              type:
-              - string
-              - 'null'
-        category:
-          type:
-          - string
-          - 'null'
-        location:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-        state:
-          type:
-          - string
-          - 'null'
-        country:
-          type:
-          - string
-          - 'null'
-        employmentType:
-          type:
-          - string
-          - 'null'
-        salaryPeriod:
-          type:
-          - string
-          - 'null'
-        isRemote:
-          type: boolean
-        salaryMin:
-          type:
-          - number
-          - 'null'
-        salaryMax:
-          type:
-          - number
-          - 'null'
-        postedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        firstSeenAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        lastSeenAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        description:
-          type:
-          - string
-          - 'null'
-        applyUrl:
-          type:
-          - string
-          - 'null'
-      required:
-      - id
-      - slug
-      - title
-      - company
-      - isRemote
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-          minimum: 1
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 100
-        total:
-          type: integer
-          minimum: 0
-        totalPages:
-          type: integer
-          minimum: 1
-      required:
-      - page
-      - limit
-      - total
-      - totalPages
-    JobList:
-      type: object
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - jobs
-      - pagination
-    Answers:
-      type: object
-      properties:
-        work:
-          type: string
-        location:
-          type: string
-        schedule:
-          type: string
-        experience:
-          type: string
-    MatchRequest:
-      type: object
-      properties:
-        answers:
-          $ref: '#/components/schemas/Answers'
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        page:
-          type: integer
-          minimum: 1
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 100
-    ChatRequest:
-      type: object
-      properties:
-        answers:
-          $ref: '#/components/schemas/Answers'
-        message:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-    Category:
-      type: object
-      properties:
-        value:
-          type: string
-        label:
-          type: string
-        count:
-          type: integer
-          minimum: 0
-    ChatResult:
-      type: object
-      properties:
-        message:
-          type: string
-        nextQuestion:
-          oneOf:
-          - type: 'null'
-          - type: object
-            properties:
-              key:
-                type: string
-              question:
-                type: string
-              options:
-                type: array
-                items:
+                  empty:
+                    summary: No matching active jobs
+                    value:
+                      success: true
+                      data:
+                        jobs: []
+                        pagination:
+                          page: 1
+                          limit: 20
+                          total: 0
+                          totalPages: 0
+            headers:
+              Cache-Control:
+                description: public, max-age=0, s-maxage=N, must-revalidate. N=300 for
+                  q; otherwise 900 for city/state; otherwise 1800 for country/category;
+                  otherwise 300. Cache the full URL including every query parameter and
+                  Vary dimensions.
+                schema:
                   type: string
-        answers:
-          $ref: '#/components/schemas/Answers'
-        jobs:
-          oneOf:
-          - type: 'null'
-          - $ref: '#/components/schemas/JobList'
-security: []
+                example: public, max-age=0, s-maxage=300, must-revalidate
+          '400':
+            description: Invalid request parameters or body.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Invalid request
+          '500':
+            description: Unexpected server error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Internal server error
+    /api/jobs/{slug}:
+      get:
+        summary: Get job
+        operationId: get_job
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      const: true
+                    data:
+                      $ref: '#/components/schemas/Job'
+                  required:
+                  - success
+                  - data
+                examples:
+                  recentPncCustomerCare:
+                    summary: Recent PNC sales/customer-care job
+                    description: Same stored job as usSalesRecent, observed on 2026-09-24.
+                      Employer logo and application destination are omitted; description
+                      is shortened for public documentation.
+                    value:
+                      success: true
+                      data:
+                        id: 1675
+                        slug: sales-service-representative-customer-care-center-389d988d
+                        title: Sales & Service Representative-Customer Care Center
+                        company:
+                          id: 1676
+                          name: PNC
+                          logoUrl: null
+                        category: remote-work
+                        location: Anywhere
+                        city: null
+                        state: null
+                        country: US
+                        employmentType: Full-time
+                        isRemote: true
+                        salaryMin: null
+                        salaryMax: null
+                        salaryPeriod: null
+                        postedAt: '2026-09-23T08:30:00.000Z'
+                        firstSeenAt: '2026-09-24T01:03:50.000Z'
+                        lastSeenAt: '2026-09-24T01:03:50.000Z'
+                        description: 'Position Overview
+
+
+                          At PNC, our people are our greatest differentiator and competitive
+                          advantage in the markets we serve. We are all united in delivering
+                          the best experience for our customers.'
+                        applyUrl: null
+                  storedShippingClerk:
+                    summary: Metals USA job detail
+                    description: Sanitized snapshot of stored JobsTheWorld data, captured
+                      2026-09-24. Results and availability may change. Employer logos
+                      and application destinations are omitted; any description shown
+                      is an excerpt.
+                    value:
+                      success: true
+                      data:
+                        id: 465
+                        slug: shipping-receiving-clerk-70d9e218
+                        title: Shipping/Receiving Clerk
+                        company:
+                          id: 466
+                          name: Metals USA
+                          logoUrl: null
+                        category: warehouse-logistics
+                        location: Torrington, CT
+                        city: Torrington
+                        state: Connecticut
+                        country: US
+                        employmentType: Full-time
+                        isRemote: false
+                        salaryMin: 22
+                        salaryMax: 24
+                        salaryPeriod: HOUR
+                        postedAt: null
+                        firstSeenAt: '2026-07-25T13:29:09.000Z'
+                        lastSeenAt: '2026-07-25T13:29:09.000Z'
+                        description: 'Shipping/Receiving Clerk
+
+
+                          Metals USA - Gregor Technologies Division is seeking a Shipping/Receiving
+                          Clerk in Torrington, CT.'
+                        applyUrl: null
+            headers:
+              Cache-Control:
+                schema:
+                  type: string
+                example: public, max-age=0, s-maxage=3600, must-revalidate
+          '400':
+            description: Invalid request parameters or body.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Invalid request
+          '500':
+            description: Unexpected server error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Internal server error
+          '404':
+            description: No active job exists for this slug.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Job not found
+        parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+          example: sales-service-representative-customer-care-center-389d988d
+        description: Look up a job using the slug returned in a search result. The default
+          example is a recent PNC Sales & Service Representative-Customer Care Center
+          role. The earlier Metals USA example remains available for comparison. A null
+          postedAt means the posting date is unavailable; do not substitute firstSeenAt.
+          Sample application destinations are omitted for public documentation; production
+          responses may contain an applyUrl.
+    /api/categories:
+      get:
+        summary: List categories
+        operationId: list_categories
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      const: true
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Category'
+                  required:
+                  - success
+                  - data
+                examples:
+                  canonicalCategories:
+                    summary: Actual category choices
+                    description: Captured from GET /api/categories on 2026-09-24. All
+                      twenty category values are shown.
+                    value:
+                      success: true
+                      data:
+                      - value: warehouse-logistics
+                        label: Warehouse & Logistics
+                        count: 0
+                      - value: retail-store
+                        label: Retail & Store
+                        count: 0
+                      - value: driving-delivery
+                        label: Driving & Delivery
+                        count: 0
+                      - value: food-service
+                        label: Food Service
+                        count: 0
+                      - value: cleaning-facilities
+                        label: Cleaning & Facilities
+                        count: 0
+                      - value: healthcare-care
+                        label: Healthcare & Care
+                        count: 0
+                      - value: hospitality
+                        label: Hospitality
+                        count: 0
+                      - value: security
+                        label: Security
+                        count: 0
+                      - value: remote-work
+                        label: Remote / Work from Home
+                        count: 0
+                      - value: office-admin
+                        label: Office & Admin
+                        count: 0
+                      - value: customer-service
+                        label: Customer Service
+                        count: 0
+                      - value: sales
+                        label: Sales
+                        count: 0
+                      - value: construction-trades
+                        label: Construction & Trades
+                        count: 0
+                      - value: manufacturing
+                        label: Manufacturing
+                        count: 0
+                      - value: technology
+                        label: Technology
+                        count: 0
+                      - value: finance-accounting
+                        label: Finance & Accounting
+                        count: 0
+                      - value: education
+                        label: Education
+                        count: 0
+                      - value: marketing
+                        label: Marketing
+                        count: 0
+                      - value: human-resources
+                        label: Human Resources
+                        count: 0
+                      - value: engineering
+                        label: Engineering
+                        count: 0
+          '400':
+            description: Invalid request parameters or body.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Invalid request
+          '500':
+            description: Unexpected server error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Internal server error
+        description: Returns canonical category values and display labels. Use value
+          in search parameters and label in guided answers. The current API returns
+          count=0 placeholders; these numbers do not indicate that a category has no
+          jobs.
+    /api/match:
+      post:
+        summary: Match jobs
+        operationId: match_jobs
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      const: true
+                    data:
+                      $ref: '#/components/schemas/JobList'
+                  required:
+                  - success
+                  - data
+                examples:
+                  torringtonWarehouse:
+                    summary: Observed guided-match result
+                    description: Sanitized snapshot of stored JobsTheWorld data, captured
+                      2026-09-24. Results and availability may change. Employer logos
+                      and application destinations are omitted; any description shown
+                      is an excerpt. Corresponds to the torringtonWarehouse request
+                      example.
+                    value:
+                      success: true
+                      data:
+                        jobs:
+                        - id: 465
+                          slug: shipping-receiving-clerk-70d9e218
+                          title: Shipping/Receiving Clerk
+                          company:
+                            id: 466
+                            name: Metals USA
+                            logoUrl: null
+                          category: warehouse-logistics
+                          location: Torrington, CT
+                          city: Torrington
+                          state: Connecticut
+                          country: US
+                          employmentType: Full-time
+                          isRemote: false
+                          salaryMin: 22
+                          salaryMax: 24
+                          salaryPeriod: HOUR
+                          postedAt: null
+                          firstSeenAt: '2026-07-25T13:29:09.000Z'
+                          lastSeenAt: '2026-07-25T13:29:09.000Z'
+                        pagination:
+                          page: 1
+                          limit: 1
+                          total: 1
+                          totalPages: 1
+          '400':
+            description: Invalid request parameters or body.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Invalid request
+          '500':
+            description: Unexpected server error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Internal server error
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchRequest'
+              examples:
+                torringtonWarehouse:
+                  summary: Full-time warehouse work in Torrington
+                  value:
+                    answers:
+                      work: Warehouse & Logistics
+                      location: In my local area
+                      schedule: Full-time
+                      experience: Some experience
+                    country: US
+                    city: Torrington
+                    page: 1
+                    limit: 1
+        description: Match stored jobs using guided answers and optional country/city/state
+          filters. This example requests one full-time warehouse role in Torrington,
+          US. Some experience adds no experience-keyword restriction. The omitted limit
+          defaults to 10.
+    /api/chat:
+      post:
+        summary: Guided chat
+        operationId: guided_chat
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      const: true
+                    data:
+                      $ref: '#/components/schemas/ChatResult'
+                  required:
+                  - success
+                  - data
+                examples:
+                  start:
+                    summary: First question
+                    description: Response to the start request example.
+                    value:
+                      success: true
+                      data:
+                        message: What kind of work are you looking for?
+                        nextQuestion:
+                          key: work
+                          question: What kind of work are you looking for?
+                          options:
+                          - Warehouse & Logistics
+                          - Retail & Store
+                          - Driving & Delivery
+                          - Food Service
+                          - Cleaning & Facilities
+                          - Healthcare & Care
+                          - Hospitality
+                          - Security
+                          - Remote / Work from Home
+                          - Office & Admin
+                          - Customer Service
+                          - Sales
+                          - Construction & Trades
+                          - Manufacturing
+                          - Technology
+                          - Finance & Accounting
+                          - Education
+                          - Marketing
+                          - Human Resources
+                          - Engineering
+                        answers: {}
+                        jobs: null
+                  chooseWork:
+                    summary: Next question after selecting work
+                    description: Response to chooseWork; carry the returned answers
+                      into the next request.
+                    value:
+                      success: true
+                      data:
+                        message: Where do you want to work?
+                        nextQuestion:
+                          key: location
+                          question: Where do you want to work?
+                          options:
+                          - In my local area
+                          - Remote
+                          - Anywhere in the U.S.
+                        answers:
+                          work: Warehouse & Logistics
+                        jobs: null
+                  completedAnswers:
+                    summary: Completed flow with stored job
+                    description: Sanitized snapshot of stored JobsTheWorld data, captured
+                      2026-09-24. Results and availability may change. Employer logos
+                      and application destinations are omitted; any description shown
+                      is an excerpt. Response to completedAnswers. Completed chat returns
+                      up to five jobs.
+                    value:
+                      success: true
+                      data:
+                        message: Here are jobs that match your answers.
+                        nextQuestion: null
+                        answers:
+                          work: Warehouse & Logistics
+                          location: In my local area
+                          schedule: Full-time
+                          experience: Some experience
+                        jobs:
+                          jobs:
+                          - id: 465
+                            slug: shipping-receiving-clerk-70d9e218
+                            title: Shipping/Receiving Clerk
+                            company:
+                              id: 466
+                              name: Metals USA
+                              logoUrl: null
+                            category: warehouse-logistics
+                            location: Torrington, CT
+                            city: Torrington
+                            state: Connecticut
+                            country: US
+                            employmentType: Full-time
+                            isRemote: false
+                            salaryMin: 22
+                            salaryMax: 24
+                            salaryPeriod: HOUR
+                            postedAt: null
+                            firstSeenAt: '2026-07-25T13:29:09.000Z'
+                            lastSeenAt: '2026-07-25T13:29:09.000Z'
+                          pagination:
+                            page: 1
+                            limit: 5
+                            total: 1
+                            totalPages: 1
+          '400':
+            description: Invalid request parameters or body.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Invalid request
+          '500':
+            description: Unexpected server error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+                example:
+                  success: false
+                  error: Internal server error
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatRequest'
+              examples:
+                start:
+                  summary: 1. Start the questions
+                  value: {}
+                chooseWork:
+                  summary: 2. Select a work category
+                  value:
+                    answers: {}
+                    message: Warehouse & Logistics
+                completedAnswers:
+                  summary: 3. Submit all collected answers
+                  value:
+                    answers:
+                      work: Warehouse & Logistics
+                      location: In my local area
+                      schedule: Full-time
+                      experience: Some experience
+                    city: Torrington
+        description: 'A guided question flow. Start with an empty JSON object; the API
+          returns nextQuestion. Send the returned answers with a recognized option as
+          message, or supply accumulated answers directly. Once all four answers are
+          present, nextQuestion becomes null and jobs contains a paginated result. Requests
+          are stateless: resend answers each time. The completed example uses city=Torrington;
+          this endpoint currently has no country input.'
+  components:
+    schemas:
+      Error:
+        type: object
+        properties:
+          success:
+            const: false
+          error:
+            type: string
+        required:
+        - success
+        - error
+      Job:
+        type: object
+        properties:
+          id:
+            type: integer
+            minimum: 0
+          slug:
+            type: string
+          title:
+            type: string
+          company:
+            type: object
+            properties:
+              id:
+                type: integer
+                minimum: 0
+              name:
+                type: string
+              logoUrl:
+                type:
+                - string
+                - 'null'
+          category:
+            type:
+            - string
+            - 'null'
+          location:
+            type:
+            - string
+            - 'null'
+          city:
+            type:
+            - string
+            - 'null'
+          state:
+            type:
+            - string
+            - 'null'
+          country:
+            type:
+            - string
+            - 'null'
+          employmentType:
+            type:
+            - string
+            - 'null'
+          salaryPeriod:
+            type:
+            - string
+            - 'null'
+          isRemote:
+            type: boolean
+          salaryMin:
+            type:
+            - number
+            - 'null'
+          salaryMax:
+            type:
+            - number
+            - 'null'
+          postedAt:
+            type:
+            - string
+            - 'null'
+            format: date-time
+          firstSeenAt:
+            type:
+            - string
+            - 'null'
+            format: date-time
+          lastSeenAt:
+            type:
+            - string
+            - 'null'
+            format: date-time
+          description:
+            type:
+            - string
+            - 'null'
+          applyUrl:
+            type:
+            - string
+            - 'null'
+        required:
+        - id
+        - slug
+        - title
+        - company
+        - isRemote
+      Pagination:
+        type: object
+        properties:
+          page:
+            type: integer
+            minimum: 1
+          limit:
+            type: integer
+            minimum: 1
+            maximum: 100
+          total:
+            type: integer
+            minimum: 0
+          totalPages:
+            type: integer
+            minimum: 1
+        required:
+        - page
+        - limit
+        - total
+        - totalPages
+      JobList:
+        type: object
+        properties:
+          jobs:
+            type: array
+            items:
+              $ref: '#/components/schemas/Job'
+          pagination:
+            $ref: '#/components/schemas/Pagination'
+        required:
+        - jobs
+        - pagination
+      SearchPagination:
+        type: object
+        properties:
+          page:
+            type: integer
+            minimum: 1
+          limit:
+            type: integer
+            minimum: 1
+            maximum: 100
+          total:
+            type: integer
+            minimum: 0
+          totalPages:
+            type: integer
+            minimum: 0
+        required:
+        - page
+        - limit
+        - total
+        - totalPages
+      SearchJobList:
+        type: object
+        required:
+        - jobs
+        - pagination
+        properties:
+          jobs:
+            type: array
+            items:
+              $ref: '#/components/schemas/Job'
+          pagination:
+            $ref: '#/components/schemas/SearchPagination'
+      Answers:
+        type: object
+        properties:
+          work:
+            type: string
+          location:
+            type: string
+          schedule:
+            type: string
+          experience:
+            type: string
+      MatchRequest:
+        type: object
+        properties:
+          answers:
+            $ref: '#/components/schemas/Answers'
+          country:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          page:
+            type: integer
+            minimum: 1
+          limit:
+            type: integer
+            minimum: 1
+            maximum: 100
+      ChatRequest:
+        type: object
+        properties:
+          answers:
+            $ref: '#/components/schemas/Answers'
+          message:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+      Category:
+        type: object
+        properties:
+          value:
+            type: string
+          label:
+            type: string
+          count:
+            type: integer
+            minimum: 0
+      ChatResult:
+        type: object
+        properties:
+          message:
+            type: string
+          nextQuestion:
+            oneOf:
+            - type: 'null'
+            - type: object
+              properties:
+                key:
+                  type: string
+                question:
+                  type: string
+                options:
+                  type: array
+                  items:
+                    type: string
+          answers:
+            $ref: '#/components/schemas/Answers'
+          jobs:
+            oneOf:
+            - type: 'null'
+            - $ref: '#/components/schemas/JobList'
+  security: []
