@@ -28,7 +28,7 @@ paths:
                 required:
                 - success
                 - data
-        '400': &id001
+        '400':
           description: Request failed; responses are not cached.
           content:
             application/json:
@@ -37,7 +37,15 @@ paths:
               example:
                 success: false
                 error: Invalid request
-        '500': *id001
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
   /api/jobs:
     get:
       summary: Search jobs
@@ -68,11 +76,27 @@ paths:
                     totalPages: 1
           headers:
             Cache-Control:
-              schema: &id002
+              schema:
                 type: string
               example: public, max-age=0, s-maxage=1800, must-revalidate
-        '400': *id001
-        '500': *id001
+        '400':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       parameters:
       - name: country
         in: query
@@ -168,11 +192,36 @@ paths:
                 - data
           headers:
             Cache-Control:
-              schema: *id002
+              schema:
+                type: string
               example: public, max-age=0, s-maxage=3600, must-revalidate
-        '400': *id001
-        '500': *id001
-        '404': *id001
+        '400':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '404':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       parameters:
       - name: slug
         in: path
@@ -201,8 +250,24 @@ paths:
                 required:
                 - success
                 - data
-        '400': *id001
-        '500': *id001
+        '400':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       description: Retained canonical categories. Counts are currently zero placeholders,
         not live inventory counts.
   /api/match:
@@ -224,8 +289,24 @@ paths:
                 required:
                 - success
                 - data
-        '400': *id001
-        '500': *id001
+        '400':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       requestBody:
         required: true
         content:
@@ -251,8 +332,24 @@ paths:
                 required:
                 - success
                 - data
-        '400': *id001
-        '500': *id001
+        '400':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       requestBody:
         required: true
         content:
@@ -266,7 +363,7 @@ components:
       properties:
         success:
           const: false
-        error: &id003
+        error:
           type: string
       required:
       - success
@@ -274,27 +371,53 @@ components:
     Job:
       type: object
       properties:
-        id: &id004
+        id:
           type: integer
           minimum: 0
-        slug: *id003
-        title: *id003
+        slug:
+          type: string
+        title:
+          type: string
         company:
           type: object
           properties:
-            id: *id004
-            name: *id003
-            logoUrl: &id005
+            id:
+              type: integer
+              minimum: 0
+            name:
+              type: string
+            logoUrl:
               type:
               - string
               - 'null'
-        category: *id005
-        location: *id005
-        city: *id005
-        state: *id005
-        country: *id005
-        employmentType: *id005
-        salaryPeriod: *id005
+        category:
+          type:
+          - string
+          - 'null'
+        location:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        state:
+          type:
+          - string
+          - 'null'
+        country:
+          type:
+          - string
+          - 'null'
+        employmentType:
+          type:
+          - string
+          - 'null'
+        salaryPeriod:
+          type:
+          - string
+          - 'null'
         isRemote:
           type: boolean
         salaryMin:
@@ -305,15 +428,29 @@ components:
           type:
           - number
           - 'null'
-        postedAt: &id006
+        postedAt:
           type:
           - string
           - 'null'
           format: date-time
-        firstSeenAt: *id006
-        lastSeenAt: *id006
-        description: *id005
-        applyUrl: *id005
+        firstSeenAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lastSeenAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        description:
+          type:
+          - string
+          - 'null'
+        applyUrl:
+          type:
+          - string
+          - 'null'
       required:
       - id
       - slug
@@ -330,7 +467,9 @@ components:
           type: integer
           minimum: 1
           maximum: 100
-        total: *id004
+        total:
+          type: integer
+          minimum: 0
         totalPages:
           type: integer
           minimum: 1
@@ -354,18 +493,25 @@ components:
     Answers:
       type: object
       properties:
-        work: *id003
-        location: *id003
-        schedule: *id003
-        experience: *id003
+        work:
+          type: string
+        location:
+          type: string
+        schedule:
+          type: string
+        experience:
+          type: string
     MatchRequest:
       type: object
       properties:
         answers:
           $ref: '#/components/schemas/Answers'
-        country: *id003
-        city: *id003
-        state: *id003
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
         page:
           type: integer
           minimum: 1
@@ -378,29 +524,40 @@ components:
       properties:
         answers:
           $ref: '#/components/schemas/Answers'
-        message: *id003
-        city: *id003
-        state: *id003
+        message:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
     Category:
       type: object
       properties:
-        value: *id003
-        label: *id003
-        count: *id004
+        value:
+          type: string
+        label:
+          type: string
+        count:
+          type: integer
+          minimum: 0
     ChatResult:
       type: object
       properties:
-        message: *id003
+        message:
+          type: string
         nextQuestion:
           oneOf:
           - type: 'null'
           - type: object
             properties:
-              key: *id003
-              question: *id003
+              key:
+                type: string
+              question:
+                type: string
               options:
                 type: array
-                items: *id003
+                items:
+                  type: string
         answers:
           $ref: '#/components/schemas/Answers'
         jobs:

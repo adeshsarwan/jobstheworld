@@ -32,22 +32,42 @@ paths:
             Cache-Control:
               schema:
                 const: no-store
-        '400': &id001
+        '400':
           description: Request failed; responses are not cached.
-          content: &id002
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
                 error: Invalid request
-        '500': *id001
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
         '401':
           description: Missing or invalid X-Admin-API-Key.
-          content: *id002
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
         '429':
           description: More than 10 authenticated admin requests/minute/process.
-          content: *id002
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
           headers:
             Retry-After:
               schema:
@@ -55,7 +75,13 @@ paths:
               description: Seconds until the rate window resets.
         '503':
           description: Server admin key is not configured.
-          content: *id002
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       security:
       - AdminKey: []
       description: Recounts and persists bucket health without upstream calls. Returns
@@ -92,14 +118,42 @@ paths:
             Cache-Control:
               schema:
                 const: no-store
-        '400': *id001
-        '500': *id001
+        '400':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
         '401':
           description: Missing or invalid X-Admin-API-Key.
-          content: *id002
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
         '429':
           description: More than 10 authenticated admin requests/minute/process.
-          content: *id002
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
           headers:
             Retry-After:
               schema:
@@ -107,7 +161,13 @@ paths:
               description: Seconds until the rate window resets.
         '503':
           description: Server admin key is not configured.
-          content: *id002
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       requestBody:
         required: true
         content:
@@ -147,22 +207,42 @@ paths:
             Cache-Control:
               schema:
                 const: no-store
-        '400': &id003
+        '400':
           description: Request failed; responses are not cached.
-          content: &id004
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
                 error: Invalid request
-        '500': *id003
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
         '401':
           description: Missing or invalid X-Admin-API-Key.
-          content: *id004
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
         '429':
           description: More than 10 authenticated admin requests/minute/process.
-          content: *id004
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
           headers:
             Retry-After:
               schema:
@@ -170,7 +250,13 @@ paths:
               description: Seconds until the rate window resets.
         '503':
           description: Server admin key is not configured.
-          content: *id004
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       security:
       - AdminKey: []
       description: Internal only. Authenticated and never cached.
@@ -197,22 +283,42 @@ paths:
             Cache-Control:
               schema:
                 const: no-store
-        '400': &id005
+        '400':
           description: Request failed; responses are not cached.
-          content: &id006
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
                 error: Invalid request
-        '500': *id005
+        '500':
+          description: Request failed; responses are not cached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
         '401':
           description: Missing or invalid X-Admin-API-Key.
-          content: *id006
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
         '429':
           description: More than 10 authenticated admin requests/minute/process.
-          content: *id006
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
           headers:
             Retry-After:
               schema:
@@ -220,7 +326,13 @@ paths:
               description: Seconds until the rate window resets.
         '503':
           description: Server admin key is not configured.
-          content: *id006
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                error: Invalid request
       security:
       - AdminKey: []
       description: Internal only. Authenticated and never cached.
@@ -253,7 +365,7 @@ components:
       properties:
         success:
           const: false
-        error: &id007
+        error:
           type: string
       required:
       - success
@@ -281,27 +393,49 @@ components:
           - GB
           - DE
           - AU
-        category_slug: *id007
-        usable_count: &id008
+        category_slug:
+          type: string
+        usable_count:
           type: integer
           minimum: 0
-        fresh_3d_count: *id008
+        fresh_3d_count:
+          type: integer
+          minimum: 0
         healthy:
           type: boolean
-        last_evaluated_at: &id009
+        last_evaluated_at:
           type:
           - string
           - 'null'
           format: date-time
-        last_refresh_attempt_at: *id009
-        last_refresh_success_at: *id009
-        cooldown_until: *id009
-        lock_until: *id009
-        last_refresh_reason: &id010
+        last_refresh_attempt_at:
           type:
           - string
           - 'null'
-        last_error: *id010
+          format: date-time
+        last_refresh_success_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cooldown_until:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lock_until:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_refresh_reason:
+          type:
+          - string
+          - 'null'
+        last_error:
+          type:
+          - string
+          - 'null'
         reason:
           $ref: '#/components/schemas/Decision'
         adminReason:
@@ -321,11 +455,21 @@ components:
         budget:
           type: object
           properties:
-            monthlyLimit: *id008
-            dailyLimit: *id008
-            adminReserve: *id008
-            monthUsed: *id008
-            dayUsed: *id008
+            monthlyLimit:
+              type: integer
+              minimum: 0
+            dailyLimit:
+              type: integer
+              minimum: 0
+            adminReserve:
+              type: integer
+              minimum: 0
+            monthUsed:
+              type: integer
+              minimum: 0
+            dayUsed:
+              type: integer
+              minimum: 0
         circuitBlocked:
           type: boolean
         buckets:
@@ -362,23 +506,36 @@ components:
           items:
             type: object
             properties:
-              country: *id007
-              category: *id007
-              reason: *id007
-              auditId: *id008
+              country:
+                type: string
+              category:
+                type: string
+              reason:
+                type: string
+              auditId:
+                type: integer
+                minimum: 0
     Budget:
       type: object
       properties:
-        monthlyLimit: &id011
+        monthlyLimit:
           type: integer
           minimum: 0
-        dailyLimit: *id011
-        adminReserve: *id011
-        monthUsed: *id011
-        dayUsed: *id011
+        dailyLimit:
+          type: integer
+          minimum: 0
+        adminReserve:
+          type: integer
+          minimum: 0
+        monthUsed:
+          type: integer
+          minimum: 0
+        dayUsed:
+          type: integer
+          minimum: 0
         circuitBlocked:
           type: boolean
-        blockedAt: &id012
+        blockedAt:
           type:
           - string
           - 'null'
@@ -392,7 +549,9 @@ components:
     Audit:
       type: object
       properties:
-        id: *id011
+        id:
+          type: integer
+          minimum: 0
         trigger_type:
           enum:
           - daily
@@ -403,13 +562,27 @@ components:
           type: string
         query_text:
           type: string
-        usable_count: *id011
-        fresh_3d_count: *id011
-        upstream_request_count: *id011
-        jobs_returned: *id011
-        inserted_count: *id011
-        updated_count: *id011
-        failed_count: *id011
+        usable_count:
+          type: integer
+          minimum: 0
+        fresh_3d_count:
+          type: integer
+          minimum: 0
+        upstream_request_count:
+          type: integer
+          minimum: 0
+        jobs_returned:
+          type: integer
+          minimum: 0
+        inserted_count:
+          type: integer
+          minimum: 0
+        updated_count:
+          type: integer
+          minimum: 0
+        failed_count:
+          type: integer
+          minimum: 0
         decision:
           type: string
         http_status:
@@ -428,9 +601,21 @@ components:
           type:
           - string
           - 'null'
-        started_at: *id012
-        completed_at: *id012
-        cooldown_until: *id012
+        started_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cooldown_until:
+          type:
+          - string
+          - 'null'
+          format: date-time
     AuditPage:
       type: object
       properties:
@@ -438,7 +623,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Audit'
-        page: *id011
-        limit: *id011
+        page:
+          type: integer
+          minimum: 0
+        limit:
+          type: integer
+          minimum: 0
 security:
 - AdminKey: []

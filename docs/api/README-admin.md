@@ -1,6 +1,6 @@
 # Internal inventory operations
 
-**Internal only.** Import `openapi-admin.yaml` into a private SwaggerHub/Swagger Studio project. Never distribute this document or an admin credential with frontend configuration. The public contract is separate.
+**Internal only.** Import `openapi-admin.yaml` into a private SwaggerHub/Swagger Studio project. Never distribute this document or an admin credential with frontend configuration. The YAML uses explicit objects without anchors or aliases for editor compatibility. The public contract is separate.
 
 `X-Admin-API-Key` is validated against server-side `JOBS_ADMIN_API_KEY`. It is a distinct credential from RAPIDAPI_KEY and from any developer credential issued elsewhere. Public routes have no credential; `X-API-Key` and Bearer credentials do not authorize admin routes. Missing configuration returns 503; absent/wrong credentials return 401. Authenticated admin operations share a 10-request/minute limit per Express process, returning 429 and Retry-After. Multiple backend processes each have their own HTTP limiter; persistent MySQL locks and request budgets remain shared across all processes. For a multi-process deployment add a shared ingress limiter before increasing process count.
 

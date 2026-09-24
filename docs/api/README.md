@@ -2,7 +2,7 @@
 
 Frontend base URL: **https://api.jobsthe.world**.
 
-Import `openapi-public.yaml` into SwaggerHub or Swagger Studio. This OpenAPI 3.1 document is intended for external/frontend developers. All listed endpoints are public and require no developer credential.
+Import `openapi-public.yaml` into SwaggerHub or Swagger Studio. This OpenAPI 3.1 document is intended for external/frontend developers. All listed endpoints are public and require no developer credential. The YAML is exported without anchors or aliases for editor compatibility; replace the entire editor document when updating it.
 
 | Method | Path | Purpose |
 |---|---|---|
