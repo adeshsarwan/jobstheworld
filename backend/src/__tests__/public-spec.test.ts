@@ -4,7 +4,9 @@ describe('external documentation boundary',()=>{
   it('does not disclose internal operations in either public deliverable',()=>{
     for(const path of ['openapi-public.yaml','README.md']){
       const text=readFileSync(new URL(`../../../docs/api/${path}`,import.meta.url),'utf8');
-      expect(text).not.toMatch(/admin|jsearch|rapidapi|refresh/i);
+      // These two values describe a public employment category, not an operational route.
+      const prose = text.replaceAll('office-admin', '').replaceAll('Office & Admin', '');
+      expect(prose).not.toMatch(/admin|jsearch|rapidapi|refresh|budget|circuit[- ]breaker/i);
     }
   });
   it('keeps internal routes in the private specification only',()=>{

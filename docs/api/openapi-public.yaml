@@ -2,7 +2,9 @@ openapi: 3.1.0
 info:
   title: JobsTheWorld Public API
   version: 1.0.0
-  description: Public frontend API for querying jobs and guided matching.
+  description: Public frontend API for querying jobs and guided matching. Response
+    examples use sanitized stored job data where available; examples are snapshots,
+    not a promise of current availability.
 servers:
 - url: https://api.jobsthe.world
 paths:
@@ -29,7 +31,7 @@ paths:
                 - success
                 - data
         '400':
-          description: Request failed; responses are not cached.
+          description: Invalid request parameters or body.
           content:
             application/json:
               schema:
@@ -38,14 +40,14 @@ paths:
                 success: false
                 error: Invalid request
         '500':
-          description: Request failed; responses are not cached.
+          description: Unexpected server error.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
-                error: Invalid request
+                error: Internal server error
   /api/jobs:
     get:
       summary: Search jobs
@@ -65,22 +67,64 @@ paths:
                 required:
                 - success
                 - data
-              example:
-                success: true
-                data:
-                  jobs: []
-                  pagination:
-                    page: 1
-                    limit: 20
-                    total: 0
-                    totalPages: 1
+              examples:
+                usWarehouseSingleJob:
+                  summary: Stored US warehouse result
+                  description: 'Sanitized snapshot of stored JobsTheWorld data, captured
+                    2026-09-24. Results and availability may change. Employer logos
+                    and application destinations are omitted; any description shown
+                    is an excerpt. Request: /api/jobs?country=US&category=warehouse-logistics&page=1&limit=1.
+                    The 217 total includes the existing category/keyword matching
+                    behavior.'
+                  value:
+                    success: true
+                    data:
+                      jobs:
+                      - id: 465
+                        slug: shipping-receiving-clerk-70d9e218
+                        title: Shipping/Receiving Clerk
+                        company:
+                          id: 466
+                          name: Metals USA
+                          logoUrl: null
+                        category: warehouse-logistics
+                        location: Torrington, CT
+                        city: Torrington
+                        state: Connecticut
+                        country: US
+                        employmentType: Full-time
+                        isRemote: false
+                        salaryMin: 22
+                        salaryMax: 24
+                        salaryPeriod: HOUR
+                        postedAt: null
+                        firstSeenAt: '2026-07-25T13:29:09.000Z'
+                        lastSeenAt: '2026-07-25T13:29:09.000Z'
+                      pagination:
+                        page: 1
+                        limit: 1
+                        total: 217
+                        totalPages: 217
+                gbRemoteCustomerService:
+                  summary: No matching GB remote jobs
+                  description: Observed response to /api/jobs?country=GB&q=customer%20service&remote=true&page=1&limit=20
+                    on 2026-09-24. An empty result still reports totalPages=1.
+                  value:
+                    success: true
+                    data:
+                      jobs: []
+                      pagination:
+                        page: 1
+                        limit: 20
+                        total: 0
+                        totalPages: 1
           headers:
             Cache-Control:
               schema:
                 type: string
               example: public, max-age=0, s-maxage=1800, must-revalidate
         '400':
-          description: Request failed; responses are not cached.
+          description: Invalid request parameters or body.
           content:
             application/json:
               schema:
@@ -89,14 +133,14 @@ paths:
                 success: false
                 error: Invalid request
         '500':
-          description: Request failed; responses are not cached.
+          description: Unexpected server error.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
-                error: Invalid request
+                error: Internal server error
       parameters:
       - name: country
         in: query
@@ -105,6 +149,19 @@ paths:
           markets. Unsupported countries currently behave as no country filter.
         schema:
           type: string
+        examples:
+          us:
+            summary: United States
+            value: US
+          gb:
+            summary: United Kingdom
+            value: GB
+          de:
+            summary: Germany
+            value: DE
+          au:
+            summary: Australia
+            value: AU
       - name: category
         in: query
         required: false
@@ -113,24 +170,46 @@ paths:
           aliases and title/description terms.
         schema:
           type: string
+        examples:
+          warehouse:
+            summary: Warehouse and logistics
+            value: warehouse-logistics
+          retail:
+            summary: Retail and store
+            value: retail-store
       - name: q
         in: query
         required: false
         description: Substring search across title, company, location and description.
         schema:
           type: string
+        examples:
+          customerService:
+            summary: Customer service text search
+            value: customer service
       - name: city
         in: query
         required: false
         description: Substring match.
         schema:
           type: string
+        examples:
+          berlin:
+            summary: Berlin
+            value: Berlin
+          torrington:
+            summary: Torrington
+            value: Torrington
       - name: state
         in: query
         required: false
         description: Substring match.
         schema:
           type: string
+        examples:
+          connecticut:
+            summary: Connecticut
+            value: Connecticut
       - name: remote
         in: query
         required: false
@@ -138,6 +217,13 @@ paths:
           mean no filter.
         schema:
           type: string
+        examples:
+          remoteOnly:
+            summary: Remote only
+            value: 'true'
+          onSite:
+            summary: Non-remote only
+            value: 'false'
       - name: employment_type
         in: query
         required: false
@@ -145,6 +231,13 @@ paths:
           means no filter.
         schema:
           type: string
+        examples:
+          fullTime:
+            summary: Full-time
+            value: Full-time
+          partTime:
+            summary: Part-time
+            value: Part-time
       - name: experience_level
         in: query
         required: false
@@ -152,6 +245,13 @@ paths:
           some means no filter.
         schema:
           type: string
+        examples:
+          entry:
+            summary: Entry-level keywords
+            value: entry
+          experienced:
+            summary: Experienced-role keywords
+            value: experienced
       - name: page
         in: query
         required: false
@@ -160,6 +260,10 @@ paths:
           type: integer
           minimum: 1
           default: 1
+        examples:
+          firstPage:
+            summary: First page
+            value: 1
       - name: limit
         in: query
         required: false
@@ -169,8 +273,38 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-      description: 'Search active stored jobs. TTL: free text 300s, city/state 900s,
-        otherwise 1800s. Cache keys include every query dimension.'
+        examples:
+          standard:
+            summary: Standard page size
+            value: 20
+          compact:
+            summary: One-job example
+            value: 1
+      description: 'Search active stored jobs. Use category values returned by GET
+        /api/categories; warehouse-logistics and retail-store are the supported values
+        for warehouse and retail searches. The shorter words warehouse and retail
+        are not recognized category aliases and must not be used as category filters.
+
+
+        Example searches:
+
+        - US warehouse jobs: `/api/jobs?country=US&category=warehouse-logistics&page=1&limit=20`
+
+        - GB remote customer service: `/api/jobs?country=GB&q=customer%20service&remote=true&page=1&limit=20`
+
+        - Berlin full-time jobs: `/api/jobs?country=DE&city=Berlin&employment_type=Full-time&page=1&limit=20`
+
+        - AU retail jobs: `/api/jobs?country=AU&category=retail-store&page=1&limit=20`
+
+
+        These examples use independent combinations of filters; they are not one combined
+        query. Response example usWarehouseSingleJob uses limit=1 to keep the sample
+        concise and retains the actual pagination totals. gbRemoteCustomerService
+        demonstrates an observed empty result. No populated DE/AU results are asserted.
+
+
+        Shared-cache TTL: free text 300 seconds, city/state 900 seconds, otherwise
+        1800 seconds. Cache keys include every query dimension.'
   /api/jobs/{slug}:
     get:
       summary: Get job
@@ -190,13 +324,49 @@ paths:
                 required:
                 - success
                 - data
+              examples:
+                storedShippingClerk:
+                  summary: Metals USA job detail
+                  description: Sanitized snapshot of stored JobsTheWorld data, captured
+                    2026-09-24. Results and availability may change. Employer logos
+                    and application destinations are omitted; any description shown
+                    is an excerpt.
+                  value:
+                    success: true
+                    data:
+                      id: 465
+                      slug: shipping-receiving-clerk-70d9e218
+                      title: Shipping/Receiving Clerk
+                      company:
+                        id: 466
+                        name: Metals USA
+                        logoUrl: null
+                      category: warehouse-logistics
+                      location: Torrington, CT
+                      city: Torrington
+                      state: Connecticut
+                      country: US
+                      employmentType: Full-time
+                      isRemote: false
+                      salaryMin: 22
+                      salaryMax: 24
+                      salaryPeriod: HOUR
+                      postedAt: null
+                      firstSeenAt: '2026-07-25T13:29:09.000Z'
+                      lastSeenAt: '2026-07-25T13:29:09.000Z'
+                      description: 'Shipping/Receiving Clerk
+
+
+                        Metals USA - Gregor Technologies Division is seeking a Shipping/Receiving
+                        Clerk in Torrington, CT.'
+                      applyUrl: null
           headers:
             Cache-Control:
               schema:
                 type: string
               example: public, max-age=0, s-maxage=3600, must-revalidate
         '400':
-          description: Request failed; responses are not cached.
+          description: Invalid request parameters or body.
           content:
             application/json:
               schema:
@@ -205,23 +375,23 @@ paths:
                 success: false
                 error: Invalid request
         '500':
-          description: Request failed; responses are not cached.
+          description: Unexpected server error.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
-                error: Invalid request
+                error: Internal server error
         '404':
-          description: Request failed; responses are not cached.
+          description: No active job exists for this slug.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
-                error: Invalid request
+                error: Job not found
       parameters:
       - name: slug
         in: path
@@ -229,6 +399,12 @@ paths:
         schema:
           type: string
           minLength: 1
+        example: shipping-receiving-clerk-70d9e218
+      description: Look up a job using the slug returned in a search result. The stored
+        sample is a Metals USA Shipping/Receiving Clerk role in Torrington, Connecticut.
+        A null postedAt means the posting date is unavailable; do not substitute firstSeenAt.
+        The sample application destination is omitted for public documentation; production
+        responses may contain an applyUrl.
   /api/categories:
     get:
       summary: List categories
@@ -250,8 +426,76 @@ paths:
                 required:
                 - success
                 - data
+              examples:
+                canonicalCategories:
+                  summary: Actual category choices
+                  description: Captured from GET /api/categories on 2026-09-24. All
+                    twenty category values are shown.
+                  value:
+                    success: true
+                    data:
+                    - value: warehouse-logistics
+                      label: Warehouse & Logistics
+                      count: 0
+                    - value: retail-store
+                      label: Retail & Store
+                      count: 0
+                    - value: driving-delivery
+                      label: Driving & Delivery
+                      count: 0
+                    - value: food-service
+                      label: Food Service
+                      count: 0
+                    - value: cleaning-facilities
+                      label: Cleaning & Facilities
+                      count: 0
+                    - value: healthcare-care
+                      label: Healthcare & Care
+                      count: 0
+                    - value: hospitality
+                      label: Hospitality
+                      count: 0
+                    - value: security
+                      label: Security
+                      count: 0
+                    - value: remote-work
+                      label: Remote / Work from Home
+                      count: 0
+                    - value: office-admin
+                      label: Office & Admin
+                      count: 0
+                    - value: customer-service
+                      label: Customer Service
+                      count: 0
+                    - value: sales
+                      label: Sales
+                      count: 0
+                    - value: construction-trades
+                      label: Construction & Trades
+                      count: 0
+                    - value: manufacturing
+                      label: Manufacturing
+                      count: 0
+                    - value: technology
+                      label: Technology
+                      count: 0
+                    - value: finance-accounting
+                      label: Finance & Accounting
+                      count: 0
+                    - value: education
+                      label: Education
+                      count: 0
+                    - value: marketing
+                      label: Marketing
+                      count: 0
+                    - value: human-resources
+                      label: Human Resources
+                      count: 0
+                    - value: engineering
+                      label: Engineering
+                      count: 0
         '400':
-          description: Request failed; responses are not cached.
+          description: Invalid request parameters or body.
           content:
             application/json:
               schema:
@@ -260,16 +504,18 @@ paths:
                 success: false
                 error: Invalid request
         '500':
-          description: Request failed; responses are not cached.
+          description: Unexpected server error.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
-                error: Invalid request
-      description: Retained canonical categories. Counts are currently zero placeholders,
-        not live inventory counts.
+                error: Internal server error
+      description: Returns canonical category values and display labels. Use value
+        in search parameters and label in guided answers. The current API returns
+        count=0 placeholders; these numbers do not indicate that a category has no
+        jobs.
   /api/match:
     post:
       summary: Match jobs
@@ -289,8 +535,45 @@ paths:
                 required:
                 - success
                 - data
+              examples:
+                torringtonWarehouse:
+                  summary: Observed guided-match result
+                  description: Sanitized snapshot of stored JobsTheWorld data, captured
+                    2026-09-24. Results and availability may change. Employer logos
+                    and application destinations are omitted; any description shown
+                    is an excerpt. Corresponds to the torringtonWarehouse request
+                    example.
+                  value:
+                    success: true
+                    data:
+                      jobs:
+                      - id: 465
+                        slug: shipping-receiving-clerk-70d9e218
+                        title: Shipping/Receiving Clerk
+                        company:
+                          id: 466
+                          name: Metals USA
+                          logoUrl: null
+                        category: warehouse-logistics
+                        location: Torrington, CT
+                        city: Torrington
+                        state: Connecticut
+                        country: US
+                        employmentType: Full-time
+                        isRemote: false
+                        salaryMin: 22
+                        salaryMax: 24
+                        salaryPeriod: HOUR
+                        postedAt: null
+                        firstSeenAt: '2026-07-25T13:29:09.000Z'
+                        lastSeenAt: '2026-07-25T13:29:09.000Z'
+                      pagination:
+                        page: 1
+                        limit: 1
+                        total: 1
+                        totalPages: 1
         '400':
-          description: Request failed; responses are not cached.
+          description: Invalid request parameters or body.
           content:
             application/json:
               schema:
@@ -299,20 +582,37 @@ paths:
                 success: false
                 error: Invalid request
         '500':
-          description: Request failed; responses are not cached.
+          description: Unexpected server error.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
-                error: Invalid request
+                error: Internal server error
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/MatchRequest'
+            examples:
+              torringtonWarehouse:
+                summary: Full-time warehouse work in Torrington
+                value:
+                  answers:
+                    work: Warehouse & Logistics
+                    location: In my local area
+                    schedule: Full-time
+                    experience: Some experience
+                  country: US
+                  city: Torrington
+                  page: 1
+                  limit: 1
+      description: Match stored jobs using guided answers and optional country/city/state
+        filters. This example requests one full-time warehouse role in Torrington,
+        US. Some experience adds no experience-keyword restriction. The omitted limit
+        defaults to 10.
   /api/chat:
     post:
       summary: Guided chat
@@ -332,8 +632,104 @@ paths:
                 required:
                 - success
                 - data
+              examples:
+                start:
+                  summary: First question
+                  description: Response to the start request example.
+                  value:
+                    success: true
+                    data:
+                      message: What kind of work are you looking for?
+                      nextQuestion:
+                        key: work
+                        question: What kind of work are you looking for?
+                        options:
+                        - Warehouse & Logistics
+                        - Retail & Store
+                        - Driving & Delivery
+                        - Food Service
+                        - Cleaning & Facilities
+                        - Healthcare & Care
+                        - Hospitality
+                        - Security
+                        - Remote / Work from Home
+                        - Office & Admin
+                        - Customer Service
+                        - Sales
+                        - Construction & Trades
+                        - Manufacturing
+                        - Technology
+                        - Finance & Accounting
+                        - Education
+                        - Marketing
+                        - Human Resources
+                        - Engineering
+                      answers: {}
+                      jobs: null
+                chooseWork:
+                  summary: Next question after selecting work
+                  description: Response to chooseWork; carry the returned answers
+                    into the next request.
+                  value:
+                    success: true
+                    data:
+                      message: Where do you want to work?
+                      nextQuestion:
+                        key: location
+                        question: Where do you want to work?
+                        options:
+                        - In my local area
+                        - Remote
+                        - Anywhere in the U.S.
+                      answers:
+                        work: Warehouse & Logistics
+                      jobs: null
+                completedAnswers:
+                  summary: Completed flow with stored job
+                  description: Sanitized snapshot of stored JobsTheWorld data, captured
+                    2026-09-24. Results and availability may change. Employer logos
+                    and application destinations are omitted; any description shown
+                    is an excerpt. Response to completedAnswers. Completed chat returns
+                    up to five jobs.
+                  value:
+                    success: true
+                    data:
+                      message: Here are jobs that match your answers.
+                      nextQuestion: null
+                      answers:
+                        work: Warehouse & Logistics
+                        location: In my local area
+                        schedule: Full-time
+                        experience: Some experience
+                      jobs:
+                        jobs:
+                        - id: 465
+                          slug: shipping-receiving-clerk-70d9e218
+                          title: Shipping/Receiving Clerk
+                          company:
+                            id: 466
+                            name: Metals USA
+                            logoUrl: null
+                          category: warehouse-logistics
+                          location: Torrington, CT
+                          city: Torrington
+                          state: Connecticut
+                          country: US
+                          employmentType: Full-time
+                          isRemote: false
+                          salaryMin: 22
+                          salaryMax: 24
+                          salaryPeriod: HOUR
+                          postedAt: null
+                          firstSeenAt: '2026-07-25T13:29:09.000Z'
+                          lastSeenAt: '2026-07-25T13:29:09.000Z'
+                        pagination:
+                          page: 1
+                          limit: 5
+                          total: 1
+                          totalPages: 1
         '400':
-          description: Request failed; responses are not cached.
+          description: Invalid request parameters or body.
           content:
             application/json:
               schema:
@@ -342,20 +738,44 @@ paths:
                 success: false
                 error: Invalid request
         '500':
-          description: Request failed; responses are not cached.
+          description: Unexpected server error.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 success: false
-                error: Invalid request
+                error: Internal server error
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ChatRequest'
+            examples:
+              start:
+                summary: 1. Start the questions
+                value: {}
+              chooseWork:
+                summary: 2. Select a work category
+                value:
+                  answers: {}
+                  message: Warehouse & Logistics
+              completedAnswers:
+                summary: 3. Submit all collected answers
+                value:
+                  answers:
+                    work: Warehouse & Logistics
+                    location: In my local area
+                    schedule: Full-time
+                    experience: Some experience
+                  city: Torrington
+      description: 'A guided question flow. Start with an empty JSON object; the API
+        returns nextQuestion. Send the returned answers with a recognized option as
+        message, or supply accumulated answers directly. Once all four answers are
+        present, nextQuestion becomes null and jobs contains a paginated result. Requests
+        are stateless: resend answers each time. The completed example uses city=Torrington;
+        this endpoint currently has no country input.'
 components:
   schemas:
     Error:
