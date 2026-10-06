@@ -4,6 +4,54 @@ Inherits everything in `../CLAUDE.md` (root portfolio brief). Read that first.
 
 ---
 
+## 2026-10-07 — REBUILT as a jobcoachhub.com-style ARTICLE HUB (read this first)
+
+jobsthe.world was **fully rebuilt** (owner request) as a faithful clone of the UI +
+content of **jobcoachhub.com** (a pubpilot-generated Astro article hub). The old
+job-advertorial funnel site (`/find`, `/usa`, `/me`, `/worldwide`, `/caregiver-jobs`,
+the `data/<employer>.json` property model, `src/jobs.js`, `src/styles.css`) was
+**dropped** and replaced. Everything below this section about those funnels is
+**HISTORICAL** — kept for reference to the preserved ad/GA/SDK wiring, not a description
+of the current site.
+
+**What the site is now:** a magazine-style career article hub —
+- `/` magazine home (hero + Latest Guides + Trending sidebar + per-category sections)
+- `/category/<slug>/` (6 categories; **Salary & Negotiation is intentionally EMPTY**,
+  faithful to jobcoachhub — those articles live under Interview Prep)
+- `/article/` all-guides index · `/platforms/` job-board directory
+- `/<article-slug>/` — 61 article pages (content + hero image copied from jobcoachhub)
+- the jobcoachhub **"wall" funnel**: a 3-question modal → "View ad to continue" →
+  our SDK rewarded, opened on the first internal navigation per 600s cooldown.
+
+**Architecture (unchanged philosophy — generator → committed `dist/` → CF Worker):**
+- `build.js` — NEW zero-dependency generator. Content lives in `data/` (not hand-edited pages).
+- `data/articles.json` (61), `data/categories.json`, `data/home.json`, `data/platforms.html`,
+  `data/img/*.jpg` (hero images, resized ≤1200px / q72).
+- `src/base.css` — jobcoachhub's compiled Tailwind v4, shipped VERBATIM as `dist/styles.css`
+  (+ our additions appended in build.js `ADDITIONS`). `src/app.js` — ad core + wall + nav.
+- Re-extracting from the live site: scraper/extractor is in the session scratchpad
+  (`extract.py`); re-run it only to refresh content.
+
+**Preserved EXACTLY as before (owner's hard requirements):**
+- **GA4** `G-1JWDWNWK4R` (jobsthe.world's own — never jobguidematch's).
+- **ads.txt** `google.com, pub-1730786981458373, DIRECT, f08c47fec0942fa0` — unchanged.
+- **Price Optimiser SDK** `experiences/jobguidematch.js` (`PARTNER_SCRIPT`) — unchanged.
+  Ad slots are empty reserved `<div>`s with our 5 REGISTERED ids only
+  (`ad-leaderboard` / `ad-incontent` / `ad-results` / `ad-sidebar` / `ad-anchor`); the
+  jobcoachhub ids `ad-in_content_0`/`ad-article_end` were MAPPED onto `ad-incontent`/`ad-results`.
+  NEW ids never fill — reuse a registered id (unique per page).
+- **Ad preload** like jobguidematch: `src/app.js` `warmAds()` runs on load
+  (`preloadRewarded` + `preloadSlots`), verified ported verbatim from `jobs/src/jobs.js`.
+- Deploy is unchanged: branch `developer/new-frontend`, Worker `jobstheworld`, `dist/` committed.
+  Bump `SITE.version` in `build.js` + rebuild before every push; check `/v` after deploy.
+
+Verified locally 2026-10-07: home/article/category/platforms render pixel-faithful;
+`ad-incontent` + `ad-anchor` fill live; wall funnel runs Q1→Q3→loading→rewarded→navigate.
+NOTE: impressions still report to GAM as `jobguidematch.com` (siteKey baked in the bundle) —
+switch `PARTNER_SCRIPT` when thebesads issues the jobsthe.world bundle (curl for 200 first).
+
+---
+
 ## THIS IS AN INDEPENDENT SITE. IT IS NOT A MIRROR.
 
 `jobs-world/` and `jobs/` are **two separate codebases for two separate businesses-in-miniature**,

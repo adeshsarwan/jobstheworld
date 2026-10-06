@@ -1,80 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jobsthe.world/</loc></url>
-  <url><loc>https://jobsthe.world/about/</loc></url>
-  <url><loc>https://jobsthe.world/remote/</loc></url>
-  <url><loc>https://jobsthe.world/usa/</loc></url>
-  <url><loc>https://jobsthe.world/usa/remote-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/remote-jobs-worldwide/</loc></url>
-  <url><loc>https://jobsthe.world/remote-jobs-worldwide/south-africa/</loc></url>
-  <url><loc>https://jobsthe.world/usa-packing-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/usa-packing-jobs/from-home/</loc></url>
-  <url><loc>https://jobsthe.world/packing-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/packing-jobs/guide/</loc></url>
-  <url><loc>https://jobsthe.world/me/</loc></url>
-  <url><loc>https://jobsthe.world/me/english/</loc></url>
-  <url><loc>https://jobsthe.world/me/english/jobs/</loc></url>
-  <url><loc>https://jobsthe.world/me/arabic/</loc></url>
-  <url><loc>https://jobsthe.world/me/arabic/jobs/</loc></url>
-  <url><loc>https://jobsthe.world/me/urdu/</loc></url>
-  <url><loc>https://jobsthe.world/me/urdu/jobs/</loc></url>
-  <url><loc>https://jobsthe.world/me/hindi/</loc></url>
-  <url><loc>https://jobsthe.world/me/hindi/jobs/</loc></url>
-  <url><loc>https://jobsthe.world/me/bengali/</loc></url>
-  <url><loc>https://jobsthe.world/me/bengali/jobs/</loc></url>
-  <url><loc>https://jobsthe.world/find/1/</loc></url>
-  <url><loc>https://jobsthe.world/find/2/</loc></url>
-  <url><loc>https://jobsthe.world/find/3/</loc></url>
-  <url><loc>https://jobsthe.world/find/4/</loc></url>
-  <url><loc>https://jobsthe.world/find/5/</loc></url>
-  <url><loc>https://jobsthe.world/find/6/</loc></url>
-  <url><loc>https://jobsthe.world/find/7/</loc></url>
-  <url><loc>https://jobsthe.world/admin-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/admin-jobs/openings/</loc></url>
-  <url><loc>https://jobsthe.world/admin-jobs/apply/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/amazon-warehouse/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/amazon-warehouse/openings/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/amazon-warehouse/apply/</loc></url>
-  <url><loc>https://jobsthe.world/caregiver-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/caregiver-jobs/openings/</loc></url>
-  <url><loc>https://jobsthe.world/caregiver-jobs/apply/</loc></url>
-  <url><loc>https://jobsthe.world/cleaning-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/cleaning-jobs/openings/</loc></url>
-  <url><loc>https://jobsthe.world/cleaning-jobs/apply/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/costco/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/costco/openings/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/costco/apply/</loc></url>
-  <url><loc>https://jobsthe.world/driver-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/driver-jobs/openings/</loc></url>
-  <url><loc>https://jobsthe.world/driver-jobs/apply/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/fedex/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/fedex/openings/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/fedex/apply/</loc></url>
-  <url><loc>https://jobsthe.world/hospitality-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/hospitality-jobs/openings/</loc></url>
-  <url><loc>https://jobsthe.world/hospitality-jobs/apply/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/mcdonalds/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/mcdonalds/openings/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/mcdonalds/apply/</loc></url>
-  <url><loc>https://jobsthe.world/remote-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/remote-jobs/openings/</loc></url>
-  <url><loc>https://jobsthe.world/remote-jobs/apply/</loc></url>
-  <url><loc>https://jobsthe.world/security-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/security-jobs/openings/</loc></url>
-  <url><loc>https://jobsthe.world/security-jobs/apply/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/starbucks/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/starbucks/openings/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/starbucks/apply/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/target/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/target/openings/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/target/apply/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/ups/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/ups/openings/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/ups/apply/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/walmart/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/walmart/openings/</loc></url>
-  <url><loc>https://jobsthe.world/jobs/walmart/apply/</loc></url>
-  <url><loc>https://jobsthe.world/warehouse-jobs/</loc></url>
-  <url><loc>https://jobsthe.world/warehouse-jobs/openings/</loc></url>
-  <url><loc>https://jobsthe.world/warehouse-jobs/apply/</loc></url>
+<url><loc>https://jobsthe.world/</loc></url>
+<url><loc>https://jobsthe.world/article/</loc></url>
+<url><loc>https://jobsthe.world/platforms/</loc></url>
+<url><loc>https://jobsthe.world/category/job-search-strategy/</loc></url>
+<url><loc>https://jobsthe.world/category/resume-cover-letters/</loc></url>
+<url><loc>https://jobsthe.world/category/interview-prep/</loc></url>
+<url><loc>https://jobsthe.world/category/salary-negotiation/</loc></url>
+<url><loc>https://jobsthe.world/category/workplace-success/</loc></url>
+<url><loc>https://jobsthe.world/category/career-change-growth/</loc></url>
+<url><loc>https://jobsthe.world/10-in-demand-skills-to-build-for-a-career-in-cybersecurity/</loc></url>
+<url><loc>https://jobsthe.world/10-job-search-strategies-that-actually-work/</loc></url>
+<url><loc>https://jobsthe.world/12-habits-that-help-new-employees-thrive-at-work/</loc></url>
+<url><loc>https://jobsthe.world/7-habits-that-help-you-build-trust-fast-with-a-new-team/</loc></url>
+<url><loc>https://jobsthe.world/7-ways-to-get-more-interviews-without-applying-to-more-jobs/</loc></url>
+<url><loc>https://jobsthe.world/8-best-job-boards-for-remote-jobs/</loc></url>
+<url><loc>https://jobsthe.world/9-communication-habits-top-performers-use-in-their-first-yea/</loc></url>
+<url><loc>https://jobsthe.world/9-job-search-tactics-for-career-changers/</loc></url>
+<url><loc>https://jobsthe.world/behavioral-vs-case-interviews-a-prep-guide/</loc></url>
+<url><loc>https://jobsthe.world/best-job-boards-for-tech-and-engineering-careers/</loc></url>
+<url><loc>https://jobsthe.world/career-change-resume-examples/</loc></url>
+<url><loc>https://jobsthe.world/changing-careers-into-tech-with-no-experience-what-it-actual/</loc></url>
+<url><loc>https://jobsthe.world/changing-careers-into-ux-design-what-it-actually-takes/</loc></url>
+<url><loc>https://jobsthe.world/chronological-vs-functional-vs-combination-resume-which-shou/</loc></url>
+<url><loc>https://jobsthe.world/comptia-security-guide-is-it-worth-it-for-a-career-change-in/</loc></url>
+<url><loc>https://jobsthe.world/first-90-days-in-a-new-job-what-to-do-week-by-week/</loc></url>
+<url><loc>https://jobsthe.world/how-to-answer-tell-me-about-yourself-with-sample-answers/</loc></url>
+<url><loc>https://jobsthe.world/how-to-answer-what-is-your-greatest-weakness-with-sample-ans/</loc></url>
+<url><loc>https://jobsthe.world/how-to-change-careers-from-teaching-to-corporate-training-a-/</loc></url>
+<url><loc>https://jobsthe.world/how-to-handle-it-when-a-coworker-takes-credit-for-your-work/</loc></url>
+<url><loc>https://jobsthe.world/how-to-handle-it-when-you-feel-overwhelmed-in-a-new-role/</loc></url>
+<url><loc>https://jobsthe.world/how-to-negotiate-remote-work-when-you-get-an-offer/</loc></url>
+<url><loc>https://jobsthe.world/how-to-negotiate-your-salary-after-a-job-offer/</loc></url>
+<url><loc>https://jobsthe.world/how-to-organize-a-multi-state-job-search-without-losing-your/</loc></url>
+<url><loc>https://jobsthe.world/how-to-prepare-for-a-behavioral-interview-step-by-step/</loc></url>
+<url><loc>https://jobsthe.world/how-to-prepare-for-a-panel-interview-vs-a-one-on-one/</loc></url>
+<url><loc>https://jobsthe.world/how-to-prepare-for-a-remote-job-interview/</loc></url>
+<url><loc>https://jobsthe.world/how-to-tap-into-the-hidden-job-market/</loc></url>
+<url><loc>https://jobsthe.world/how-to-track-your-job-applications-so-you-never-apply-twice/</loc></url>
+<url><loc>https://jobsthe.world/how-to-upskill-for-a-data-analyst-role-what-to-learn-and-whe/</loc></url>
+<url><loc>https://jobsthe.world/how-to-write-a-cover-letter-for-a-career-change/</loc></url>
+<url><loc>https://jobsthe.world/how-to-write-a-cover-letter-when-one-isn-t-required/</loc></url>
+<url><loc>https://jobsthe.world/how-to-write-a-resume-after-a-long-employment-gap/</loc></url>
+<url><loc>https://jobsthe.world/how-to-write-a-resume-for-a-job-you-re-overqualified-for/</loc></url>
+<url><loc>https://jobsthe.world/how-to-write-a-resume-with-no-experience/</loc></url>
+<url><loc>https://jobsthe.world/internal-promotion-resume-examples/</loc></url>
+<url><loc>https://jobsthe.world/job-opportunities-in-usa/</loc></url>
+<url><loc>https://jobsthe.world/linkedin-vs-indeed-which-is-better-for-landing-interviews-fa/</loc></url>
+<url><loc>https://jobsthe.world/navigating-a-mistake-you-made-in-your-first-months-on-the-jo/</loc></url>
+<url><loc>https://jobsthe.world/networking-your-way-into-a-job-a-step-by-step-approach-that-/</loc></url>
+<url><loc>https://jobsthe.world/phone-vs-video-vs-in-person-interviews-what-s-different/</loc></url>
+<url><loc>https://jobsthe.world/pmp-certification-guide-is-it-worth-it-for-your-career/</loc></url>
+<url><loc>https://jobsthe.world/product-manager-vs-marketing-manager-which-path-fits-you/</loc></url>
+<url><loc>https://jobsthe.world/real-estate-agent-vs-corporate-job-pay-growth-and-lifestyle-/</loc></url>
+<url><loc>https://jobsthe.world/resume-examples-for-employment-gaps/</loc></url>
+<url><loc>https://jobsthe.world/resume-mistakes-to-fix-before-you-apply/</loc></url>
+<url><loc>https://jobsthe.world/resume-vs-cv-curriculum-vitae-what-s-the-difference/</loc></url>
+<url><loc>https://jobsthe.world/should-you-switch-from-accountant-to-financial-analyst-a-dec/</loc></url>
+<url><loc>https://jobsthe.world/simple-daily-habits-for-standing-out-in-a-new-remote-job/</loc></url>
+<url><loc>https://jobsthe.world/switching-from-accounting-to-finance-the-complete-transition/</loc></url>
+<url><loc>https://jobsthe.world/switching-from-registered-nurse-to-healthcare-administration/</loc></url>
+<url><loc>https://jobsthe.world/teacher-cover-letter-examples/</loc></url>
+<url><loc>https://jobsthe.world/the-complete-guide-to-acing-your-interview-at-a-startup/</loc></url>
+<url><loc>https://jobsthe.world/the-complete-guide-to-running-a-confidential-job-search-whil/</loc></url>
+<url><loc>https://jobsthe.world/the-new-hire-s-roadmap-to-thriving-in-a-remote-or-hybrid-job/</loc></url>
+<url><loc>https://jobsthe.world/the-new-hire-s-roadmap-to-thriving-on-a-small-team-or-startu/</loc></url>
+<url><loc>https://jobsthe.world/the-ultimate-job-search-tracker-setup-for-spreadsheet-beginn/</loc></url>
+<url><loc>https://jobsthe.world/what-interviewers-really-mean-when-they-ask-why-should-we-hi/</loc></url>
+<url><loc>https://jobsthe.world/what-to-do-when-your-new-manager-gives-you-almost-no-feedbac/</loc></url>
+<url><loc>https://jobsthe.world/what-to-say-when-negotiating-a-job-offer-below-your-expectat/</loc></url>
+<url><loc>https://jobsthe.world/your-first-30-60-90-days-as-a-new-manager-a-complete-roadmap/</loc></url>
 </urlset>

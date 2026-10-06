@@ -1,0 +1,84 @@
+{
+ "names": {
+  "job-search-strategy": "Job Search Strategy",
+  "resume-cover-letters": "Resume & Cover Letters",
+  "interview-prep": "Interview Prep",
+  "salary-negotiation": "Salary & Negotiation",
+  "workplace-success": "Workplace Success",
+  "career-change-growth": "Career Change & Growth"
+ },
+ "members": {
+  "job-search-strategy": [
+   "job-opportunities-in-usa",
+   "how-to-organize-a-multi-state-job-search-without-losing-your",
+   "7-ways-to-get-more-interviews-without-applying-to-more-jobs",
+   "the-ultimate-job-search-tracker-setup-for-spreadsheet-beginn",
+   "networking-your-way-into-a-job-a-step-by-step-approach-that-",
+   "9-job-search-tactics-for-career-changers",
+   "how-to-tap-into-the-hidden-job-market",
+   "10-job-search-strategies-that-actually-work",
+   "8-best-job-boards-for-remote-jobs",
+   "linkedin-vs-indeed-which-is-better-for-landing-interviews-fa",
+   "how-to-track-your-job-applications-so-you-never-apply-twice",
+   "best-job-boards-for-tech-and-engineering-careers",
+   "the-complete-guide-to-running-a-confidential-job-search-whil"
+  ],
+  "resume-cover-letters": [
+   "teacher-cover-letter-examples",
+   "how-to-write-a-cover-letter-for-a-career-change",
+   "how-to-write-a-resume-with-no-experience",
+   "how-to-write-a-resume-for-a-job-you-re-overqualified-for",
+   "internal-promotion-resume-examples",
+   "how-to-write-a-resume-after-a-long-employment-gap",
+   "resume-vs-cv-curriculum-vitae-what-s-the-difference",
+   "resume-examples-for-employment-gaps",
+   "career-change-resume-examples",
+   "how-to-write-a-cover-letter-when-one-isn-t-required",
+   "chronological-vs-functional-vs-combination-resume-which-shou",
+   "resume-mistakes-to-fix-before-you-apply"
+  ],
+  "interview-prep": [
+   "the-complete-guide-to-acing-your-interview-at-a-startup",
+   "how-to-answer-what-is-your-greatest-weakness-with-sample-ans",
+   "how-to-prepare-for-a-panel-interview-vs-a-one-on-one",
+   "what-to-say-when-negotiating-a-job-offer-below-your-expectat",
+   "behavioral-vs-case-interviews-a-prep-guide",
+   "what-interviewers-really-mean-when-they-ask-why-should-we-hi",
+   "phone-vs-video-vs-in-person-interviews-what-s-different",
+   "how-to-prepare-for-a-remote-job-interview",
+   "how-to-negotiate-remote-work-when-you-get-an-offer",
+   "how-to-negotiate-your-salary-after-a-job-offer",
+   "how-to-prepare-for-a-behavioral-interview-step-by-step",
+   "how-to-answer-tell-me-about-yourself-with-sample-answers"
+  ],
+  "salary-negotiation": [],
+  "workplace-success": [
+   "how-to-handle-it-when-you-feel-overwhelmed-in-a-new-role",
+   "12-habits-that-help-new-employees-thrive-at-work",
+   "what-to-do-when-your-new-manager-gives-you-almost-no-feedbac",
+   "9-communication-habits-top-performers-use-in-their-first-yea",
+   "the-new-hire-s-roadmap-to-thriving-in-a-remote-or-hybrid-job",
+   "how-to-handle-it-when-a-coworker-takes-credit-for-your-work",
+   "first-90-days-in-a-new-job-what-to-do-week-by-week",
+   "simple-daily-habits-for-standing-out-in-a-new-remote-job",
+   "the-new-hire-s-roadmap-to-thriving-on-a-small-team-or-startu",
+   "navigating-a-mistake-you-made-in-your-first-months-on-the-jo",
+   "your-first-30-60-90-days-as-a-new-manager-a-complete-roadmap",
+   "7-habits-that-help-you-build-trust-fast-with-a-new-team"
+  ],
+  "career-change-growth": [
+   "real-estate-agent-vs-corporate-job-pay-growth-and-lifestyle-",
+   "comptia-security-guide-is-it-worth-it-for-a-career-change-in",
+   "changing-careers-into-tech-with-no-experience-what-it-actual",
+   "10-in-demand-skills-to-build-for-a-career-in-cybersecurity",
+   "how-to-upskill-for-a-data-analyst-role-what-to-learn-and-whe",
+   "how-to-change-careers-from-teaching-to-corporate-training-a-",
+   "changing-careers-into-ux-design-what-it-actually-takes",
+   "product-manager-vs-marketing-manager-which-path-fits-you",
+   "switching-from-registered-nurse-to-healthcare-administration",
+   "switching-from-accounting-to-finance-the-complete-transition",
+   "pmp-certification-guide-is-it-worth-it-for-your-career",
+   "should-you-switch-from-accountant-to-financial-analyst-a-dec"
+  ]
+ }
+}
