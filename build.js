@@ -41,8 +41,16 @@ const SITE = {
   tagline: "Everything worth knowing, in one place",
   topbar: "Global job guidance · Updated daily",
   ga4Id: "G-1JWDWNWK4R",        // GA4 Measurement ID — jobsthe.world's own stream. NEVER jobguidematch's.
+  // Google Ads conversion (same AW account as jobguidematch, SEPARATE per-site label).
+  // Loaded sitewide via the same gtag.js as GA4; on the rewarded prompt (the "View ad to
+  // continue" click → window.track('reward_prompt')) we fire reward_requested + the labeled
+  // conversion, mirroring jobguidematch so campaigns can optimize to the see-ad event.
+  adsId: "AW-18385537543",                 // Google Ads tag (shared account; attribution is per-campaign via gclid)
+  adsConversionLabel: "NYLTCIePyZMdEIeU9L5E", // jobsthe.world's OWN conversion action label (distinct from jobguidematch)
+  adsConversionValue: 1.0,                 // count-with-value; set null for a count-only action
+  adsConversionCurrency: "SGD",            // Ads account currency (acct 224-476-9056, Opti Digital)
   adsPub: "pub-1730786981458373", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.0.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  version: "2.1.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
 // Price Optimiser / GAM SDK — per-site bundle (siteKey baked in). Owner's instruction:
@@ -156,11 +164,21 @@ function trendingList(slugs) {
 }
 
 // ---- page shell -------------------------------------------------------------
+// gtag.js is ONE library; load it under whichever id exists. On the rewarded prompt, fire the
+// Google Ads conversion (same central hook as jobguidematch) so a campaign can optimize to the
+// "View ad to continue" click. Attribution is per-campaign via gclid even though the AW account
+// is shared with jobguidematch; the LABEL is jobsthe.world's own, so reporting stays separate.
+const GTAG_ID = SITE.ga4Id || SITE.adsId;
+const ADS_HOOK = SITE.adsId
+  ? `if(n==='reward_prompt'){var _sf=(p&&p.funnel)||'';gtag('event','reward_requested',{send_to:'${SITE.adsId}',funnel:_sf});${
+      SITE.adsConversionLabel ? `gtag('event','conversion',{send_to:'${SITE.adsId}/${SITE.adsConversionLabel}'${SITE.adsConversionValue != null ? `,value:${SITE.adsConversionValue},currency:'${SITE.adsConversionCurrency}'` : ""},funnel:_sf});` : ""}}`
+  : "";
+
 function page({ title, desc, body, canonical, bodyScript }) {
-  const ga = SITE.ga4Id ? `<link rel="dns-prefetch" href="https://www.googletagmanager.com">
-<script async src="https://www.googletagmanager.com/gtag/js?id=${SITE.ga4Id}"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${SITE.ga4Id}');
-window.track=function(n,p){try{gtag('event',n,p||{});}catch(e){}};</script>` : "";
+  const ga = GTAG_ID ? `<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${SITE.ga4Id ? `gtag('config','${SITE.ga4Id}');` : ""}${SITE.adsId ? `gtag('config','${SITE.adsId}');` : ""}
+window.track=function(n,p){try{gtag('event',n,p||{});${ADS_HOOK}}catch(e){}};</script>` : "";
   const canon = canonical || `https://${SITE.domain}/`;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title><meta name="description" content="${attr(desc)}"><meta name="robots" content="noindex, nofollow"><meta name="author" content="${SITE.name}"><link rel="canonical" href="${canon}"><meta property="og:site_name" content="${SITE.name}"><meta property="og:title" content="${attr(title)}"><meta property="og:description" content="${attr(desc)}"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap"><link rel="stylesheet" href="/styles.css">
 ${ga}</head><body><div class="flex min-h-screen flex-col">${header()}<main id="main" class="flex-1">${body}</main>${footer()}</div>${anchorAd()}<div id="lf-wall"></div>
