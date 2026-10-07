@@ -21,7 +21,13 @@ of the current site.
 - `/article/` all-guides index · `/platforms/` job-board directory
 - `/<article-slug>/` — 61 article pages (content + hero image copied from jobcoachhub)
 - the jobcoachhub **"wall" funnel**: a 3-question modal → "View ad to continue" →
-  our SDK rewarded, opened on the first internal navigation per 600s cooldown.
+  our SDK rewarded. **On ARTICLE pages it opens ON LOAD with the article BLURRED behind it**
+  (v2.3.0, jobguidematch /worldwide/ SPA pattern): a sync HEAD script adds `.wall-gated` before
+  the SDK loads so the display ad slots are `display:none` from the start (NO ad behind the overlay,
+  root §5); `warmAds` preloads the rewarded + the held-back slots; on reward/skip/close app.js drops
+  `.wall-gated` and calls `revealSlots([ids])` (double rAF) to render the preloaded ads IN PLACE
+  (never navigates). Home/category/platforms keep the click-triggered wall. All share a 600s
+  cooldown (`jw_wall_seen`), so a visitor is gated once per ~10 min, not on every page.
 
 **Architecture (unchanged philosophy — generator → committed `dist/` → CF Worker):**
 - `build.js` — NEW zero-dependency generator. Content lives in `data/` (not hand-edited pages).
