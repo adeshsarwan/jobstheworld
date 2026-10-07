@@ -50,13 +50,15 @@ const SITE = {
   adsConversionValue: 1.0,                 // count-with-value; set null for a count-only action
   adsConversionCurrency: "SGD",            // Ads account currency (acct 224-476-9056, Opti Digital)
   adsPub: "pub-1730786981458373", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.1.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  version: "2.2.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
-// Price Optimiser / GAM SDK — per-site bundle (siteKey baked in). Owner's instruction:
-// reuse the jobguidematch bundle until the jobsthe.world bundle is issued. When it is,
-// swap the URL here and curl it for a 200 FIRST (a 404 bundle kills the whole ad stack).
-const PARTNER_SCRIPT = `<script async src="https://priceoptimiser1.thebesads.com/experiences/jobguidematch.js"></script>`;
+// Price Optimiser / GAM SDK — jobsthe.world's OWN per-site bundle (siteKey "jobsthe.world"
+// baked in), issued by thebesads 2026-10-07. Replaced the interim jobguidematch.js bundle, so
+// impressions now report to GAM as jobsthe.world (not jobguidematch). Verified 200 + siteKey +
+// the 4 display placements (ad-leaderboard/ad-incontent/ad-results/ad-anchor) + rewarded slot
+// before the switch. ALWAYS curl a new bundle URL for a 200 FIRST — a 404 kills the whole ad stack.
+const PARTNER_SCRIPT = `<script async src="https://priceoptimiser1.thebesads.com/experiences/jobsthe.world.js"></script>`;
 
 // ---- load content ----------------------------------------------------------
 const ROOT = __dirname;

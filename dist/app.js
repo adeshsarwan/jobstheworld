@@ -23,7 +23,7 @@
       var sdk = roots[r];
       if (!sdk) continue;
       if (typeof sdk.showRewarded === "function") return sdk;
-      var named = [sdk.jobGuideMatch, sdk["jobguidematch.com"], sdk.jobguidematch, sdk.publisher, sdk.site, sdk.current];
+      var named = [sdk.jobstheWorld, sdk["jobsthe.world"], sdk.jobstheworld, sdk.jobGuideMatch, sdk["jobguidematch.com"], sdk.jobguidematch, sdk.publisher, sdk.site, sdk.current];
       for (var i = 0; i < named.length; i++) { if (named[i] && typeof named[i].showRewarded === "function") return named[i]; }
       for (var k in sdk) { try { if (sdk[k] && typeof sdk[k].showRewarded === "function") return sdk[k]; } catch (e) {} }
     }

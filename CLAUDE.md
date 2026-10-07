@@ -35,7 +35,10 @@ of the current site.
 **Preserved EXACTLY as before (owner's hard requirements):**
 - **GA4** `G-1JWDWNWK4R` (jobsthe.world's own — never jobguidematch's).
 - **ads.txt** `google.com, pub-1730786981458373, DIRECT, f08c47fec0942fa0` — unchanged.
-- **Price Optimiser SDK** `experiences/jobguidematch.js` (`PARTNER_SCRIPT`) — unchanged.
+- **Price Optimiser SDK** `experiences/jobsthe.world.js` (`PARTNER_SCRIPT`) — jobsthe.world's
+  OWN per-site bundle (siteKey "jobsthe.world"), swapped in 2026-10-07 (v2.2.0) from the interim
+  jobguidematch.js. Impressions now report to GAM as jobsthe.world (rewarded unit
+  `/23360556473/jobsthe.world_Rewarded`, verified requesting live). Same 4 display placements.
   Ad slots are empty reserved `<div>`s with our 5 REGISTERED ids only
   (`ad-leaderboard` / `ad-incontent` / `ad-results` / `ad-sidebar` / `ad-anchor`); the
   jobcoachhub ids `ad-in_content_0`/`ad-article_end` were MAPPED onto `ad-incontent`/`ad-results`.
@@ -47,8 +50,11 @@ of the current site.
 
 Verified locally 2026-10-07: home/article/category/platforms render pixel-faithful;
 `ad-incontent` + `ad-anchor` fill live; wall funnel runs Q1→Q3→loading→rewarded→navigate.
-NOTE: impressions still report to GAM as `jobguidematch.com` (siteKey baked in the bundle) —
-switch `PARTNER_SCRIPT` when thebesads issues the jobsthe.world bundle (curl for 200 first).
+Google Ads conversion on the wall "View ad" click (v2.1.0): `AW-18385537543/NYLTCIePyZMdEIeU9L5E`
+(SITE.adsId/adsConversionLabel), fired from `reward_prompt` like jobguidematch; conversion action
+id 7825672071 (ONE_PER_CLICK, 1.0 SGD) — scope the campaign to it before spending.
+SDK bundle: own `jobsthe.world.js` as of v2.2.0 — reports to GAM as jobsthe.world now (was
+jobguidematch). If you swap the bundle again, curl the URL for a 200 FIRST.
 
 ---
 
