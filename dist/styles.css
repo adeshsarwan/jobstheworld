@@ -10,8 +10,12 @@
 .anchor-wrap{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;background:var(--background);box-shadow:0 -1px 0 var(--border)}
 .anchor-wrap:empty,.anchor-wrap .ad:empty{min-height:0}
 body.wall-open .anchor-wrap{display:none}
-#lf-wall{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(17,24,39,.72)}
+#lf-wall{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(17,24,39,.72);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 body.wall-open{overflow:hidden}
+/* Blur-gate-on-load: article blurred + ad slots held back while the wall is up (no ad behind the overlay). */
+html.wall-gated #main{filter:blur(7px);pointer-events:none;user-select:none}
+html.wall-gated .ad{display:none}
+html.wall-gated #ad-anchor-wrap{display:none}
 body.wall-open #lf-wall{display:flex}
 .wall__close{position:absolute;top:10px;right:14px;background:transparent;border:0;color:var(--muted-foreground);font-size:22px;line-height:1;cursor:pointer}
 .wall__skip{display:block;width:100%;margin-top:12px;background:transparent;border:0;color:var(--muted-foreground);font-size:13px;text-decoration:underline;cursor:pointer}

@@ -137,23 +137,47 @@
   function markSeen() { try { sessionStorage.setItem(COOLDOWN_KEY, String(Date.now())); } catch (e) {} }
 
   var wallEl = byId("lf-wall");
-  var wallOpen = false, pendingHref = null;
+  var wallOpen = false, pendingHref = null, revealInPlace = false;
+
+  // After a blur-gate reward completes: un-hide the ad slots (drop .wall-gated) FIRST, then tell the
+  // SDK to render the placements it preloaded. The slots were display:none at init so the SDK never
+  // observed them — un-hiding alone does not render them; revealSlots() must be called explicitly,
+  // on a DOUBLE requestAnimationFrame so the browser commits the un-hide before the SDK checks
+  // renderability (jobguidematch /worldwide/ spec). revealSlots is the only reveal action — never
+  // refreshAll() (fresh auction, discards the preload).
+  function revealDisplaySlots() {
+    var ids = presentDisplaySlotIds();
+    if (!ids.length) return;
+    function doReveal() {
+      var rv = adsWith("revealSlots", resolveAds());
+      if (rv) { try { rv.revealSlots(ids); } catch (e) {} }
+    }
+    var raf = window.requestAnimationFrame && window.requestAnimationFrame.bind(window);
+    if (raf) { raf(function () { raf(doReveal); }); } else { setTimeout(doReveal, 32); }
+  }
 
   function closeWall(proceed) {
     wallOpen = false;
     document.body.classList.remove("wall-open");
     if (wallEl) wallEl.innerHTML = "";
+    if (revealInPlace) {               // blur-gate: reveal THIS page, never navigate
+      revealInPlace = false;
+      try { document.documentElement.classList.remove("wall-gated"); } catch (e) {}
+      revealDisplaySlots();
+      return;
+    }
     var href = pendingHref; pendingHref = null;
     if (proceed && href) window.location.assign(href);
   }
 
-  function openWall(href) {
+  function openWall(href, inPlace) {
     if (!wallEl || wallOpen || !WALL.questions || !WALL.questions.length) return false;
-    pendingHref = href || null;
+    pendingHref = inPlace ? null : (href || null);
+    revealInPlace = !!inPlace;
     wallOpen = true;
     markSeen(); // one wall per cooldown window regardless of outcome
     document.body.classList.add("wall-open");
-    warmAds(); // ensure the rewarded is warming while they answer
+    warmAds(); // preload the rewarded + the (held-back) display slots while they answer
     if (window.track) track("funnel_start", { funnel: "wall", step_total: WALL.questions.length });
     renderQuestion(0, {});
     return true;
@@ -255,7 +279,16 @@
   }
 
   /* ---------- boot ---------- */
-  function boot() { initNav(); warmAds(); }
+  function boot() {
+    initNav();
+    warmAds();
+    // Blur-gate-on-load (article pages): the HEAD script already added .wall-gated (article blurred,
+    // ad slots held back) unless the visitor is on cooldown. If it's gated, open the wall in-place
+    // now — on reward/skip/close we drop the blur and render the preloaded ads instead of navigating.
+    if (WALL.onLoad && document.documentElement.classList.contains("wall-gated")) {
+      openWall(null, true);
+    }
+  }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();

@@ -50,7 +50,7 @@ const SITE = {
   adsConversionValue: 1.0,                 // count-with-value; set null for a count-only action
   adsConversionCurrency: "SGD",            // Ads account currency (acct 224-476-9056, Opti Digital)
   adsPub: "pub-1730786981458373", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.2.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  version: "2.3.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
 // Price Optimiser / GAM SDK — jobsthe.world's OWN per-site bundle (siteKey "jobsthe.world"
@@ -176,15 +176,22 @@ const ADS_HOOK = SITE.adsId
       SITE.adsConversionLabel ? `gtag('event','conversion',{send_to:'${SITE.adsId}/${SITE.adsConversionLabel}'${SITE.adsConversionValue != null ? `,value:${SITE.adsConversionValue},currency:'${SITE.adsConversionCurrency}'` : ""},funnel:_sf});` : ""}}`
   : "";
 
-function page({ title, desc, body, canonical, bodyScript }) {
+function page({ title, desc, body, canonical, bodyScript, wallOnLoad }) {
   const ga = GTAG_ID ? `<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${SITE.ga4Id ? `gtag('config','${SITE.ga4Id}');` : ""}${SITE.adsId ? `gtag('config','${SITE.adsId}');` : ""}
 window.track=function(n,p){try{gtag('event',n,p||{});${ADS_HOOK}}catch(e){}};</script>` : "";
+  // Blur-gate-on-load (jobguidematch /worldwide/ SPA pattern): on a content page, open the wall
+  // immediately with the article BLURRED behind it and the display ad slots HELD BACK so no ad
+  // renders behind the overlay (root §5). This sync HEAD script runs BEFORE the SDK script at the
+  // end of <body>, so the slots are display:none before the SDK ever observes them — then app.js
+  // reveals them (revealSlots) after the reward. Skipped when the visitor is on the wall cooldown.
+  const gateHead = wallOnLoad ? `<script>(function(){try{var t=+sessionStorage.getItem('jw_wall_seen')||0;if((Date.now()-t)>=${WALL.cooldownSeconds * 1000})document.documentElement.className+=' wall-gated';}catch(e){}})();</script>` : "";
+  const onLoadFlag = wallOnLoad ? `window.__WALL.onLoad=true;` : "";
   const canon = canonical || `https://${SITE.domain}/`;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title><meta name="description" content="${attr(desc)}"><meta name="robots" content="noindex, nofollow"><meta name="author" content="${SITE.name}"><link rel="canonical" href="${canon}"><meta property="og:site_name" content="${SITE.name}"><meta property="og:title" content="${attr(title)}"><meta property="og:description" content="${attr(desc)}"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap"><link rel="stylesheet" href="/styles.css">
-${ga}</head><body><div class="flex min-h-screen flex-col">${header()}<main id="main" class="flex-1">${body}</main>${footer()}</div>${anchorAd()}<div id="lf-wall"></div>
-<script>window.__WALL=${JSON.stringify(WALL)};</script>
+${gateHead}${ga}</head><body><div class="flex min-h-screen flex-col">${header()}<main id="main" class="flex-1">${body}</main>${footer()}</div>${anchorAd()}<div id="lf-wall"></div>
+<script>window.__WALL=${JSON.stringify(WALL)};${onLoadFlag}</script>
 <script src="/app.js" defer></script>
 ${bodyScript || ""}
 ${PARTNER_SCRIPT}
@@ -253,7 +260,7 @@ function buildArticle(a) {
     : "";
   const bodyHtml = rewriteContent(a.body);
   const body = `<article><header class="mx-auto max-w-3xl px-4 pt-6 md:pt-10"><p class="text-xs uppercase tracking-wider font-semibold text-primary"><a href="/category/${a.category}/" data-po-no-intercept class="hover:underline">${CAT_NAMES[a.category]}</a></p><h1 class="mt-2 font-serif text-3xl md:text-5xl font-bold leading-tight">${attr(a.title)}</h1><p class="mt-4 text-base md:text-lg text-muted-foreground">${attr(a.dek)}</p><p class="mt-4 text-sm text-muted-foreground">By <span class="font-medium text-foreground">${attr(a.author)}</span> · ${attr(a.date)} · ${attr(a.readMin)} min read</p></header><div class="mx-auto max-w-3xl px-4">${adSlot("ad-incontent")}</div><div class="mx-auto max-w-4xl px-4 mt-8"><img src="${img(a)}" alt="Featured image for &quot;${attr(a.title)}&quot;" fetchpriority="high" decoding="async" class="w-full aspect-[16/9] object-cover rounded-md"></div><div class="mx-auto max-w-3xl px-4 mt-10 article-prose">${bodyHtml}</div><div class="mx-auto max-w-3xl px-4">${adSlot("ad-results")}</div><section class="mx-auto max-w-3xl px-4 mt-10 flex gap-4 border-t border-border pt-8"><div><p class="text-xs uppercase tracking-wider text-muted-foreground">Written by</p><p class="font-serif text-lg font-bold">${attr(a.author)}</p><p class="mt-1 text-sm text-muted-foreground">${SITE.name} editorial team</p></div></section></article>${relSection}`;
-  write(`${a.slug}/index.html`, page({ title: `${a.title} — ${SITE.name}`, desc: a.dek, body, canonical: `https://${SITE.domain}/${a.slug}/` }));
+  write(`${a.slug}/index.html`, page({ title: `${a.title} — ${SITE.name}`, desc: a.dek, body, canonical: `https://${SITE.domain}/${a.slug}/`, wallOnLoad: true }));
 }
 
 function buildVersion() {
@@ -288,8 +295,12 @@ const ADDITIONS = `
 .anchor-wrap{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;background:var(--background);box-shadow:0 -1px 0 var(--border)}
 .anchor-wrap:empty,.anchor-wrap .ad:empty{min-height:0}
 body.wall-open .anchor-wrap{display:none}
-#lf-wall{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(17,24,39,.72)}
+#lf-wall{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(17,24,39,.72);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 body.wall-open{overflow:hidden}
+/* Blur-gate-on-load: article blurred + ad slots held back while the wall is up (no ad behind the overlay). */
+html.wall-gated #main{filter:blur(7px);pointer-events:none;user-select:none}
+html.wall-gated .ad{display:none}
+html.wall-gated #ad-anchor-wrap{display:none}
 body.wall-open #lf-wall{display:flex}
 .wall__close{position:absolute;top:10px;right:14px;background:transparent;border:0;color:var(--muted-foreground);font-size:22px;line-height:1;cursor:pointer}
 .wall__skip{display:block;width:100%;margin-top:12px;background:transparent;border:0;color:var(--muted-foreground);font-size:13px;text-decoration:underline;cursor:pointer}
