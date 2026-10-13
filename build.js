@@ -10,7 +10,7 @@
  *
  * What is OURS and must stay ours (owner's instruction):
  *   - GA4         : SITE.ga4Id = G-1JWDWNWK4R  (jobsthe.world's own property)
- *   - ads.txt     : pub-1730786981458373 (GAM/AdX seller auth) — unchanged
+ *   - ads.txt     : pub-4169678248232367 (GAM/AdX seller auth) — unchanged
  *   - Ad stack    : Price Optimiser Publisher Experience SDK (PARTNER_SCRIPT), our
  *                   ad server is GAM via GPT. Every ad slot is an EMPTY reserved
  *                   <div> carrying one of our 5 REGISTERED ids
@@ -49,8 +49,8 @@ const SITE = {
   adsConversionLabel: "NYLTCIePyZMdEIeU9L5E", // jobsthe.world's OWN conversion action label (distinct from jobguidematch)
   adsConversionValue: 1.0,                 // count-with-value; set null for a count-only action
   adsConversionCurrency: "SGD",            // Ads account currency (acct 224-476-9056, Opti Digital)
-  adsPub: "pub-1730786981458373", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.3.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  adsPub: "pub-4169678248232367", // ads.txt seller line — unchanged (GAM/AdX auth)
+  version: "2.4.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
 // Price Optimiser / GAM SDK — jobsthe.world's OWN per-site bundle (siteKey "jobsthe.world"

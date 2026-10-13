@@ -40,7 +40,7 @@ of the current site.
 
 **Preserved EXACTLY as before (owner's hard requirements):**
 - **GA4** `G-1JWDWNWK4R` (jobsthe.world's own — never jobguidematch's).
-- **ads.txt** `google.com, pub-1730786981458373, DIRECT, f08c47fec0942fa0` — unchanged.
+- **ads.txt** `google.com, pub-4169678248232367, DIRECT, f08c47fec0942fa0` — unchanged.
 - **Price Optimiser SDK** `experiences/jobsthe.world.js` (`PARTNER_SCRIPT`) — jobsthe.world's
   OWN per-site bundle (siteKey "jobsthe.world"), swapped in 2026-10-07 (v2.2.0) from the interim
   jobguidematch.js. Impressions now report to GAM as jobsthe.world (rewarded unit
@@ -113,7 +113,7 @@ diverge** — that is the point of running two.
   When thebesads issues the jobsthe.world bundle, change `PARTNER_SCRIPT` in `build.js` — and
   **curl the new URL for a 200 first**, because a 404 bundle silently kills the entire ad stack
   (that exact failure took the sibling site's ads down once already).
-- **`ads.txt` is unchanged** (`pub-1730786981458373`) and should stay: same Opti Digital / GAM
+- **`ads.txt` is unchanged** (`pub-4169678248232367`) and should stay: same Opti Digital / GAM
   seller account, so the same authorization line is the correct one.
 
 ### Deploy — Cloudflare **Worker** (not Pages)
@@ -187,7 +187,7 @@ Deployments tab to roll back to a previous version.
   `googletag` setup** — per the integration doc that is a forbidden SECOND ad stack on the SDK's own
   slots. (The old `SITE.adsenseClient`/`SITE.adSlots` config and the `<ins>`/mock code path were
   removed 2026-07-26 for exactly this reason — matching what senior-quizzes did on 2026-07-25.)
-  `ads.txt` (Google `pub-1730786981458373`) stays — that is GAM/AdX seller authorization, not AdSense.
+  `ads.txt` (Google `pub-4169678248232367`) stays — that is GAM/AdX seller authorization, not AdSense.
 - **Go-live before paid traffic:** the SDK is already wired on every page. Confirm the domain is
   approved in Price Optimiser and that slots fill on the live host; no per-site ad IDs to paste.
 
