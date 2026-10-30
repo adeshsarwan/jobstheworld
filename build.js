@@ -41,16 +41,16 @@ const SITE = {
   tagline: "Everything worth knowing, in one place",
   topbar: "Global job guidance · Updated daily",
   ga4Id: "G-1JWDWNWK4R",        // GA4 Measurement ID — jobsthe.world's own stream. NEVER jobguidematch's.
-  // Google Ads conversion (same AW account as jobguidematch, SEPARATE per-site label).
+  // Google Ads conversion — the SAME action as jobguidematch (owner 2026-10-31: one shared event).
   // Loaded sitewide via the same gtag.js as GA4; on the rewarded prompt (the "View ad to
   // continue" click → window.track('reward_prompt')) we fire reward_requested + the labeled
   // conversion, mirroring jobguidematch so campaigns can optimize to the see-ad event.
-  adsId: "AW-18385537543",                 // Google Ads tag (shared account; attribution is per-campaign via gclid)
-  adsConversionLabel: "NYLTCIePyZMdEIeU9L5E", // jobsthe.world's OWN conversion action label (distinct from jobguidematch)
-  adsConversionValue: 1.0,                 // count-with-value; set null for a count-only action
-  adsConversionCurrency: "SGD",            // Ads account currency (acct 224-476-9056, Opti Digital)
+  adsId: "AW-18409455931",                 // ML-IDR-1's own tag (same as jobguidematch since 2026-10-26; attribution per-campaign via gclid)
+  adsConversionLabel: "blRsCIKimqodELuCqMpE", // "manual_rewarded_prompt" id 7873138946 — SHARED with jobguidematch
+  adsConversionValue: null,                // count-only, matching jobguidematch (no value/currency sent)
+  adsConversionCurrency: "",
   adsPub: "pub-4169678248232367", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.4.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  version: "2.5.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
 // Price Optimiser / GAM SDK — jobsthe.world's OWN per-site bundle (siteKey "jobsthe.world"
