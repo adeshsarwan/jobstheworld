@@ -52,7 +52,7 @@ const SITE = {
   metaPixelId: "967847255888261",          // Meta pixel — SAME pixel as jobguidematch (owner 2026-10-31). PageView every page,
                                            // Lead on reward_prompt, Purchase (floor/1000 x 0.9) per floored rewarded ad shown.
   adsPub: "pub-4169678248232367", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.6.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  version: "2.7.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
 // Price Optimiser / GAM SDK — jobsthe.world's OWN per-site bundle (siteKey "jobsthe.world"
@@ -141,7 +141,7 @@ function disclaimerBlock() {
 
 function footer() {
   const catLinks = CAT_ORDER.map((c) => `<li><a href="/category/${c}/" data-po-no-intercept class="hover:text-white">${CAT_NAMES[c]}</a></li>`).join("") + `<li><a href="/article/" data-po-no-intercept class="hover:text-white">All Guides</a></li>`;
-  return `<footer class="bg-neutral-950 text-neutral-300 mt-16"><div class="mx-auto max-w-7xl px-4 py-12 grid gap-10 md:grid-cols-3"><div><div class="text-2xl font-serif font-bold text-white">${SITE.brandA} <span class="ml-1 text-neutral-400">${SITE.brandB}</span></div><p class="mt-3 text-sm text-neutral-400">${SITE.tagline}</p></div><div><h4 class="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Categories</h4><ul class="space-y-2 text-sm">${catLinks}</ul></div><div><h4 class="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Site</h4><ul class="space-y-2 text-sm"><li><a href="/platforms/" data-po-no-intercept class="hover:text-white">Job Platforms</a></li></ul></div></div>${disclaimerBlock()}<div class="border-t border-neutral-900"><div class="mx-auto max-w-7xl px-4 py-4 text-xs text-neutral-500 flex flex-col md:flex-row justify-between gap-2"><span>© ${BUILT_AT.getFullYear()} ${SITE.name}. All rights reserved.</span></div></div></footer>`;
+  return `<footer class="bg-neutral-950 text-neutral-300 mt-16"><div class="mx-auto max-w-7xl px-4 py-12 grid gap-10 md:grid-cols-3"><div><div class="text-2xl font-serif font-bold text-white">${SITE.brandA} <span class="ml-1 text-neutral-400">${SITE.brandB}</span></div><p class="mt-3 text-sm text-neutral-400">${SITE.tagline}</p></div><div><h4 class="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Categories</h4><ul class="space-y-2 text-sm">${catLinks}</ul></div><div><h4 class="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Site</h4><ul class="space-y-2 text-sm"><li><a href="/platforms/" data-po-no-intercept class="hover:text-white">Job Platforms</a></li><li><a href="/privacy/" data-po-no-intercept class="hover:text-white">Privacy Policy</a></li></ul></div></div>${disclaimerBlock()}<div class="border-t border-neutral-900"><div class="mx-auto max-w-7xl px-4 py-4 text-xs text-neutral-500 flex flex-col md:flex-row justify-between gap-2"><span>© ${BUILT_AT.getFullYear()} ${SITE.name}. All rights reserved.</span></div></div></footer>`;
 }
 
 // ---- cards ------------------------------------------------------------------
@@ -299,6 +299,85 @@ function buildArticle(a) {
   write(`${a.slug}/index.html`, page({ title: `${a.title} — ${SITE.name}`, desc: a.dek, body, canonical: `https://${SITE.domain}/${a.slug}/`, wallOnLoad: true }));
 }
 
+/* ---------- /privacy/ (2026-10-31) ----------
+ * Required by the Google consent message (GAM Privacy & messaging needs a privacy-policy URL per
+ * site) and by Meta's terms for the pixel. Ported from jobguidematch, minus what is not true here
+ * (no click-identifier store on this site). */
+const PRIVACY_EMAIL = `hello@${SITE.domain}`;
+const PRIVACY_UPDATED = "31 October 2026";
+function buildPrivacy() {
+  const mail = `<a href="mailto:${PRIVACY_EMAIL}">${PRIVACY_EMAIL}</a>`;
+  const body = `<section class="legal mx-auto max-w-3xl px-4 py-16">
+  <h1 class="font-serif text-3xl font-bold">Privacy Policy</h1>
+  <p class="micro">Last updated: ${PRIVACY_UPDATED}</p>
+  <p>This policy explains what information is collected when you use ${attr(SITE.name)}
+  (${attr(SITE.domain)}), why, and the choices you have. ${attr(SITE.name)} is a free career
+  guide — a publisher of job-search and career articles. We do not ask you to create an account, and we never ask for your name, email address,
+  phone number, payment details or identity documents.</p>
+
+  <h2>Information collected when you visit</h2>
+  <ul>
+    <li><strong>Your answers in our short question prompt</strong> are used only on the page you
+    are on. They are not sent to us.</li>
+    <li><strong>Usage information</strong> such as pages viewed, the link or ad that brought you
+    here, device and browser type, approximate location (country or region) and your IP address
+    is collected by the services below and by our hosting provider in normal server logs.</li>
+  </ul>
+
+  <h2>Cookies and third-party services</h2>
+  <ul>
+    <li><strong>Google Analytics</strong> measures how visitors use the site.</li>
+    <li><strong>Google Ads</strong> tags measure the results of our advertising.</li>
+    <li><strong>Meta (Facebook) pixel</strong> measures the results of our Facebook and Instagram
+    ads: it records page visits and when you choose to watch a sponsored video, and sets Meta
+    cookies so Meta can tell which of our ads brought you here. See
+    <a href="https://www.facebook.com/privacy/policy/" rel="noopener">Meta's Privacy Policy</a>.</li>
+    <li><strong>Advertising.</strong> The site is free because it shows ads. Ads are served through
+    Google Ad Manager and our advertising technology partners. Google and its partners may use
+    cookies and similar technologies to show ads based on your visits to this and other websites,
+    and to measure and limit how often you see them. See
+    <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">how Google uses
+    information from sites that use its services</a>.</li>
+    <li><strong>Hosting and security.</strong> The site is delivered through Cloudflare, which
+    processes technical request data to deliver pages and protect the site from abuse.</li>
+  </ul>
+
+  <h2>Your choices</h2>
+  <ul>
+    <li><strong>Visitors in the EEA, the UK and Switzerland:</strong> where the law requires your
+    consent, we ask for it through Google's consent message before cookies are used for
+    personalised advertising or measurement. You can accept, refuse or choose by purpose, and you
+    can change your choice later from the privacy settings link on the page.</li>
+    <li>Turn off personalised ads from Google at
+    <a href="https://adssettings.google.com" rel="noopener">Google Ad Settings</a>, or from many
+    advertising companies at <a href="https://optout.aboutads.info" rel="noopener">aboutads.info</a>
+    and <a href="https://www.youronlinechoices.eu" rel="noopener">youronlinechoices.eu</a>.</li>
+    <li>Control how Meta uses information from other websites for ads in your Facebook or
+    Instagram settings, under <a href="https://accountscenter.facebook.com/ad_preferences" rel="noopener">Ad preferences</a>.</li>
+    <li>Opt out of Google Analytics with the
+    <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Google Analytics opt-out
+    browser add-on</a>.</li>
+    <li>You can block or delete cookies and site storage in your browser settings at any time.</li>
+  </ul>
+
+  <h2>Your rights</h2>
+  <p>Depending on where you live (for example under the GDPR in Europe or state privacy laws in the
+  United States) you may have the right to access, correct or delete personal information about
+  you, to object to or restrict its use, and to opt out of the use of your information for
+  targeted advertising. Because we do not collect names or contact details, we usually cannot link
+  information to a specific person, but we will help where we can — write to ${mail}. You may also
+  complain to your local data protection authority.</p>
+
+  <h2>Children</h2>
+  <p>This site is intended for adults and is not directed at children under 16.</p>
+
+  <h2>Changes and contact</h2>
+  <p>We will update this page when our practices change and revise the date at the top. Questions,
+  privacy requests, corrections and takedown requests: ${mail}.</p>
+</section>`;
+  write("privacy/index.html", page({ title: `Privacy Policy | ${SITE.name}`, desc: `How ${SITE.name} handles information, cookies and advertising, and the choices you have.`, body, canonical: `https://${SITE.domain}/privacy/` }));
+}
+
 function buildVersion() {
   const body = `<section class="mx-auto max-w-3xl px-4 py-16"><h1 class="font-serif text-3xl font-bold">${SITE.name}</h1><p class="mt-4 text-muted-foreground">Version <strong>${SITE.version}</strong></p><p class="mt-1 text-muted-foreground">Built ${BUILT_AT.toISOString()}</p><p class="mt-1 text-muted-foreground">${articles.length} guides.</p></section>`;
   write("v/index.html", page({ title: `v${SITE.version} — ${SITE.name}`, desc: "build version", body, canonical: `https://${SITE.domain}/v/` }));
@@ -315,7 +394,7 @@ function buildStatic() {
   fs.mkdirSync(imgDst, { recursive: true });
   fs.readdirSync(imgSrc).forEach((f) => fs.copyFileSync(path.join(imgSrc, f), path.join(imgDst, f)));
   // sitemap
-  const urls = ["/", "/article/", "/platforms/", ...CAT_ORDER.map((c) => `/category/${c}/`), ...articles.map((a) => `/${a.slug}/`)];
+  const urls = ["/", "/article/", "/platforms/", "/privacy/", ...CAT_ORDER.map((c) => `/category/${c}/`), ...articles.map((a) => `/${a.slug}/`)];
   const sm = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
     urls.map((u) => `<url><loc>https://${SITE.domain}${u}</loc></url>`).join("\n") + `\n</urlset>\n`;
   fs.writeFileSync(path.join(DIST, "sitemap.xml"), sm);
@@ -323,6 +402,7 @@ function buildStatic() {
 
 // CSS additions appended to the shipped Tailwind build (ad slots, anchor, wall overlay).
 const ADDITIONS = `
+.legal h2{font-family:var(--font-serif,serif);font-size:1.4rem;font-weight:700;margin:2rem 0 .75rem}.legal p,.legal li{line-height:1.7;margin:.5rem 0}.legal ul{list-style:disc;padding-left:1.25rem}.legal a{text-decoration:underline}
 /* --- ${SITE.name} additions (our ad stack + wall overlay) --- */
 .admod{margin:2rem 0;display:grid;place-items:center}
 .admod .ad__label{display:block;margin-bottom:6px}
@@ -353,6 +433,7 @@ function main() {
   buildPlatforms();
   articles.forEach(buildArticle);
   buildVersion();
+  buildPrivacy();
   buildStatic();
   const pages = 1 + CAT_ORDER.length + 2 + articles.length + 1;
   console.log(`[build] ${SITE.name} v${SITE.version} → dist/  (${pages} pages, ${articles.length} articles)`);
