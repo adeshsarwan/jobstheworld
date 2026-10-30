@@ -89,6 +89,28 @@
   /* Rewarded play with the proven never-trap state machine.
      done(status)     -> terminal, let the visitor proceed
      reprompt(status) -> real ad closed early, nudge to finish (NOT terminal) */
+  /* Meta value signal (ported from jobguidematch v1.74.0, 2026-10-31): for every rewarded ad SHOWN that
+     carries a floor price (the partner's price_rule key-value on the slot), the pixel gets a Purchase worth
+     floor/1000 x 0.9 USD so Facebook can bid on value. Control-arm ads have no floor and send nothing (no
+     estimates). Only when the pixel has loaded (TCF consent passed). */
+  var META_VALUE_SHARE = 0.9;
+  function metaValue(ev, fn) {
+    try {
+      var slot = ev && ev.slot, cfgT = null, pr = "";
+      try { cfgT = slot && typeof slot.getConfig === "function" ? slot.getConfig("targeting") : null; } catch (e) { cfgT = null; }
+      pr = cfgT && cfgT.price_rule;
+      if (pr == null && slot && typeof slot.getTargeting === "function") pr = slot.getTargeting("price_rule");
+      if (pr && typeof pr === "object" && pr.length != null) pr = pr[0];
+      var floor = parseFloat(pr);
+      if (typeof window.fbq !== "function" || !(floor > 0 && floor <= 5000)) return;
+      var id = Date.now().toString(16) + Math.floor(Math.random() * 1e9).toString(16);
+      window.fbq("track", "Purchase",
+        { value: Math.round(floor / 1000 * META_VALUE_SHARE * 1e5) / 1e5, currency: "USD",
+          content_name: fn || "", content_category: "rewarded" },
+        { eventID: "rw-" + id });
+    } catch (e) {}
+  }
+
   function playRewarded(ads, done, reprompt, ctx) {
     var fn = ctx || "wall";
     var granted = false, started = false, settled = false, noShow = null, absolute = null;
@@ -108,7 +130,7 @@
     var p;
     try {
       p = ads.showRewarded({
-        onReady: function () { started = true; if (noShow) { clearTimeout(noShow); noShow = null; } },
+        onReady: function (ev) { started = true; if (noShow) { clearTimeout(noShow); noShow = null; } metaValue(ev, fn); },
         onGranted: function (info) { granted = true; if (window.console) console.debug("[reward] granted:", info && info.reward); },
         onFallback: function (info) { settleDone("fallback:" + (info && info.status)); },
         onClosed: function () {

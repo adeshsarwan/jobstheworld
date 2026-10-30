@@ -49,8 +49,10 @@ const SITE = {
   adsConversionLabel: "blRsCIKimqodELuCqMpE", // "manual_rewarded_prompt" id 7873138946 — SHARED with jobguidematch
   adsConversionValue: null,                // count-only, matching jobguidematch (no value/currency sent)
   adsConversionCurrency: "",
+  metaPixelId: "967847255888261",          // Meta pixel — SAME pixel as jobguidematch (owner 2026-10-31). PageView every page,
+                                           // Lead on reward_prompt, Purchase (floor/1000 x 0.9) per floored rewarded ad shown.
   adsPub: "pub-4169678248232367", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.5.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  version: "2.6.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
 // Price Optimiser / GAM SDK — jobsthe.world's OWN per-site bundle (siteKey "jobsthe.world"
@@ -134,7 +136,7 @@ function header() {
 function disclaimerBlock() {
   // Site-wide disclaimer — every line TRUE of THIS site (an advertising-supported
   // job-guidance article hub). Root rule: answer "what it is NOT" first.
-  return `<div class="mx-auto max-w-7xl px-4 py-6 text-[11px] leading-relaxed text-neutral-500 border-t border-neutral-900"><p><strong>Disclaimer.</strong> ${SITE.name} is an independent, advertising-supported publisher of general job-search and career guidance. We are <strong>not an employer, recruiter, staffing agency or job board</strong>, we do not accept job applications, and we make no promise of employment, interviews or earnings. We are not affiliated with, endorsed by or partnered with any company, job board or platform named on this site; all trademarks belong to their respective owners. Our articles and directory listings are editorial guidance compiled by our team for information only — no company pays to be listed or ranked here, and we earn no commission on any outbound link. The guidance is general in nature and is not legal, financial or professional career advice; outcomes depend on your own circumstances. Links to third-party sites are provided for convenience and we are not responsible for their content. To request a correction or removal, contact us at <a href="mailto:hello@${SITE.domain}" class="hover:text-white underline">hello@${SITE.domain}</a>.</p></div>`;
+  return `<div class="mx-auto max-w-7xl px-4 py-6 text-[11px] leading-relaxed text-neutral-500 border-t border-neutral-900"><p><strong>Disclaimer.</strong> ${SITE.name} is an independent, advertising-supported publisher of general job-search and career guidance. We are <strong>not an employer, recruiter, staffing agency or job board</strong>, we do not accept job applications, and we make no promise of employment, interviews or earnings. We are not affiliated with, endorsed by or partnered with any company, job board or platform named on this site; all trademarks belong to their respective owners. Our articles and directory listings are editorial guidance compiled by our team for information only — no company pays to be listed or ranked here, and we earn no commission on any outbound link. This site is supported by advertising; we use Google Analytics, Google Ads and the Meta (Facebook) pixel to measure our ads, which set cookies, and visitors in the EEA, UK and Switzerland are asked for consent first. The guidance is general in nature and is not legal, financial or professional career advice; outcomes depend on your own circumstances. Links to third-party sites are provided for convenience and we are not responsible for their content. To request a correction or removal, contact us at <a href="mailto:hello@${SITE.domain}" class="hover:text-white underline">hello@${SITE.domain}</a>.</p></div>`;
 }
 
 function footer() {
@@ -176,11 +178,44 @@ const ADS_HOOK = SITE.adsId
       SITE.adsConversionLabel ? `gtag('event','conversion',{send_to:'${SITE.adsId}/${SITE.adsConversionLabel}'${SITE.adsConversionValue != null ? `,value:${SITE.adsConversionValue},currency:'${SITE.adsConversionCurrency}'` : ""},funnel:_sf});` : ""}}`
   : "";
 
+/* ---------- EU consent (Google Ad Manager "Privacy & messaging", Blue Earth network) ----------
+ * Copied from jobguidematch (2026-10-31, so the Meta pixel can load). Same mechanism as jobguidedaily.com: Google's consent script loads for EVERY visitor and Google
+ * itself decides by geolocation — the published "jobsthe.world - EU consent" message targets
+ * "Countries subject to GDPR (EEA, UK and Switzerland)" only, so US/CA/AU visitors never see it.
+ * The gtag consent default is REGION-SCOPED to the same countries, so GA4 + Google Ads tags outside
+ * Europe run exactly as before (no conversion loss); inside, they wait for the visitor's choice,
+ * which the consent script pushes back to gtag. Must load BEFORE gtag config + the ad script.
+ * The network must match the one serving our ads (the partner SDK now runs on 23350639211). */
+const CONSENT_NETWORK = "23350639211";
+const CONSENT_REGIONS = ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV",
+  "LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
+const CONSENT_SCRIPT = `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:${JSON.stringify(CONSENT_REGIONS)},wait_for_update:500});</script>
+<script async src="https://fundingchoicesmessages.google.com/i/${CONSENT_NETWORK}?ers=1"></script>
+<script>(function(){function s(){if(!window.frames['googlefcPresent']){if(document.body){var i=document.createElement('iframe');i.style.cssText='width:0;height:0;border:none;z-index:-1000;left:-1000px;top:-1000px;display:none';i.name='googlefcPresent';document.body.appendChild(i)}else{setTimeout(s,0)}}}s()})();</script>`;
+
+/* Meta (Facebook) pixel (added 2026-10-23, v1.72.0). Owner runs FB campaigns that optimise on the
+ * rewarded-ad request, so reward_prompt also fires a Meta "Lead" (META_HOOK, inside window.track — the
+ * same one place as the Google Ads conversion). Browser pixel only; a server-side Conversions API copy
+ * can be added later if Events Manager shows many Leads missing.
+ * The pixel must load on EVERY page, not just the reward step: Meta reads the fbclid off the LANDING
+ * URL into its _fbc cookie, and the funnel drops the query string on the next step.
+ * Consent: the pixel waits for Google's consent tool (TCF API, CMP 300, ~0.6s). gdprApplies false
+ * (everyone outside the EEA/UK/CH) -> load; where it applies -> load only once the visitor consents to
+ * storage (purpose 1) and measurement (purpose 7). No consent tool after 10s -> never loads (we cannot
+ * tell where the visitor is, so we do not assume consent). No pixel -> no fbq -> no Lead is sent.
+ * Loaded async after gtag so it never competes with the ad stack. */
+const META_PIXEL = SITE.metaPixelId
+  ? `<script>(function(){var on=0;function load(){if(on)return;on=1;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${SITE.metaPixelId}');fbq('track','PageView');}var n=0;(function wait(){if(typeof window.__tcfapi==='function'){try{__tcfapi('addEventListener',2,function(d,ok){if(!ok||!d)return;if(d.gdprApplies===false){load();return}if(d.eventStatus==='tcloaded'||d.eventStatus==='useractioncomplete'){var c=(d.purpose&&d.purpose.consents)||{};if(c[1]&&c[7])load()}})}catch(e){}}else if(++n<100)setTimeout(wait,100)})()})()</script>`
+  : "";
+const META_HOOK = SITE.metaPixelId
+  ? `if(n==='reward_prompt'&&window.fbq){fbq('track','Lead',{content_name:(p&&p.funnel)||''})}`
+  : "";
+
 function page({ title, desc, body, canonical, bodyScript, wallOnLoad }) {
   const ga = GTAG_ID ? `<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${SITE.ga4Id ? `gtag('config','${SITE.ga4Id}');` : ""}${SITE.adsId ? `gtag('config','${SITE.adsId}');` : ""}
-window.track=function(n,p){try{gtag('event',n,p||{});${ADS_HOOK}}catch(e){}};</script>` : "";
+window.track=function(n,p){try{gtag('event',n,p||{});${ADS_HOOK}}catch(e){}try{${META_HOOK}}catch(e){}};</script>\n${META_PIXEL}` : "";
   // Blur-gate-on-load (jobguidematch /worldwide/ SPA pattern): on a content page, open the wall
   // immediately with the article BLURRED behind it and the display ad slots HELD BACK so no ad
   // renders behind the overlay (root §5). This sync HEAD script runs BEFORE the SDK script at the
@@ -190,7 +225,8 @@ window.track=function(n,p){try{gtag('event',n,p||{});${ADS_HOOK}}catch(e){}};</s
   const onLoadFlag = wallOnLoad ? `window.__WALL.onLoad=true;` : "";
   const canon = canonical || `https://${SITE.domain}/`;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title><meta name="description" content="${attr(desc)}"><meta name="robots" content="noindex, nofollow"><meta name="author" content="${SITE.name}"><link rel="canonical" href="${canon}"><meta property="og:site_name" content="${SITE.name}"><meta property="og:title" content="${attr(title)}"><meta property="og:description" content="${attr(desc)}"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap"><link rel="stylesheet" href="/styles.css">
-${gateHead}${ga}</head><body><div class="flex min-h-screen flex-col">${header()}<main id="main" class="flex-1">${body}</main>${footer()}</div>${anchorAd()}<div id="lf-wall"></div>
+${gateHead}${CONSENT_SCRIPT}
+${ga}</head><body><div class="flex min-h-screen flex-col">${header()}<main id="main" class="flex-1">${body}</main>${footer()}</div>${anchorAd()}<div id="lf-wall"></div>
 <script>window.__WALL=${JSON.stringify(WALL)};${onLoadFlag}</script>
 <script src="/app.js" defer></script>
 ${bodyScript || ""}
