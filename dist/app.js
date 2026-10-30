@@ -89,6 +89,78 @@
   /* Rewarded play with the proven never-trap state machine.
      done(status)     -> terminal, let the visitor proceed
      reprompt(status) -> real ad closed early, nudge to finish (NOT terminal) */
+  /* Live rewarded eCPM (ported from jobguidematch 2026-10-31, same endpoint; collector keys rows by site): ONE fire-and-forget beacon per rewarded ad SHOWN. The SDK's public
+     showRewarded onReady callback hands us GPT's RewardedSlotReadyEvent right before it calls
+     makeRewardedVisible() (preloaded or fresh), so this is the "ad shown" moment — the preload's own
+     onReady (warmAds) is NOT, and must never beacon. We only READ the slot's targeting the SDK already
+     set (price_rule floor + exp_group/exp_key arm); nothing is written to googletag. Reading is
+     synchronous and cheap; the send is deferred to the next tick and every step is guarded, so it can
+     never delay or break the video. Server side: ads/live_ecpm/ (Frankfurt, see its README.txt). */
+  var LIVE_IMP_URL = "https://automata.the-mind-labs.com/api/v2/imp";
+  /* Google Ads campaign id of this visit (2026-10-25, automata God Mode: per-campaign live CPA). The landing
+     URL's utm_campaign, digits only (the same rule the GAM utm_campaign key applies), kept in sessionStorage
+     so every funnel step's beacon carries it. Read-only; never sent anywhere else. */
+  var LIVE_CID = (function () {
+    var K = "jgm_cid", v = "";
+    try { v = sessionStorage.getItem(K) || ""; } catch (e) {}
+    try {
+      var q = new URLSearchParams(location.search).get("utm_campaign") || "";
+      if (/^\d{1,20}$/.test(q)) { v = q; sessionStorage.setItem(K, q); }
+    } catch (e) {}
+    return /^\d{1,20}$/.test(v) ? v : "";
+  })();
+  /* Event beacons (2026-10-25, v1.76.0, automata Live est. + God Mode): the same endpoint, one fire-and-forget
+     beacon per EVENT — k=conv when the visitor requests the rewarded ad (window.track's reward_prompt, the
+     exact moment the Google Ads conversion fires, so live conversions are counted, not estimated) and k=end
+     when that attempt ends, o = how (granted | skip | nofill | noshow | timeout | …). Carries the click key
+     and campaign id like the ad beacon. Never blocks anything. */
+  function liveEvt(kind, fn, outcome) {
+    try {
+      var id = "";
+      try { var a = new Uint8Array(8); crypto.getRandomValues(a); for (var i = 0; i < a.length; i++) id += ("0" + a[i].toString(16)).slice(-2); }
+      catch (e) { id = (Date.now().toString(16) + Math.floor(Math.random() * 1e9).toString(16)).slice(0, 16); }
+      var ck = "";
+      try { var j = JSON.parse(localStorage.getItem("jgm_click") || "null"); if (j && /^[0-9a-f]{24}$/.test(j.k)) ck = j.k; } catch (e) {}
+      var o = String(outcome || "").toLowerCase().replace(/[^a-z0-9_.:-]+/g, "_").slice(0, 32);
+      var url = LIVE_IMP_URL + "?s=" + encodeURIComponent(location.hostname) + "&e=" + id + "&k=" + kind +
+        (o ? "&o=" + encodeURIComponent(o) : "") + "&fn=" + encodeURIComponent(fn || "") + (ck ? "&ck=" + ck : "") +
+        (LIVE_CID ? "&cid=" + LIVE_CID : "");
+      setTimeout(function () {
+        try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch (e) {}
+        try { fetch(url, { method: "POST", mode: "no-cors", keepalive: true }).catch(function () {}); } catch (e) {}
+      }, 0);
+    } catch (e) {}
+  }
+  window.__liveEvt = liveEvt;          // window.track's reward_prompt branch calls it (build.js LIVE_HOOK)
+
+  function liveImp(ev, fn) {
+    try {
+      var slot = ev && ev.slot, cfgT = null;
+      try { cfgT = slot && typeof slot.getConfig === "function" ? slot.getConfig("targeting") : null; } catch (e) { cfgT = null; }
+      var tg = function (k) {
+        try {
+          var v = cfgT && cfgT[k];
+          if (v == null && slot && typeof slot.getTargeting === "function") v = slot.getTargeting(k);
+          if (v && typeof v === "object" && v.length != null) v = v[0];
+          return v == null ? "" : String(v);
+        } catch (e) { return ""; }
+      };
+      var id = "";
+      try { var a = new Uint8Array(8); crypto.getRandomValues(a); for (var i = 0; i < a.length; i++) id += ("0" + a[i].toString(16)).slice(-2); }
+      catch (e) { id = (Date.now().toString(16) + Math.floor(Math.random() * 1e9).toString(16)).slice(0, 16); }
+      var ck = "";
+      try { var j = JSON.parse(localStorage.getItem("jgm_click") || "null"); if (j && /^[0-9a-f]{24}$/.test(j.k)) ck = j.k; } catch (e) {}
+      var q = "s=" + encodeURIComponent(location.hostname) + "&e=" + id + "&pr=" + encodeURIComponent(tg("price_rule")) +
+        "&eg=" + encodeURIComponent(tg("exp_group")) + "&ek=" + encodeURIComponent(tg("exp_key")) +
+        "&fn=" + encodeURIComponent(fn || "") + (ck ? "&ck=" + ck : "") + (LIVE_CID ? "&cid=" + LIVE_CID : "");
+      var url = LIVE_IMP_URL + "?" + q;
+      setTimeout(function () {
+        try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch (e) {}
+        try { fetch(url, { method: "POST", mode: "no-cors", keepalive: true }).catch(function () {}); } catch (e) {}
+      }, 0);
+    } catch (e) {}
+  }
+
   /* Meta value signal (ported from jobguidematch v1.74.0, 2026-10-31): for every rewarded ad SHOWN that
      carries a floor price (the partner's price_rule key-value on the slot), the pixel gets a Purchase worth
      floor/1000 x 0.9 USD so Facebook can bid on value. Control-arm ads have no floor and send nothing (no
@@ -115,13 +187,19 @@
     var fn = ctx || "wall";
     var granted = false, started = false, settled = false, noShow = null, absolute = null;
     function clear() { if (noShow) clearTimeout(noShow); if (absolute) clearTimeout(absolute); }
+    function endOutcome(status) {
+      var s = String(status);
+      return /^granted/.test(s) ? "granted" : s === "early-close" ? "skip" : s === "closed-no-start" ? "nostart" :
+        s === "no-show-timeout" ? "noshow" : s === "absolute-timeout" ? "timeout" : /^fallback/.test(s) ? "nofill" :
+        /^error/.test(s) ? "error" : s;
+    }
     function settleDone(status) {
-      if (settled) return; settled = true; clear();
+      if (settled) return; settled = true; clear(); liveEvt("end", fn, endOutcome(status));
       if (window.track) track(/^granted/.test(status) ? "reward_grant" : "reward_nofill", { funnel: fn, via: status });
       done(status);
     }
     function settleReprompt(status) {
-      if (settled) return; settled = true; clear();
+      if (settled) return; settled = true; clear(); liveEvt("end", fn, "skip");
       if (window.track) track("reward_skip", { funnel: fn, via: status });
       reprompt(status);
     }
@@ -130,7 +208,7 @@
     var p;
     try {
       p = ads.showRewarded({
-        onReady: function (ev) { started = true; if (noShow) { clearTimeout(noShow); noShow = null; } metaValue(ev, fn); },
+        onReady: function (ev) { started = true; if (noShow) { clearTimeout(noShow); noShow = null; } liveImp(ev, fn); metaValue(ev, fn); },
         onGranted: function (info) { granted = true; if (window.console) console.debug("[reward] granted:", info && info.reward); },
         onFallback: function (info) { settleDone("fallback:" + (info && info.status)); },
         onClosed: function () {

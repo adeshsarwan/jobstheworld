@@ -52,7 +52,7 @@ const SITE = {
   metaPixelId: "967847255888261",          // Meta pixel — SAME pixel as jobguidematch (owner 2026-10-31). PageView every page,
                                            // Lead on reward_prompt, Purchase (floor/1000 x 0.9) per floored rewarded ad shown.
   adsPub: "pub-4169678248232367", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.7.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  version: "2.8.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
 // Price Optimiser / GAM SDK — jobsthe.world's OWN per-site bundle (siteKey "jobsthe.world"
@@ -207,6 +207,8 @@ const CONSENT_SCRIPT = `<script>window.dataLayer=window.dataLayer||[];function g
 const META_PIXEL = SITE.metaPixelId
   ? `<script>(function(){var on=0;function load(){if(on)return;on=1;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${SITE.metaPixelId}');fbq('track','PageView');}var n=0;(function wait(){if(typeof window.__tcfapi==='function'){try{__tcfapi('addEventListener',2,function(d,ok){if(!ok||!d)return;if(d.gdprApplies===false){load();return}if(d.eventStatus==='tcloaded'||d.eventStatus==='useractioncomplete'){var c=(d.purpose&&d.purpose.consents)||{};if(c[1]&&c[7])load()}})}catch(e){}}else if(++n<100)setTimeout(wait,100)})()})()</script>`
   : "";
+/* Live conversion beacon (ported from jobguidematch 2026-10-31): reward_prompt also tells the live collector. */
+const LIVE_HOOK = `if(n==='reward_prompt'&&window.__liveEvt){__liveEvt('conv',(p&&p.funnel)||'')}`;
 const META_HOOK = SITE.metaPixelId
   ? `if(n==='reward_prompt'&&window.fbq){fbq('track','Lead',{content_name:(p&&p.funnel)||''})}`
   : "";
@@ -215,7 +217,7 @@ function page({ title, desc, body, canonical, bodyScript, wallOnLoad }) {
   const ga = GTAG_ID ? `<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${SITE.ga4Id ? `gtag('config','${SITE.ga4Id}');` : ""}${SITE.adsId ? `gtag('config','${SITE.adsId}');` : ""}
-window.track=function(n,p){try{gtag('event',n,p||{});${ADS_HOOK}}catch(e){}try{${META_HOOK}}catch(e){}};</script>\n${META_PIXEL}` : "";
+window.track=function(n,p){try{gtag('event',n,p||{});${ADS_HOOK}}catch(e){}try{${META_HOOK}}catch(e){}try{${LIVE_HOOK}}catch(e){}};</script>\n${META_PIXEL}` : "";
   // Blur-gate-on-load (jobguidematch /worldwide/ SPA pattern): on a content page, open the wall
   // immediately with the article BLURRED behind it and the display ad slots HELD BACK so no ad
   // renders behind the overlay (root §5). This sync HEAD script runs BEFORE the SDK script at the
