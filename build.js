@@ -46,13 +46,19 @@ const SITE = {
   // continue" click → window.track('reward_prompt')) we fire reward_requested + the labeled
   // conversion, mirroring jobguidematch so campaigns can optimize to the see-ad event.
   adsId: "AW-18409455931",                 // ML-IDR-1's own tag (same as jobguidematch since 2026-10-26; attribution per-campaign via gclid)
+  trackingAdsId: "AW-18557724775",    // Tracking MCC 796-002-6782's tag (2026-11-12, same as jobguidematch). Every
+                                      // jobs site fires ONE shared action there, so any ad account on cross-account
+                                      // tracking (ML-IDR-3..8) gets conversions whichever jobs site it lands on.
+                                      // Fires IN ADDITION to adsId (ML-IDR-1 keeps its own action). "" disables it.
+  trackingConversionLabel: "FPZPCNbnw7IdEOfQgZFF",  // "manual_rewarded_prompt" in the Tracking MCC (id 7890596822,
+                                      // shared by all jobs sites). Fires on the same reward_prompt trigger.
   adsConversionLabel: "blRsCIKimqodELuCqMpE", // "manual_rewarded_prompt" id 7873138946 — SHARED with jobguidematch
   adsConversionValue: null,                // count-only, matching jobguidematch (no value/currency sent)
   adsConversionCurrency: "",
   metaPixelId: "967847255888261",          // Meta pixel — SAME pixel as jobguidematch (owner 2026-10-31). PageView every page,
                                            // Lead on reward_prompt, Purchase (floor/1000 x 0.9) per floored rewarded ad shown.
   adsPub: "pub-4169678248232367", // ads.txt seller line — unchanged (GAM/AdX auth)
-  version: "2.8.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
+  version: "2.9.0",             // BUMP on every commit/push (see CLAUDE.md) — exposed at /v
 };
 
 // Price Optimiser / GAM SDK — jobsthe.world's OWN per-site bundle (siteKey "jobsthe.world"
@@ -175,7 +181,7 @@ function trendingList(slugs) {
 const GTAG_ID = SITE.ga4Id || SITE.adsId;
 const ADS_HOOK = SITE.adsId
   ? `if(n==='reward_prompt'){var _sf=(p&&p.funnel)||'';gtag('event','reward_requested',{send_to:'${SITE.adsId}',funnel:_sf});${
-      SITE.adsConversionLabel ? `gtag('event','conversion',{send_to:'${SITE.adsId}/${SITE.adsConversionLabel}'${SITE.adsConversionValue != null ? `,value:${SITE.adsConversionValue},currency:'${SITE.adsConversionCurrency}'` : ""},funnel:_sf});` : ""}}`
+      SITE.adsConversionLabel ? `gtag('event','conversion',{send_to:'${SITE.adsId}/${SITE.adsConversionLabel}'${SITE.adsConversionValue != null ? `,value:${SITE.adsConversionValue},currency:'${SITE.adsConversionCurrency}'` : ""},funnel:_sf});` : ""}${SITE.trackingAdsId && SITE.trackingConversionLabel ? `gtag('event','conversion',{send_to:'${SITE.trackingAdsId}/${SITE.trackingConversionLabel}',funnel:_sf});` : ""}}`
   : "";
 
 /* ---------- EU consent (Google Ad Manager "Privacy & messaging", Blue Earth network) ----------
@@ -216,7 +222,7 @@ const META_HOOK = SITE.metaPixelId
 function page({ title, desc, body, canonical, bodyScript, wallOnLoad }) {
   const ga = GTAG_ID ? `<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${SITE.ga4Id ? `gtag('config','${SITE.ga4Id}');` : ""}${SITE.adsId ? `gtag('config','${SITE.adsId}');` : ""}
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());${SITE.ga4Id ? `gtag('config','${SITE.ga4Id}');` : ""}${SITE.adsId ? `gtag('config','${SITE.adsId}');` : ""}${SITE.trackingAdsId ? `gtag('config','${SITE.trackingAdsId}');` : ""}
 window.track=function(n,p){try{gtag('event',n,p||{});${ADS_HOOK}}catch(e){}try{${META_HOOK}}catch(e){}try{${LIVE_HOOK}}catch(e){}};</script>\n${META_PIXEL}` : "";
   // Blur-gate-on-load (jobguidematch /worldwide/ SPA pattern): on a content page, open the wall
   // immediately with the article BLURRED behind it and the display ad slots HELD BACK so no ad
